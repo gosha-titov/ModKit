@@ -58,4 +58,46 @@ public extension BinaryInteger {
     ///
     var toBool: Bool { Bool(self) }
     
+    
+    // MARK: Methods
+    
+    /// Calls the given closure N number of times.
+    ///
+    ///     3.times {
+    ///         print("N is \($0)")
+    ///     }
+    ///     // Prints "N is 0"
+    ///     // Prints "N is 1"
+    ///     // Prints "N is 2"
+    ///
+    /// - Parameter body: A closure that takes the current loop number as a parameter.
+    ///
+    func times(_ body: (Int) -> Void) -> Void {
+        guard self > 0 else { return }
+        for n in 0..<Int(self) { body(n) }
+    }
+    
+    /// Calls the given closure N number of times.
+    ///
+    ///     3.times {
+    ///         print("Hello, world!")
+    ///     }
+    ///     // Prints "Hello, world!"
+    ///     // Prints "Hello, world!"
+    ///     // Prints "Hello, world!"
+    ///
+    func times(_ body: () -> Void) -> Void {
+        guard self > 0 else { return }
+        for _ in 0..<Int(self) { body() }
+    }
+    
+    /// Returns a Boolean value indicating whether this instance is contained in the range.
+    ///
+    ///     let number = 19
+    ///     number.isInRange(5..<99) // true
+    ///
+    func isInRange(_ range: Range<Self>) -> Bool {
+        return range.contains(self)
+    }
+    
 }
