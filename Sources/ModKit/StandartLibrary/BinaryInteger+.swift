@@ -37,21 +37,21 @@ public extension BinaryInteger {
     ///
     var isOdd: Bool { self % 2 != 0 }
     
-    /// Converts this instance value to a `Double` value.
+    /// A `Double` value converted from this instance.
     ///
     ///     let number = 49
     ///     number.toDouble // 49.0
     ///
     var toDouble: Double { Double(self) }
     
-    /// Converts the instance value to a Float value.
+    /// A `Float` value converted from this instance.
     ///
     ///     let number = 21
     ///     number.toFloat // 21.0
     ///
     var toFloat: Float { Float(self) }
     
-    /// Converts the instance value to a Boolean value.
+    /// A `Boolean` value converted from this instance.
     ///
     ///     let number = 4
     ///     number.toBool // true
@@ -91,13 +91,43 @@ public extension BinaryInteger {
         for _ in 0..<Int(self) { body() }
     }
     
-    /// Returns a Boolean value indicating whether this instance is contained in the range.
+    /// Returns a `Boolean` value indicating whether this instance is contained in the range.
     ///
     ///     let number = 19
     ///     number.isInRange(5..<99) // true
     ///
     func isInRange(_ range: Range<Self>) -> Bool {
         return range.contains(self)
+    }
+    
+    /// Returns an instance clamped to the given limiting range.
+    ///
+    ///     let limits = 5...8
+    ///     3.clamped(to: limits) // 5
+    ///     7.clamped(to: limits) // 7
+    ///     9.clamped(to: limits) // 8
+    ///
+    func clamped(to limits: ClosedRange<Self>) -> Self {
+        if self > limits.upperBound { return limits.upperBound }
+        if self < limits.lowerBound { return limits.lowerBound }
+        return self
+    }
+    
+    /// Clamps this instance to the given limiting range.
+    ///
+    ///     let limits = 5...8
+    ///
+    ///     var number = 3
+    ///     number.clamp(to: limits) // 5
+    ///
+    ///     number = 7
+    ///     number.clamp(to: limits) // 7
+    ///
+    ///     number = 9
+    ///     number.clamp(to: limits) // 8
+    ///
+    mutating func clamp(to limits: ClosedRange<Self>) -> Void {
+        self = clamped(to: limits)
     }
     
 }
