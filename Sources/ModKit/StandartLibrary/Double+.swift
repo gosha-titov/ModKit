@@ -17,7 +17,6 @@ public extension Double {
     ///     number.digits // [3, 1, 2, 5, 5]
     ///
     var digits: [Int] {
-        let ch = Character("1")
         return abs.toString.filter { $0 != "." }.map { $0.toInt! }
     }
     
@@ -48,5 +47,37 @@ public extension Double {
     ///     number.toString // "13.24"
     ///
     var toString: String { String(self) }
+    
+    
+    // MARK: Methods
+    
+    /// A type that represents a unit of time.
+    ///
+    /// It's used in `converTime(from:to:)` and `convertedTime(from:to:)` methods.
+    /// These methods convert time from one specific unit time to another.
+    ///
+    /// All units of time: nanoseconds, milliseconds, seconds, minutes, hours, days and years.
+    enum TimeUnit: Int { case nanoseconds, milliseconds, seconds, minutes, hours, days, years }
+    
+    /// Returns converted time from one specific time unit to another.
+    ///
+    ///     10000.convertedTime(from: .seconds, to: .hours) // 2.7777
+    ///     (1.5).convertedTime(from: .days, to: .minutes)  // 2160.0
+    ///
+    func convertedTime(from start: TimeUnit, to end: TimeUnit) -> Double {
+        let start = start.rawValue; let end = end.rawValue
+        let coefficients = [1_000_000.0, 1000.0, 60.0, 60.0, 24.0, 365.0][min(start, end)..<max(start, end)]
+        let operation: (Double, Double) -> Double = start > end ? { $0 * $1 } : { $0 / $1 }
+        return coefficients.reduce(self, operation)
+    }
+    
+    /// Converts time from one specific time unit to another.
+    ///
+    ///     var time = 1.5
+    ///     time.convertTime(from: .days, to: .minutes)  // 2160.0
+    ///
+    mutating func convertTime(from start: TimeUnit, to end: TimeUnit) -> Void {
+        self = convertedTime(from: start, to: end)
+    }
     
 }
