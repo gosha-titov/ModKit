@@ -92,4 +92,57 @@ public extension Array where Element: Equatable {
         self = removedDuplicates()
     }
     
+    /// Returns a `Boolean` value that indicates whether the sequence contains all the given elements.
+    ///
+    ///     let array = [3, 1, 4, 1, 5]
+    ///     array.contains([5, 4, 6]) // false
+    ///     array.contains([5, 4])    // true
+    ///
+    /// - Parameter elements: The elements to find in the sequence.
+    /// - Returns: `true` if all elements were found in the sequence; otherwise, `false`.
+    ///
+    func contains(_ elements: [Element]) -> Bool {
+        for element in elements {
+            guard contains(element) else { return false }
+        }
+        return true
+    }
+    
+    /// Returns an array containing all indexes of the given element.
+    ///
+    ///     let arr = [5, 2, 1, 6, 2]
+    ///     arr.indexes(of: 2) // [1, 4]
+    ///
+    func indexes(of element: Element) -> [Int] {
+        return enumerated().filter { $0.element == element }.map { $0.offset }
+    }
+    
+}
+
+
+public extension Array where Element: Numeric {
+    
+    /// Returns the result of summing the elements of the sequence.
+    ///
+    ///     let arr = [3, 5, 7]
+    ///     arr.sum // 15
+    ///
+    var sum: Element { reduce(0, +) }
+    
+}
+
+
+public extension Array where Element: LosslessStringConvertible {
+    
+    /// Returns a string by converting the elements of the sequence to strings and concatenating them, adding the given separator between each element.
+    ///
+    ///     [1.2, 3.4, 5.6].toString(separator: " ") // "1.2 3.4 5.6"
+    ///     [1, 2, 3].toString(separator: ", ") // "1, 2, 3"
+    ///
+    /// - Parameter separator: A string to insert between each of the elements in this sequence. The default separator is an empty string.
+    ///
+    func toString(separator: String = "") -> String {
+        return map { String($0) }.joined(separator: separator)
+    }
+    
 }
