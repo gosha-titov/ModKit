@@ -58,6 +58,13 @@ public extension BinaryInteger {
     ///
     var toBool: Bool { Bool(self) }
     
+    /// A `String` value converted from this instance.
+    ///
+    ///     let number = 53
+    ///     number.toString // "53"
+    ///
+    var toString: String { String(self) }
+    
     
     // MARK: Methods
     
