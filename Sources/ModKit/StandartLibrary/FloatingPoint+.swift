@@ -20,14 +20,14 @@ public extension FloatingPoint {
         return self * 180 / Self.pi
     }
     
-    /// A `Boolean` value that indicates whether the instance is greater than zero.
+    /// A Boolean value that indicates whether the instance value is greater than zero.
     ///
     ///     let number = 21.43
     ///     number.isPositive // true
     ///
     var isPositive: Bool { self > 0 }
     
-    /// A `Boolean` value that indicates whether the instance is less than zero.
+    /// A Boolean value that indicates whether the instance value is less than zero.
     ///
     ///     let number = -45.03
     ///     number.isNegative // true
@@ -37,7 +37,7 @@ public extension FloatingPoint {
     
     // MARK: Methods
     
-    /// Returns an instance clamped to the given limiting range.
+    /// Returns an instance value clamped to the given limiting range.
     ///
     ///     let limits = (5.5)...(8.9)
     ///     (3.3).clamped(to: limits) // 5.5
@@ -50,7 +50,7 @@ public extension FloatingPoint {
         return self
     }
     
-    /// Clamps this instance to the given limiting range.
+    /// Clamps this instance value to the given limiting range.
     ///
     ///     let limits = (5.5)...(8.9)
     ///

@@ -1,6 +1,6 @@
 public extension Dictionary {
     
-    /// Returns a `Boolean` value that indicates whether the given key exists in this dictionary.
+    /// Returns a Boolean value that indicates whether the given key exists in this dictionary.
     ///
     ///     let dict = [0: "a", 1: "b", 2: "c"]
     ///     dict.hasKey(2) // true

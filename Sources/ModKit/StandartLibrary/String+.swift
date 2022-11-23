@@ -2,7 +2,7 @@ public extension String {
     
     // MARK: Properties
     
-    /// Converts the String value to an Int value.
+    /// An optional Int value converted from this string.
     ///
     ///     let str = "213"
     ///     str.toInt // Optional(213)

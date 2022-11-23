@@ -2,63 +2,63 @@ public extension BinaryInteger {
     
     // MARK: Properties
     
-    /// A `Boolean` value that indicates whether this instance is greater than zero.
+    /// A Boolean value that indicates whether this integer is greater than zero.
     ///
     ///     let number = 43
     ///     number.isPositive // true
     ///
     var isPositive: Bool { self > 0 }
     
-    /// A `Boolean` value that indicates whether this instance is less than zero.
+    /// A Boolean value that indicates whether this integer is less than zero.
     ///
     ///     let number = -91
     ///     number.isNegative // true
     ///
     var isNegative: Bool { self < 0 }
     
-    /// A `Boolean` value that indicates whether this instance is equal to zero.
+    /// A Boolean value that indicates whether this integer is equal to zero.
     ///
     ///     let number = 0
     ///     number.isZero // true
     ///
     var isZero: Bool { self == 0 }
     
-    /// A `Boolean` value that indicates whether this instance is even.
+    /// A Boolean value that indicates whether this integer is even.
     ///
     ///     let number = 52
     ///     number.isEven // true
     ///
     var isEven: Bool { self % 2 == 0 }
     
-    /// A `Boolean` value that indicates whether this instance is odd.
+    /// A Boolean value that indicates whether this integer is odd.
     ///
     ///     let number = 37
     ///     number.isOdd // true
     ///
     var isOdd: Bool { self % 2 != 0 }
     
-    /// A `Double` value converted from this instance.
+    /// A Double value converted from this integer.
     ///
     ///     let number = 49
     ///     number.toDouble // 49.0
     ///
     var toDouble: Double { Double(self) }
     
-    /// A `Float` value converted from this instance.
+    /// A Float value converted from this integer.
     ///
     ///     let number = 21
     ///     number.toFloat // 21.0
     ///
     var toFloat: Float { Float(self) }
     
-    /// A `Boolean` value converted from this instance.
+    /// A Boolean value converted from this integer.
     ///
     ///     let number = 4
     ///     number.toBool // true
     ///
     var toBool: Bool { Bool(self) }
     
-    /// A `String` value converted from this instance.
+    /// A String value converted from this integer.
     ///
     ///     let number = 53
     ///     number.toString // "53"
@@ -98,7 +98,7 @@ public extension BinaryInteger {
         for _ in 0..<Int(self) { body() }
     }
     
-    /// Returns a `Boolean` value indicating whether this instance is contained in the range.
+    /// Returns a Boolean value indicating whether this integer is contained in the range.
     ///
     ///     let number = 19
     ///     number.isInRange(5..<99) // true
@@ -107,7 +107,7 @@ public extension BinaryInteger {
         return range.contains(self)
     }
     
-    /// Returns an instance clamped to the given limiting range.
+    /// Returns an integer clamped to the given limiting range.
     ///
     ///     let limits = 5...8
     ///     3.clamped(to: limits) // 5
@@ -120,7 +120,7 @@ public extension BinaryInteger {
         return self
     }
     
-    /// Clamps this instance to the given limiting range.
+    /// Clamps this integer to the given limiting range.
     ///
     ///     let limits = 5...8
     ///

@@ -1,6 +1,6 @@
 public extension SignedInteger {
     
-    /// An `Int` value that is the number of digits of this instance.
+    /// An Int value that is the number of digits of this integer.
     ///
     ///     let number = -592
     ///     number.digitCount // 3
@@ -9,7 +9,7 @@ public extension SignedInteger {
         return String(abs).count
     }
 
-    /// An array containing the digits of this instance.
+    /// An array containing the digits of this integer.
     ///
     ///     let number = -312
     ///     number.digits // [3, 1, 2]
@@ -18,7 +18,7 @@ public extension SignedInteger {
         return String(abs).map { $0.toInt! }
     }
 
-    /// The absolute value of this instance.
+    /// The absolute value of this integer.
     ///
     ///     let number = -30
     ///     number.abs // 30
