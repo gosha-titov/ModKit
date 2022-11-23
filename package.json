@@ -1,0 +1,19 @@
+{
+   "name": "modkit",
+   "version": "1.0.0",
+   "description": "A collection of extensions that improve development",
+   "main": "package.swift",
+   "scripts": {
+       "release": "standard-version"
+   },
+   "repository": {
+     "type": "git",
+     "url": "git+https://github.com/gosha-titov/ModKit.git"
+   },
+   "author": "Gosha Titov",
+   "license": "ISC",
+   "bugs": {
+     "url": "https://github.com/gosha-titov/ModKit/issues"
+   },
+   "homepage": "https://github.com/gosha-titov/ModKit#readme"
+ }
