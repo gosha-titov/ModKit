@@ -92,7 +92,7 @@ public extension Array where Element: Equatable {
         self = removedDuplicates()
     }
     
-    /// Returns a `Boolean` value that indicates whether the sequence contains all the given elements.
+    /// Returns a Boolean value that indicates whether the sequence contains all the given elements.
     ///
     ///     let array = [3, 1, 4, 1, 5]
     ///     array.contains([5, 4, 6]) // false
