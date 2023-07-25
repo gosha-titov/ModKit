@@ -59,22 +59,13 @@ public extension String {
         return last
     }
     
-    /// Returns the capitalized version of the string.
-    ///
-    ///     let str = "woRd"
-    ///     str.capitalized() // "Word"
-    ///
-    func capitalized() -> String {
-        return prefix(1).uppercased() + self.dropFirst().lowercased()
-    }
-    
     /// Leads the string to capitalized.
     ///
     ///     var str = "woRd"
     ///     str.capitalize() // "Word"
     ///
     mutating func capitalize() -> Void {
-        self = capitalized()
+        self = capitalized
     }
     
     /// Leads the string to uppercase.
