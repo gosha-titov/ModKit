@@ -4,6 +4,15 @@ public extension CGRect {
     
     // MARK: Properties
     
+    /// The area of this rectangle.
+    ///
+    ///     let rect = CGRect(width: 15.0, height: 2.0)
+    ///     rect.area // 30.0
+    ///
+    var area: CGFloat {
+        return width * height
+    }
+    
     /// The point associated with the origin of this rectangle.
     var topLeftPoint: CGPoint {
         get { origin }
