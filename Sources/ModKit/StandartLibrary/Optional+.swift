@@ -31,7 +31,7 @@ public extension Optional {
         return self ?? defaultValue
     }
     
-    /// Executes the given code if `self` is not `nil`.
+    /// Executes the given code if `self` has value.
     ///
     ///     var name: String? = "gosha"
     ///     name.executeSafely {
@@ -39,10 +39,9 @@ public extension Optional {
     ///     }
     ///     // prints "Hello, gosha!"
     ///
-    /// - Parameter code: A closure that takes the unwrapped value as a parameter.
-    ///
-    func executeSafely(_ code: (Wrapped) -> Void) -> Void {
-        if let value = self { code(value) }
+    /// - Parameter body: A closure that takes the unwrapped value as a parameter.
+    func executeSafely(_ body: (Wrapped) -> Void) -> Void {
+        if let value = self { body(value) }
     }
     
 }
