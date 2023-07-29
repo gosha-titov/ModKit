@@ -4,12 +4,20 @@ import UIKit
 
 public extension CALayer {
     
-    /// Rounds corners using a bezier path with the given radius.
-    func roundCornersByBezierPath(withRadius radius: CGFloat) -> Void {
-        let bezierPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: radius)
+    /// Rounds specific corners using a bezier path with the given radius.
+    func roundCornersByBezierPath(withRadius radius: CGFloat, corners: UIRectCorner = [.allCorners]) -> Void {
+        let size = CGSize(side: radius)
+        let bezierPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: size)
         let maskLayer = CAShapeLayer()
         maskLayer.path = bezierPath.cgPath
         mask = maskLayer
+    }
+    
+    /// Shapes shadows for specific corners using a bezier path with the given radius.
+    func shapeShadowsByBezierPath(withRadius radius: CGFloat, corners: UIRectCorner = [.allCorners]) -> Void {
+        let size = CGSize(side: radius)
+        let bezierPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: size)
+        shadowPath = bezierPath.cgPath
     }
     
 }
