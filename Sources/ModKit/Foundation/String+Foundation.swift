@@ -4,6 +4,31 @@ public extension String {
     
     // MARK: Properties
     
+    /// A Boolean value that indicates whether this string contains only digits.
+    ///
+    ///     "123".containsOnlyDigits // true
+    ///     "12a".containsOnlyDigits // false
+    ///
+    /// - Note: The empty string is considered to satisfy this condition, so the value is `true`.
+    var containsOnlyDigits: Bool {
+        let digitsSet = CharacterSet.decimalDigits
+        let stringSet = CharacterSet(charactersIn: self)
+        return digitsSet.isSuperset(of: stringSet)
+    }
+    
+    /// A Boolean value that indicates whether this string contains only spaces.
+    ///
+    ///     "   ".containsOnlySpaces // true
+    ///     " a ".containsOnlySpaces // false
+    ///
+    /// - Note: The empty string is considered to satisfy this condition, so the value is `true`.
+    var containsOnlySpaces: Bool {
+        for char in self where char != " " {
+            return false
+        }
+        return true
+    }
+    
     /// A Boolean value that indicates whether this string is a valid e-mail.
     ///
     ///     "my.email@mod.kit".isEmail // true
@@ -24,16 +49,16 @@ public extension String {
      
     // MARK: Methods
     
-    /// Returns `true` if this string matches the given regex; otherwise, `false`.
-    func matches(_ regex: String) -> Bool {
-        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: self)
-    }
-    
     /// Removes spaces and new lines on the sides.
     ///
     ///     var str = "  Hello, world! \n"
     ///     str.trim() // "Hello, world!"
     ///
     mutating func trim() -> Void { self = trimmed }
+    
+    /// Returns `true` if this string matches the given regex; otherwise, `false`.
+    func matches(_ regex: String) -> Bool {
+        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: self)
+    }
     
 }
