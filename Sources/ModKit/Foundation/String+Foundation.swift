@@ -4,6 +4,14 @@ public extension String {
     
     // MARK: Properties
     
+    /// A NSAttributedString value converted from this string value.
+    ///
+    ///     let attributedString = "text".toNSAttributedString
+    ///
+    var toNSAttributedString: NSAttributedString {
+        return NSAttributedString(string: self)
+    }
+    
     /// A Boolean value that indicates whether this string contains only digits.
     ///
     ///     "123".containsOnlyDigits // true
