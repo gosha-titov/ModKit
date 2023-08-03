@@ -13,7 +13,7 @@ public extension NSAttributedString {
         return applying([.underlineColor: color, .underlineStyle: style.rawValue], inRange: range)
     }
     
-    /// Returns an attributed string with applied a font attribute in the specified range.
+    /// Returns an attributed string with applied the given font attribute in the specified range.
     /// - Parameter font: The font of the text.
     /// - Parameter range: The range of characters to which this attribute applies.
     /// If `nil` is specified, this attribute is applied to the full string.
@@ -35,6 +35,14 @@ public extension NSAttributedString {
     /// If `nil` is specified, this attribute is applied to the full string.
     func applying(foregroundColor: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
         return applying([.foregroundColor: foregroundColor], inRange: range)
+    }
+    
+    /// Returns an attributed string with applied the given shadow attribute in the specified range.
+    /// - Parameter color: The shadow of the text.
+    /// - Parameter range: The range of characters to which this attribute applies.
+    /// If `nil` is specified, this attribute is applied to the full string.
+    func applying(shadow: NSShadow, inRange range: NSRange? = nil) -> NSAttributedString {
+        return applying([.shadow: shadow], inRange: range)
     }
     
 }
