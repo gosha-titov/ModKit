@@ -2,6 +2,14 @@ import Foundation
 
 public extension NSAttributedString {
     
+    /// A NSMutableAttributedString value converted from this NSAttributedString value.
+    ///
+    ///     let mutableString = attributedString.toNSMutableAttributedString
+    ///
+    var toNSMutableAttributedString: NSMutableAttributedString {
+        return NSMutableAttributedString(attributedString: self)
+    }
+    
     /// Returns an attributed string with applied the given collection of attributes to the characters in the specified range.
     /// - Parameter attributes: A dictionary containing the attributes to add.
     /// Attribute keys can be supplied by another framework or can be custom ones you define.
@@ -13,7 +21,7 @@ public extension NSAttributedString {
         let range: NSRange
         if let inRange { range = inRange }
         else { range = .init(0..<length) }
-        let mutableCopy = NSMutableAttributedString(attributedString: self)
+        let mutableCopy = self.toNSMutableAttributedString
         mutableCopy.addAttributes(attributes, range: range)
         return mutableCopy
     }
@@ -22,7 +30,7 @@ public extension NSAttributedString {
     // MARK: Operations
 
     static func + (lhs: NSAttributedString, rhs: NSAttributedString) -> NSAttributedString {
-        let mutableString = NSMutableAttributedString(attributedString: lhs)
+        let mutableString = lhs.toNSMutableAttributedString
         mutableString.append(rhs)
         return mutableString
     }
@@ -31,13 +39,13 @@ public extension NSAttributedString {
         return lhs + rhs.toNSAttributedString
     }
     
-    static func += (lhs: inout NSAttributedString, rhs: NSAttributedString) {
-        let mutableString = NSMutableAttributedString(attributedString: lhs)
+    static func += (lhs: inout NSAttributedString, rhs: NSAttributedString) -> Void {
+        let mutableString = lhs.toNSMutableAttributedString
         mutableString.append(rhs)
         lhs = mutableString
     }
     
-    static func += (lhs: inout NSAttributedString, rhs: String) {
+    static func += (lhs: inout NSAttributedString, rhs: String) -> Void {
         lhs += rhs.toNSAttributedString
     }
 
