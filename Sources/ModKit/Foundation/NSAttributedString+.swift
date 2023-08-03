@@ -18,4 +18,27 @@ public extension NSAttributedString {
         return mutableCopy
     }
     
+
+    // MARK: Operations
+
+    static func + (lhs: NSAttributedString, rhs: NSAttributedString) -> NSAttributedString {
+        let mutableString = NSMutableAttributedString(attributedString: lhs)
+        mutableString.append(rhs)
+        return mutableString
+    }
+
+    static func + (lhs: NSAttributedString, rhs: String) -> NSAttributedString {
+        return lhs + rhs.toNSAttributedString
+    }
+    
+    static func += (lhs: inout NSAttributedString, rhs: NSAttributedString) {
+        let mutableString = NSMutableAttributedString(attributedString: lhs)
+        mutableString.append(rhs)
+        lhs = mutableString
+    }
+    
+    static func += (lhs: inout NSAttributedString, rhs: String) {
+        lhs += rhs.toNSAttributedString
+    }
+
 }
