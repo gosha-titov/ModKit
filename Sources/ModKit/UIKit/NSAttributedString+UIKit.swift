@@ -20,6 +20,14 @@ public extension NSAttributedString {
         return applying([.backgroundColor: backgroundColor], inRange: range)
     }
     
+    /// Returns an attributed string with applied a foreground attribute with the given color in the specified range.
+    /// - Parameter color: The color of the text.
+    /// - Parameter range: The range of characters to which this attribute applies.
+    /// If `nil` is specified, this attribute is applied to the full string.
+    func applying(foregroundColor: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
+        return applying([.foregroundColor: foregroundColor], inRange: range)
+    }
+    
 }
 
 #endif
