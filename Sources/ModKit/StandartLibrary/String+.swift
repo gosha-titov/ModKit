@@ -9,6 +9,13 @@ public extension String {
     ///
     var toInt: Int? { Int(self) }
     
+    /// An optional character converted from this string.
+    ///
+    ///     let str = "A"
+    ///     str.toCharacter! // Character("A")
+    ///
+    var toCharacter: Character? { Character(self) }
+    
     
     // MARK: Methods
     
