@@ -120,6 +120,28 @@ public extension BinaryInteger {
         return self
     }
     
+    /// Returns an integer clamped to the given limiting range.
+    ///
+    ///     let limits = 5...
+    ///     3.clamped(to: limits) // 5
+    ///     7.clamped(to: limits) // 7
+    ///
+    func clamped(to limits: PartialRangeFrom<Self>) -> Self {
+        if self < limits.lowerBound { return limits.lowerBound }
+        return self
+    }
+    
+    /// Returns an integer clamped to the given limiting range.
+    ///
+    ///     let limits = ...5
+    ///     3.clamped(to: limits) // 3
+    ///     7.clamped(to: limits) // 5
+    ///
+    func clamped(to limits: PartialRangeThrough<Self>) -> Self {
+        if self > limits.upperBound { return limits.upperBound }
+        return self
+    }
+    
     /// Clamps this integer to the given limiting range.
     ///
     ///     let limits = 5...8
@@ -134,6 +156,34 @@ public extension BinaryInteger {
     ///     number.clamp(to: limits) // 8
     ///
     mutating func clamp(to limits: ClosedRange<Self>) -> Void {
+        self = clamped(to: limits)
+    }
+    
+    /// Clamps this integer to the given limiting range.
+    ///
+    ///     let limits = 5...
+    ///
+    ///     var number = 3
+    ///     number.clamp(to: limits) // 5
+    ///
+    ///     number = 7
+    ///     number.clamp(to: limits) // 7
+    ///
+    mutating func clamp(to limits: PartialRangeFrom<Self>) -> Void {
+        self = clamped(to: limits)
+    }
+    
+    /// Clamps this integer to the given limiting range.
+    ///
+    ///     let limits = ...5
+    ///
+    ///     var number = 3
+    ///     number.clamp(to: limits) // 3
+    ///
+    ///     number = 7
+    ///     number.clamp(to: limits) // 5
+    ///
+    mutating func clamp(to limits: PartialRangeThrough<Self>) -> Void {
         self = clamped(to: limits)
     }
     
