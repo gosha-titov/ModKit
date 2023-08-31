@@ -100,7 +100,6 @@ public extension Array where Element: Equatable {
     ///
     /// - Parameter elements: The elements to find in the sequence.
     /// - Returns: `true` if all elements were found in the sequence; otherwise, `false`.
-    ///
     func contains(_ elements: [Element]) -> Bool {
         for element in elements {
             guard contains(element) else { return false }
@@ -115,6 +114,14 @@ public extension Array where Element: Equatable {
     ///
     func indexes(of element: Element) -> [Int] {
         return enumerated().filter { $0.element == element }.map { $0.offset }
+    }
+    
+
+    // MARK: Subscripts
+    
+    subscript(safe offset: Int) -> Element? {
+        guard (0..<count).contains(offset) else { return nil }
+        return self[offset]
     }
     
 }
@@ -140,7 +147,6 @@ public extension Array where Element: LosslessStringConvertible {
     ///     [1, 2, 3].toString(separator: ", ") // "1, 2, 3"
     ///
     /// - Parameter separator: A string to insert between each of the elements in this sequence. The default separator is an empty string.
-    ///
     func toString(separator: String = "") -> String {
         return map { String($0) }.joined(separator: separator)
     }

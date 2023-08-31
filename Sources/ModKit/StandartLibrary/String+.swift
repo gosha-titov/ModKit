@@ -94,7 +94,7 @@ public extension String {
     }
     
     
-    // MARK: Operations
+    // MARK: Operators
     
     static func += (lhs: inout String, rhs: Character) -> Void {
         lhs = lhs + String(rhs)
@@ -141,6 +141,11 @@ public extension String {
     subscript(offset: Int) -> Character {
         let index = index(startIndex, offsetBy: offset)
         return self[index]
+    }
+    
+    subscript(safe offset: Int) -> Character? {
+        guard (0..<count).contains(offset) else { return nil }
+        return self[offset]
     }
     
 }
