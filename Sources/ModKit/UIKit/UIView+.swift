@@ -21,21 +21,6 @@ public extension UIView {
     
     // MARK: Methods
     
-    /// Shows this view.
-    ///
-    /// Use this method as an alternative for the following code:
-    ///
-    ///     view.isHidden = false
-    ///
-    func show() -> Void { isHidden = false }
-    
-    /// Hides this view.
-    ///
-    /// Use this method as an alternative for the following code:
-    ///
-    ///     view.isHidden = true
-    ///
-    func hide() -> Void { isHidden = true }
     
     /// Adds the views to the receiver’s list of subviews.
     ///
@@ -43,6 +28,11 @@ public extension UIView {
     ///
     func addSubviews(_ views: UIView...) -> Void {
         views.forEach { addSubview($0) }
+    }
+    
+    /// Unlinks all subview of this view and its window, and removes them from the responder chain.
+    func removeAllSubviews() -> Void {
+        subviews.forEach { $0.removeFromSuperview() }
     }
     
 }
