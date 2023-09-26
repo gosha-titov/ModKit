@@ -2,22 +2,14 @@ public extension Double {
     
     // MARK: Properties
     
-    /// An Int value that is the number of digits of this double value.
-    ///
-    ///     let number = -592.4
-    ///     number.digitCount // 4
-    ///
-    var digitCount: Int {
-        return abs.toString.filter { $0 != "." }.count
-    }
-    
     /// An array containing the digits of this double value.
     ///
     ///     let number = -312.55
     ///     number.digits // [3, 1, 2, 5, 5]
     ///
     var digits: [Int] {
-        return abs.toString.filter { $0 != "." }.map { $0.toInt! }
+        guard self != 0 else { return [0] } // otherwise, it returns [0, 0]
+        return abs.toString.compactMap { $0.toInt }
     }
     
     /// The absolute value of this double value.
