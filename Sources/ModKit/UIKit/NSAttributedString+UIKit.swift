@@ -9,8 +9,17 @@ public extension NSAttributedString {
     /// - Parameter color: The color of the underline.
     /// - Parameter range: The range of characters to which these attributes apply.
     /// If `nil` is specified,  these attributes are applied to the full string.
-    func applying(underline style: NSUnderlineStyle = .single, withColor color: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
+    func applying(underline style: NSUnderlineStyle, withColor color: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
         return applying([.underlineColor: color, .underlineStyle: style.rawValue], inRange: range)
+    }
+    
+    /// Returns an attributed string with applied a strikethrough attribute with the given value and color in the specified range.
+    /// - Parameter value: The strikethrough style of the text, that is, this is the integer that corresponds the line thickness.
+    /// - Parameter color: The color of the strikethrough.
+    /// - Parameter range: The range of characters to which these attributes apply.
+    /// If `nil` is specified,  these attributes are applied to the full string.
+    func applying(strikethrough value: Int, withColor color: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
+        return applying([.strikethroughStyle: value, .strikethroughColor: color], inRange: range)
     }
     
     /// Returns an attributed string with applied the given font attribute in the specified range.
