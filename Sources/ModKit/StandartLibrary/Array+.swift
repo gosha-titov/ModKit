@@ -146,9 +146,26 @@ public extension Array where Element: LosslessStringConvertible {
     ///     [1.2, 3.4, 5.6].toString(separator: " ") // "1.2 3.4 5.6"
     ///     [1, 2, 3].toString(separator: ", ") // "1, 2, 3"
     ///
-    /// - Parameter separator: A string to insert between each of the elements in this sequence. The default separator is an empty string.
-    func toString(separator: String = "") -> String {
+    /// - Parameter separator: A string to insert between each of the elements in this sequence.
+    func toString(separator: String) -> String {
         return map { String($0) }.joined(separator: separator)
+    }
+    
+}
+
+
+public extension Array where Element == Character {
+    
+    /// A string that contains all characters of this array.
+    ///
+    ///     let array = [Character("H"), Character("i"), Character("!")]
+    ///     print(array.toString)
+    ///     // Prints "Hi!"
+    ///
+    var toString: String {
+        var text = String()
+        forEach { text.append($0) }
+        return text
     }
     
 }
