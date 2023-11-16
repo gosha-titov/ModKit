@@ -4,6 +4,14 @@ public extension String {
     
     // MARK: Properties
     
+    /// Returns a localized string using this string as a key for the `Localizable.strings` table.
+    ///
+    ///     let title = "enter_your_name".localized
+    ///
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
+    
     /// A NSAttributedString value converted from this string value.
     ///
     ///     let attributedString = "text".toNSAttributedString
