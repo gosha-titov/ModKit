@@ -35,6 +35,11 @@ public extension UIView {
         subviews.forEach { $0.removeFromSuperview() }
     }
     
+    /// Removes all constraints from this view.
+    func removeAllConstraints() -> Void {
+        removeConstraints(constraints)
+    }
+    
 }
 
 #endif
