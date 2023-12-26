@@ -54,7 +54,7 @@ public extension String {
         return matches(regex)
     }
     
-    /// Returns a string without spaces and new lines on the sides.
+    /// Returns a new string without spaces and new lines on the sides.
     ///
     ///     let str = "  Hello, world! \n"
     ///     str.trimmed // "Hello, world!"
@@ -62,6 +62,14 @@ public extension String {
     var trimmed: String {
         return trimmingCharacters(in: .whitespacesAndNewlines)
     }
+    
+    /// Returns a new string in which all spaces are replaced with non-breaking spaces.
+    var withNonbreakingSpaces: String {
+        let space = " "
+        let nonbreakingSpace = Character.nonbreakingSpace.toString
+        return replacingOccurrences(of: space, with: nonbreakingSpace)
+    }
+    
      
     // MARK: Methods
     
