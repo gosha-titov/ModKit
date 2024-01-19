@@ -4,7 +4,7 @@ import UIKit
 
 public extension UIColor {
     
-    /// Returns a random color where the alpha component is equal to `1.0`.
+    /// A random color where the alpha component is equal to `1.0`.
     static var random: UIColor {
         return UIColor(
             red:   CGFloat.random(in: 0...1.0),
@@ -12,6 +12,36 @@ public extension UIColor {
             blue:  CGFloat.random(in: 0...1.0),
             alpha: 1.0
         )
+    }
+    
+    /// The color that is specified for the light mode.
+    ///
+    /// The color is created by using the `UITraitCollection.current` but with specified `.light` value for the `userInterfaceStyle` property.
+    var lightModeColor: UIColor {
+        let traitCollection: UITraitCollection
+        if #available(iOS 17, *){
+            traitCollection = UITraitCollection.current.modifyingTraits { traits in
+                traits.userInterfaceStyle = .light
+            }
+        } else {
+            traitCollection = UITraitCollection(traitsFrom: [.current, UITraitCollection(userInterfaceStyle: .light)])
+        }
+        return resolvedColor(with: traitCollection)
+    }
+    
+    /// The color that is specified for the dark mode.
+    ///
+    /// The color is created by using the `UITraitCollection.current` but with specified `.dark` value for the `userInterfaceStyle` property.
+    var darkModeColor: UIColor {
+        let traitCollection: UITraitCollection
+        if #available(iOS 17, *){
+            traitCollection = UITraitCollection.current.modifyingTraits { traits in
+                traits.userInterfaceStyle = .dark
+            }
+        } else {
+            traitCollection = UITraitCollection(traitsFrom: [.current, UITraitCollection(userInterfaceStyle: .dark)])
+        }
+        return resolvedColor(with: traitCollection)
     }
     
     /// A CGColor value converted from this UIColor value.
