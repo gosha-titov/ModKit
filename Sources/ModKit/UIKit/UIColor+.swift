@@ -4,9 +4,7 @@ import UIKit
 
 public extension UIColor {
     
-    // MARK: Properties
-    
-    /// A random color where alpha is equal to `1.0`.
+    /// Returns a random color where the alpha component is equal to `1.0`.
     static var random: UIColor {
         return UIColor(
             red:   CGFloat.random(in: 0...1.0),
@@ -20,9 +18,27 @@ public extension UIColor {
     var toCGColor: CGColor { cgColor }
     
     
+    // MARK: Methods
+    
+    /// Creates a dynamic color object that has two colors that are dynamically provided for the light and dark modes.
+    ///
+    ///     let color: UIColor = .dynamicColor(
+    ///         light: .white, dark: .black
+    ///     )
+    ///
+    static func dynamicColor(light lightColor: UIColor, dark darkColor: UIColor) -> UIColor {
+        return UIColor { (traitCollection: UITraitCollection) -> UIColor in
+            return traitCollection.userInterfaceStyle == .dark ? darkColor : lightColor
+        }
+    }
+    
+    
     // MARK: Init
     
-    /// Creates a color object using the specified hex.
+    /// Creates a color object using the specified hex string.
+    ///
+    ///     let color = UIColor(hex: "#8F0A2D")
+    ///
     convenience init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int = UInt64()
