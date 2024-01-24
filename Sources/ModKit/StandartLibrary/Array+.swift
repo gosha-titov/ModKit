@@ -57,19 +57,19 @@ public extension Array where Element: Equatable {
     /// Returns an array containing all but the given elements.
     ///
     ///     let array = [1, 2, 3, 2, 4]
-    ///     array.removed([2, 4]) // [1, 3]
+    ///     array.removedElements([2, 4]) // [1, 3]
     ///
-    func removed(_ elements: [Element]) -> [Element] {
+    func removedElements(_ elements: [Element]) -> [Element] {
         return filter { !elements.contains($0) }
     }
     
     /// Removes the given elements from the array.
     ///
     ///     var array = [1, 2, 3, 2, 4]
-    ///     array.remove([2, 4]) // [1, 3]
+    ///     array.removeElements([2, 4]) // [1, 3]
     ///
-    mutating func remove(_ elements: [Element]) -> Void {
-        self = removed(elements)
+    mutating func removeElements(_ elements: [Element]) -> Void {
+        self = removedElements(elements)
     }
     
     /// Returns an array containing all but duplicates, leaving only the first element of them.
@@ -122,6 +122,33 @@ public extension Array where Element: Equatable {
     subscript(safe offset: Int) -> Element? {
         guard (0..<count).contains(offset) else { return nil }
         return self[offset]
+    }
+    
+}
+
+
+public extension Array where Element: AnyObject {
+    
+    /// Returns an array containing all but the given reference-type objects.
+    ///
+    ///     let array = [t1, t2, t3, t2, t4]
+    ///     array.removedElements([t2, t4]) // [t1, t3]
+    ///
+    func removedReferences(_ objects: [Element]) -> [Element] {
+        return filter { sourceObject in
+            !objects.contains(where: { removedObject in
+                sourceObject === removedObject
+            })
+        }
+    }
+    
+    /// Removes the given reference-type objects from the array.
+    ///
+    ///     var array = [t1, t2, t3, t2, t4]
+    ///     array.removeElements([t2, t4]) // [t1, t3]
+    ///
+    mutating func removeReferences(_ objects: [Element]) -> Void {
+        self = removedReferences(objects)
     }
     
 }
