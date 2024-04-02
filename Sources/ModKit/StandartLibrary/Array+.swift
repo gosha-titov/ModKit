@@ -1,11 +1,34 @@
 public extension Array {
     
+    /// Returns an array containing the non-nil results of calling the given transformation with each element of this sequence,
+    /// but only if all elements have been transformed; otherwise, returns `nil`.
+    ///
+    ///     let strings = ["1", "2", "three", "///4///", "5"]
+    ///     let strings2 = ["1", "2", "3", "4", "5"]
+    ///
+    ///     let mapped: [Int?] = strings.map { Int($0) }
+    ///     // [1, 2, nil, nil, 5]
+    ///
+    ///     let compactMapped: [Int] = strings.compactMap { Int($0) }
+    ///     // [1, 2, 5]
+    ///
+    ///     let fullMapped: [Int]? = strings.fullMap { Int($0) }
+    ///     // nil
+    ///
+    ///     let fullMapped: [Int]? = strings2.fullMap { Int($0) }
+    ///     // Optional([1, 2, 3, 4, 5])
+    ///
+    @inlinable func fullMap<ElementOfResult>(_ transform: (Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult]? {
+        let result = try compactMap(transform)
+        return result.count == count ? result : nil
+    }
+    
     /// Returns an array containing all elements but an element was rearranged from one specific position to another.
     ///
     ///     let array = [0, 1, 2, 3]
     ///     array.rearrangedElement(from: 3, to: 1) // [0, 3, 1, 2]
     ///
-    func rearrangedElement(from indexToRemove: Int, to indexToInsert: Int) -> [Element] {
+    @inlinable func rearrangedElement(from indexToRemove: Int, to indexToInsert: Int) -> [Element] {
         var array = self
         let element = array.remove(at: indexToRemove)
         array.insert(element, at: indexToInsert)
@@ -17,7 +40,7 @@ public extension Array {
     ///     var array = [0, 1, 2, 3]
     ///     array.rearrangeElement(from: 3, to: 1) // [0, 3, 1, 2]
     ///
-    mutating func rearrangeElement(from indexToRemove: Int, to indexToInsert: Int) -> Void {
+    @inlinable mutating func rearrangeElement(from indexToRemove: Int, to indexToInsert: Int) -> Void {
         self = rearrangedElement(from: indexToRemove, to: indexToInsert)
     }
     
@@ -26,7 +49,7 @@ public extension Array {
     ///     let arr = [1, 2, 3, 4, 5]
     ///     arr.first(3) // [1, 2, 3]
     ///
-    func first(_ k: Int) -> [Element] {
+    @inlinable func first(_ k: Int) -> [Element] {
         let k = k > count ? count : k
         var first = [Element]()
         for i in 0..<k {
@@ -40,7 +63,7 @@ public extension Array {
     ///     let arr = [1, 2, 3, 4, 5]
     ///     arr.last(3) // [3, 4, 5]
     ///
-    func last(_ k: Int) -> [Element] {
+    @inlinable func last(_ k: Int) -> [Element] {
         let k = k > count ? count : k
         var last = [Element]()
         for i in (count - k)..<count {
@@ -59,7 +82,7 @@ public extension Array where Element: Equatable {
     ///     let array = [1, 2, 3, 2, 4]
     ///     array.removedElements([2, 4]) // [1, 3]
     ///
-    func removedElements(_ elements: [Element]) -> [Element] {
+    @inlinable func removedElements(_ elements: [Element]) -> [Element] {
         return filter { !elements.contains($0) }
     }
     
@@ -68,7 +91,7 @@ public extension Array where Element: Equatable {
     ///     var array = [1, 2, 3, 2, 4]
     ///     array.removeElements([2, 4]) // [1, 3]
     ///
-    mutating func removeElements(_ elements: [Element]) -> Void {
+    @inlinable mutating func removeElements(_ elements: [Element]) -> Void {
         self = removedElements(elements)
     }
     
@@ -77,7 +100,7 @@ public extension Array where Element: Equatable {
     ///     let array = [1, 2, 3, 2, 4, 4, 5, 4]
     ///     array.removedDuplicates() // [1, 2, 3, 4, 5]
     ///
-    func removedDuplicates() -> [Element] {
+    @inlinable func removedDuplicates() -> [Element] {
         var result = [Element]()
         forEach { if !result.contains($0) { result.append($0) } }
         return result
@@ -88,7 +111,7 @@ public extension Array where Element: Equatable {
     ///     var array = [1, 2, 3, 2, 4, 4, 5, 4]
     ///     array.removeDuplicates() // [1, 2, 3, 4, 5]
     ///
-    mutating func removeDuplicates() -> Void {
+    @inlinable mutating func removeDuplicates() -> Void {
         self = removedDuplicates()
     }
     
@@ -100,7 +123,7 @@ public extension Array where Element: Equatable {
     ///
     /// - Parameter elements: The elements to find in the sequence.
     /// - Returns: `true` if all elements were found in the sequence; otherwise, `false`.
-    func contains(_ elements: [Element]) -> Bool {
+    @inlinable func contains(_ elements: [Element]) -> Bool {
         for element in elements {
             guard contains(element) else { return false }
         }
@@ -112,14 +135,14 @@ public extension Array where Element: Equatable {
     ///     let arr = [5, 2, 1, 6, 2]
     ///     arr.indexes(of: 2) // [1, 4]
     ///
-    func indexes(of element: Element) -> [Int] {
+    @inlinable func indexes(of element: Element) -> [Int] {
         return enumerated().filter { $0.element == element }.map { $0.offset }
     }
     
 
     // MARK: Subscripts
     
-    subscript(safe offset: Int) -> Element? {
+    @inlinable subscript(safe offset: Int) -> Element? {
         guard (0..<count).contains(offset) else { return nil }
         return self[offset]
     }
@@ -134,7 +157,7 @@ public extension Array where Element: AnyObject {
     ///     let array = [t1, t2, t3, t2, t4]
     ///     array.removedElements([t2, t4]) // [t1, t3]
     ///
-    func removedReferences(_ objects: [Element]) -> [Element] {
+    @inlinable func removedReferences(_ objects: [Element]) -> [Element] {
         return filter { sourceObject in
             !objects.contains(where: { removedObject in
                 sourceObject === removedObject
@@ -147,7 +170,7 @@ public extension Array where Element: AnyObject {
     ///     var array = [t1, t2, t3, t2, t4]
     ///     array.removeElements([t2, t4]) // [t1, t3]
     ///
-    mutating func removeReferences(_ objects: [Element]) -> Void {
+    @inlinable mutating func removeReferences(_ objects: [Element]) -> Void {
         self = removedReferences(objects)
     }
     
@@ -174,7 +197,7 @@ public extension Array where Element: LosslessStringConvertible {
     ///     [1, 2, 3].toString(separator: ", ") // "1, 2, 3"
     ///
     /// - Parameter separator: A string to insert between each of the elements in this sequence.
-    func toString(separator: String) -> String {
+    @inlinable func toString(separator: String) -> String {
         return map { String($0) }.joined(separator: separator)
     }
     
