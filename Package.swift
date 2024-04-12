@@ -11,14 +11,21 @@ let package = Package(
     products: [
         .library(
             name: "ModKit",
-            targets: ["ModKit"]),
+            type: .dynamic,
+            targets: ["ModKit"]
+        ),
     ],
+    dependencies: [],
     targets: [
         .target(
             name: "ModKit",
-            dependencies: []),
+            dependencies: [],
+            path: "Sources"
+        ),
         .testTarget(
             name: "ModKitTests",
-            dependencies: ["ModKit"]),
+            dependencies: ["ModKit"],
+            path: "Tests"
+        ),
     ]
 )
