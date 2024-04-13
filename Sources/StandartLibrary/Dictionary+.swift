@@ -1,5 +1,13 @@
 public extension Dictionary {
     
+    /// Creates a dictionary that has no key-value pairs.
+    ///
+    /// It's often used when you need to specify the empty dictionary as an argument:
+    ///
+    ///     let c = Configuration(attributes: .empty)
+    ///
+    @inlinable static var empty: Self { [:] }
+    
     /// Returns a Boolean value that indicates whether the given key exists in this dictionary.
     ///
     ///     let dict = [0: "a", 1: "b", 2: "c"]
