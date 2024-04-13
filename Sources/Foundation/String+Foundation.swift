@@ -37,7 +37,7 @@ public extension String {
     ///
     /// - Note: The empty string is considered to satisfy this condition, so the value is `true`.
     @inlinable var containsOnlySpaces: Bool {
-        for char in self where char != " " {
+        for char in self where char != .space && char != .nonbreakingSpace {
             return false
         }
         return true

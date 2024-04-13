@@ -260,9 +260,7 @@ public extension Array where Element == Character {
     ///     // Prints "Hi!"
     ///
     @inlinable var toString: String {
-        var text = String()
-        forEach { text.append($0) }
-        return text
+        return reduce("") { $0 + $1 }
     }
     
 }

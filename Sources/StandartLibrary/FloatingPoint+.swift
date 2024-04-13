@@ -6,7 +6,7 @@ public extension FloatingPoint {
     ///     angle.degreesToRadians // 2.094...
     ///
     @inlinable var degreesToRadians: Self {
-        return self * Self.pi / 180
+        return self * .pi / 180
     }
     
     /// A value converted from the value of this instance in radians to a value in degrees.
@@ -15,7 +15,7 @@ public extension FloatingPoint {
     ///     angle.radiansToDegrees // 114.5...
     ///
     @inlinable var radiansToDegrees: Self {
-        return self * 180 / Self.pi
+        return self * 180 / .pi
     }
     
     /// A Boolean value that indicates whether the instance value is greater than zero.
