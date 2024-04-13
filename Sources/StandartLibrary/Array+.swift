@@ -106,7 +106,7 @@ public extension Array {
 
 public extension Array where Element: Equatable {
     
-    /// Returns an array containing all but the given elements.
+    /// Returns an array containing all but the specified elements.
     ///
     ///     let array = [1, 2, 3, 2, 4]
     ///     array.removing([2, 4]) // [1, 3]
@@ -115,13 +115,31 @@ public extension Array where Element: Equatable {
         return filter { !elements.contains($0) }
     }
     
-    /// Removes the given elements from the array.
+    /// Returns an array containing all but the specified element.
+    ///
+    ///     let array = [1, 2, 3, 2, 4]
+    ///     array.removing(2) // [1, 3, 4]
+    ///
+    @inlinable func removing(_ element: Element) -> [Element] {
+        return filter { $0 != element }
+    }
+    
+    /// Removes the specified elements from the array.
     ///
     ///     var array = [1, 2, 3, 2, 4]
     ///     array.remove([2, 4]) // [1, 3]
     ///
     @inlinable mutating func remove(_ elements: [Element]) -> Void {
         self = removing(elements)
+    }
+    
+    /// Removes the specified elements from the array.
+    ///
+    ///     var array = [1, 2, 3, 2, 4]
+    ///     array.remove(2) // [1, 3, 4]
+    ///
+    @inlinable func remove(_ element: Element) -> [Element] {
+        return filter { $0 != element }
     }
     
     /// Returns an array containing all but duplicates, leaving only the first element of them.
