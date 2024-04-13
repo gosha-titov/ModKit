@@ -7,6 +7,13 @@ public extension Character {
     ///
     @inlinable static var nonbreakingSpace: Character { Character("\u{00A0}") }
     
+    /// The character that is a space.
+    ///
+    ///     // Usage example
+    ///     guard char != .space else { return }
+    ///
+    @inlinable static var space: Character { Character(" ") }
+    
     /// An optional Int value converted from this character.
     ///
     ///     let char = Character("4")
