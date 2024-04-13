@@ -45,7 +45,7 @@ public extension String {
     
     /// A Boolean value that indicates whether this string is a valid e-mail.
     ///
-    ///     "my.email@mod.kit".isEmail // true
+    ///     "my.email@mod.kit".isValidEmail // true
     ///
     @inlinable var isValidEmail: Bool {
         let regex = "[A-Z0-9a-z._-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
