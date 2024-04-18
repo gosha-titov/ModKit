@@ -11,7 +11,7 @@ public extension Array {
     
     // MARK: Methods
     
-    /// Returns an array containing the non-nil results of calling the given transformation with each element of this sequence,
+    /// Returns a new array containing the non-nil results of calling the given transformation with each element of this sequence,
     /// but only if all elements have been transformed; otherwise, returns `nil`.
     ///
     ///     let strings = ["1", "2", "three", "///4///", "5"]
@@ -34,7 +34,7 @@ public extension Array {
         return result.count == count ? result : nil
     }
     
-    /// Returns an array containing all elements but an element was rearranged from one specific position to another.
+    /// Returns a new array containing all elements but an element was rearranged from one specific position to another.
     ///
     ///     let array = ["a", "b", "c", "d"]
     ///     array.rearrangingElement(from: 3, to: 1) // ["a", "d", "b", "c"]
@@ -55,7 +55,7 @@ public extension Array {
         self = rearrangingElement(from: indexToRemove, to: indexToInsert)
     }
     
-    /// Returns an array with the specified element appended.
+    /// Returns a new array with the specified element appended.
     ///
     ///     let array = [0, 1]
     ///     array.appending(2) // [0, 1, 2]
@@ -64,7 +64,7 @@ public extension Array {
         return self + [element]
     }
     
-    /// Returns an array with the specified elements appended.
+    /// Returns a new array with the specified elements appended.
     ///
     ///     let array = [0, 1]
     ///     array.appending([2, 3]) // [0, 1, 2, 3]
@@ -106,7 +106,7 @@ public extension Array {
 
 public extension Array where Element: Equatable {
     
-    /// Returns an array containing all but the specified elements.
+    /// Returns a new array containing all but the specified elements.
     ///
     ///     let array = [1, 2, 3, 2, 4]
     ///     array.removing([2, 4]) // [1, 3]
@@ -115,7 +115,7 @@ public extension Array where Element: Equatable {
         return filter { !elements.contains($0) }
     }
     
-    /// Returns an array containing all but the specified element.
+    /// Returns a new array containing all but the specified element.
     ///
     ///     let array = [1, 2, 3, 2, 4]
     ///     array.removing(2) // [1, 3, 4]
@@ -142,7 +142,7 @@ public extension Array where Element: Equatable {
         return filter { $0 != element }
     }
     
-    /// Returns an array containing all but duplicates, leaving only the first element of them.
+    /// Returns a new array containing all but duplicates, leaving only the first element of them.
     ///
     ///     let array = [1, 2, 3, 2, 4, 4, 5, 4]
     ///     array.removingDuplicates() // [1, 2, 3, 4, 5]
@@ -199,7 +199,7 @@ public extension Array where Element: Equatable {
 
 public extension Array where Element: AnyObject {
     
-    /// Returns an array containing all but the given reference-type objects.
+    /// Returns a new array containing all but the given reference-type objects.
     ///
     ///     let array = [t1, t2, t3, t2, t4]
     ///     array.removingReferences([t2, t4]) // [t1, t3]
