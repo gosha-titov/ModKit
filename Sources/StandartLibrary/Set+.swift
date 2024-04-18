@@ -27,11 +27,7 @@ public extension Set {
     ///     // Prints [0, 1, 2, 3]
     ///
     @inlinable func inserting(_ elements: [Element]) -> Self {
-        var mutableSelf = self
-        for element in elements {
-            mutableSelf.insert(element)
-        }
-        return mutableSelf
+        return union(elements)
     }
     
 }
