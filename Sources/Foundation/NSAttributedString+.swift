@@ -18,9 +18,7 @@ public extension NSAttributedString {
     /// If `nil` is specified, the given attributes are applied to the full string.
     @inlinable func applying(_ attributes: [Key: Any], inRange: NSRange? = nil) -> NSAttributedString {
         guard !string.isEmpty else { return self }
-        let range: NSRange
-        if let inRange { range = inRange }
-        else { range = .init(0..<length) }
+        let range: NSRange = if let inRange { inRange } else { NSRange(0..<length) }
         let mutableCopy = self.toNSMutableAttributedString
         mutableCopy.addAttributes(attributes, range: range)
         return mutableCopy

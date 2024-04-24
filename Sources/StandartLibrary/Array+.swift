@@ -40,10 +40,10 @@ public extension Array {
     ///     array.rearrangingElement(from: 3, to: 1) // ["a", "d", "b", "c"]
     ///
     @inlinable func rearrangingElement(from indexToRemove: Int, to indexToInsert: Int) -> Self {
-        var array = self
-        let element = array.remove(at: indexToRemove)
-        array.insert(element, at: indexToInsert)
-        return array
+        var mutableSelf = self
+        let element = mutableSelf.remove(at: indexToRemove)
+        mutableSelf.insert(element, at: indexToInsert)
+        return mutableSelf
     }
     
     /// Rearranges an element from one specific position to another.
@@ -79,12 +79,8 @@ public extension Array {
     ///     arr.first(3) // [1, 2, 3]
     ///
     @inlinable func first(_ k: Int) -> Self {
-        let k = k > count ? count : k
-        var first = [Element]()
-        for i in 0..<k {
-            first.append(self[i])
-        }
-        return first
+        let k = k.clamped(to: 0...count)
+        return Array(self[0..<k])
     }
     
     /// Returns the last K elements of this array.
@@ -93,12 +89,8 @@ public extension Array {
     ///     arr.last(3) // [3, 4, 5]
     ///
     @inlinable func last(_ k: Int) -> Self {
-        let k = k > count ? count : k
-        var last = [Element]()
-        for i in (count - k)..<count {
-            last.append(self[i])
-        }
-        return last
+        let k = k.clamped(to: 0...count)
+        return Array(self[(count - k)..<count])
     }
     
 }
@@ -111,7 +103,7 @@ public extension Array where Element: Equatable {
     ///     let array = [1, 2, 3, 2, 4]
     ///     array.removing([2, 4]) // [1, 3]
     ///
-    @inlinable func removing(_ elements: [Element]) -> [Element] {
+    @inlinable func removing(_ elements: [Element]) -> Self {
         return filter { !elements.contains($0) }
     }
     
@@ -120,7 +112,7 @@ public extension Array where Element: Equatable {
     ///     let array = [1, 2, 3, 2, 4]
     ///     array.removing(2) // [1, 3, 4]
     ///
-    @inlinable func removing(_ element: Element) -> [Element] {
+    @inlinable func removing(_ element: Element) -> Self {
         return filter { $0 != element }
     }
     
@@ -138,7 +130,7 @@ public extension Array where Element: Equatable {
     ///     var array = [1, 2, 3, 2, 4]
     ///     array.remove(2) // [1, 3, 4]
     ///
-    @inlinable func remove(_ element: Element) -> [Element] {
+    @inlinable func remove(_ element: Element) -> Self {
         return filter { $0 != element }
     }
     
@@ -147,7 +139,7 @@ public extension Array where Element: Equatable {
     ///     let array = [1, 2, 3, 2, 4, 4, 5, 4]
     ///     array.removingDuplicates() // [1, 2, 3, 4, 5]
     ///
-    @inlinable func removingDuplicates() -> [Element] {
+    @inlinable func removingDuplicates() -> Self {
         var result = [Element]()
         forEach { if !result.contains($0) { result.append($0) } }
         return result
@@ -204,7 +196,7 @@ public extension Array where Element: AnyObject {
     ///     let array = [t1, t2, t3, t2, t4]
     ///     array.removingReferences([t2, t4]) // [t1, t3]
     ///
-    @inlinable func removingReferences(_ objects: [Element]) -> [Element] {
+    @inlinable func removingReferences(_ objects: [Element]) -> Self {
         return filter { sourceObject in
             !objects.contains(where: { removedObject in
                 sourceObject === removedObject

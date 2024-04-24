@@ -63,7 +63,7 @@ public extension String {
     
     /// Returns a new string in which all spaces are replaced with non-breaking spaces.
     @inlinable var withNonbreakingSpaces: String {
-        let space = " "
+        let space = Character.space.toString
         let nonbreakingSpace = Character.nonbreakingSpace.toString
         return replacingOccurrences(of: space, with: nonbreakingSpace)
     }
