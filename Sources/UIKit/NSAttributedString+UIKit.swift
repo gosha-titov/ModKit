@@ -9,7 +9,7 @@ public extension NSAttributedString {
     /// - Parameter color: The color of the underline.
     /// - Parameter range: The range of characters to which these attributes apply.
     /// If `nil` is specified,  these attributes are applied to the full string.
-    @inlinable func applying(underline style: NSUnderlineStyle, withColor color: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
+    @inlinable func applying(underlineStyle style: NSUnderlineStyle, withColor color: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
         return applying([.underlineColor: color, .underlineStyle: style.rawValue], inRange: range)
     }
     
@@ -18,7 +18,7 @@ public extension NSAttributedString {
     /// - Parameter color: The color of the strikethrough.
     /// - Parameter range: The range of characters to which these attributes apply.
     /// If `nil` is specified,  these attributes are applied to the full string.
-    @inlinable func applying(strikethrough style: Int, withColor color: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
+    @inlinable func applying(strikethroughStyle style: Int, withColor color: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
         return applying([.strikethroughStyle: style, .strikethroughColor: color], inRange: range)
     }
     
