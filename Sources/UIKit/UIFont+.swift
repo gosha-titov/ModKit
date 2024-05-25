@@ -23,6 +23,7 @@ public extension UIFont {
         let metrics = UIFontMetrics(forTextStyle: style)
         return metrics.scaledFont(for: font)
     }
+    
 }
 
 #endif
