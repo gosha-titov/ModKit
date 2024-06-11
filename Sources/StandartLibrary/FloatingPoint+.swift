@@ -18,20 +18,6 @@ public extension FloatingPoint {
         return self * 180 / .pi
     }
     
-    /// A Boolean value that indicates whether the instance value is greater than zero.
-    ///
-    ///     let number = 21.43
-    ///     number.isPositive // true
-    ///
-    @inlinable var isPositive: Bool { self > 0 }
-    
-    /// A Boolean value that indicates whether the instance value is less than zero.
-    ///
-    ///     let number = -45.03
-    ///     number.isNegative // true
-    ///
-    @inlinable var isNegative: Bool { self < 0 }
-    
     
     // MARK: Methods
     

@@ -24,13 +24,6 @@ public extension Double {
     ///
     @inlinable var toInt: Int { Int(self) }
     
-    /// A Boolean value converted from this double value.
-    ///
-    ///     let number = 4
-    ///     number.toBool // true
-    ///
-    @inlinable var toBool: Bool { Bool(self) }
-    
     /// A String value converted from this double value.
     ///
     ///     let number = 13.24

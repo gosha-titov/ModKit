@@ -26,12 +26,12 @@ public extension Bool {
     
     /// Creates an instance equal to `false` if the given value is `0`; otherwise, `true`.
     @inlinable init<B: BinaryInteger>(_ value: B) {
-        self = !value.isZero
+        self = value != .zero
     }
     
     /// Creates an instance equal to `false` if the given value is `0.0`; otherwise, `true`.
     @inlinable init<F: FloatingPoint>(_ value: F) {
-        self = !value.isZero
+        self = value != .zero
     }
     
 }

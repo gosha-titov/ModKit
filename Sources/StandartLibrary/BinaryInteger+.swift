@@ -1,40 +1,5 @@
 public extension BinaryInteger {
     
-    /// A Boolean value that indicates whether this integer is greater than zero.
-    ///
-    ///     let number = 43
-    ///     number.isPositive // true
-    ///
-    @inlinable var isPositive: Bool { self > 0 }
-    
-    /// A Boolean value that indicates whether this integer is less than zero.
-    ///
-    ///     let number = -91
-    ///     number.isNegative // true
-    ///
-    @inlinable var isNegative: Bool { self < 0 }
-    
-    /// A Boolean value that indicates whether this integer is equal to zero.
-    ///
-    ///     let number = 0
-    ///     number.isZero // true
-    ///
-    @inlinable var isZero: Bool { self == 0 }
-    
-    /// A Boolean value that indicates whether this integer is even.
-    ///
-    ///     let number = 52
-    ///     number.isEven // true
-    ///
-    @inlinable var isEven: Bool { self % 2 == 0 }
-    
-    /// A Boolean value that indicates whether this integer is odd.
-    ///
-    ///     let number = 37
-    ///     number.isOdd // true
-    ///
-    @inlinable var isOdd: Bool { self % 2 != 0 }
-    
     /// A Double value converted from this integer.
     ///
     ///     let number = 49
@@ -48,13 +13,6 @@ public extension BinaryInteger {
     ///     number.toFloat // 21.0
     ///
     @inlinable var toFloat: Float { Float(self) }
-    
-    /// A Boolean value converted from this integer.
-    ///
-    ///     let number = 4
-    ///     number.toBool // true
-    ///
-    @inlinable var toBool: Bool { Bool(self) }
     
     /// A String value converted from this integer.
     ///
