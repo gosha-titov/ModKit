@@ -17,6 +17,18 @@ public extension UIImage {
         }
     }
     
+    /// Returns a new version of the current image with the specified insets.
+    @inlinable func withInsets(_ insets: UIEdgeInsets) -> UIImage {
+        let newSize = CGSize(
+            width: size.width + insets.left + insets.right,
+            height: size.height + insets.top + insets.bottom
+        )
+        return UIGraphicsImageRenderer(size: newSize).image { rendererContext in
+            let origin = CGPoint(x: insets.left, y: insets.top)
+            draw(at: origin)
+        }
+    }
+    
 }
 
 #endif
