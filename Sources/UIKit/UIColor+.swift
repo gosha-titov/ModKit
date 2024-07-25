@@ -52,11 +52,9 @@ public extension UIColor {
     
     /// Creates a dynamic color object that has two colors that are dynamically provided for the light and dark modes.
     ///
-    ///     let color: UIColor = .dynamicColor(
-    ///         light: .white, dark: .black
-    ///     )
+    ///     let color: UIColor = .dynamic(light: .white, dark: .black)
     ///
-    @inlinable static func dynamicColor(light lightColor: UIColor, dark darkColor: UIColor) -> UIColor {
+    @inlinable static func dynamic(light lightColor: UIColor, dark darkColor: UIColor) -> UIColor {
         return UIColor { (traitCollection: UITraitCollection) -> UIColor in
             return traitCollection.userInterfaceStyle == .dark ? darkColor : lightColor
         }
