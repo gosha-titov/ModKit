@@ -63,6 +63,15 @@ public extension BinaryInteger {
         return range.contains(self)
     }
     
+    /// Returns a Boolean value indicating whether this integer is contained in the range.
+    ///
+    ///     let number = 19
+    ///     number.isInRange(5...99) // true
+    ///
+    @inlinable func isInRange(_ range: ClosedRange<Self>) -> Bool {
+        return range.contains(self)
+    }
+    
     /// Returns an integer clamped to the given limiting range.
     ///
     ///     let limits = 3..<8
