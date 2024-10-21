@@ -2,10 +2,13 @@ public extension Character {
     
     /// The non-breaking space character that prevents an automatic line break at its position.
     ///
-    ///     let space = Character.nonbreakingSpace
+    ///     let space: Character = .nonbreakingSpace
     ///     let currency = "499" + space + "999"
     ///
-    @inlinable static var nonbreakingSpace: Character { Character("\u{00A0}") }
+    @inlinable static var nonbreakingSpace: Character { .init("\u{00A0}") }
+    
+    /// The character that is a thin space.
+    @inlinable static var thinSpace: Character { .init("\u{2009}") }
     
     /// The character that is a space.
     ///
