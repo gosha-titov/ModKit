@@ -8,6 +8,9 @@ public extension Dictionary {
     ///
     @inlinable static var empty: Self { [:] }
     
+    
+    // MARK: Methods
+    
     /// Returns a Boolean value that indicates whether the given key exists in this dictionary.
     ///
     ///     let dict = [0: "a", 1: "b", 2: "c"]
@@ -15,6 +18,26 @@ public extension Dictionary {
     ///     dict.hasKey(3) // false
     ///
     @inlinable func hasKey(_ key: Key) -> Bool { self[key].hasValue }
+    
+    /// Returns a new dictionary that is a copy of this one with the specified value added.
+    ///
+    ///     let values = sourceValues.adding(newValue, forKey: key)
+    ///
+    @inlinable func adding(_ value: Value, forKey key: Key) -> Self {
+        var mutableSelf = self
+        mutableSelf[key] = value
+        return mutableSelf
+    }
+    
+    /// Returns a new dictionary that is a copy of this one but a value for the specified key removed.
+    ///
+    ///     let values = sourceValues.removingValue(forKey: key)
+    ///
+    @inlinable func removingValue(forKey key: Key) -> Self {
+        var mutableSelf = self
+        mutableSelf.removeValue(forKey: key)
+        return mutableSelf
+    }
     
 }
 
