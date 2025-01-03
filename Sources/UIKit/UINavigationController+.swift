@@ -6,7 +6,7 @@ public extension UINavigationController {
     
     /// Pushes a view controller onto the receiver’s stack and updates the display.
     @inlinable 
-    func pushViewController(_ viewController: UIViewController, animated: Bool = true, completion: @escaping () -> Void) -> Void {
+    func pushViewController(_ viewController: UIViewController, animated: Bool = true, completion: @escaping () -> Void) {
         CATransaction.begin()
         CATransaction.setCompletionBlock(completion)
         pushViewController(viewController, animated: animated)

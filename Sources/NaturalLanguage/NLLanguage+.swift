@@ -47,7 +47,7 @@ public extension NLLanguage {
         return [.arabic, .hebrew, .persian, .urdu]
     }
     
-    /// The boolean value that indicates whether this language is left-to-right
+    /// The boolean value that indicates whether this language is left-to-right.
     ///
     ///     let language: NLLanguage = .english
     ///     print(language.isLTR)

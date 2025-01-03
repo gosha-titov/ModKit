@@ -2,22 +2,6 @@ import Foundation
 
 public extension String {
     
-    /// Creates a localized string using this string as a key for the `Localizable.strings` table.
-    ///
-    ///     let title = "enter_your_name".localized
-    ///
-    @inlinable var localized: String {
-        return NSLocalizedString(self, comment: "")
-    }
-    
-    /// An NSAttributedString value converted from this string value.
-    ///
-    ///     let attributedString = "text".toNSAttributedString
-    ///
-    @inlinable var toNSAttributedString: NSAttributedString {
-        return NSAttributedString(string: self)
-    }
-    
     /// A Boolean value that indicates whether this string contains only digits.
     ///
     ///     "123".containsOnlyDigits // true
@@ -30,7 +14,7 @@ public extension String {
         return digitsSet.isSuperset(of: stringSet)
     }
     
-    /// A Boolean value that indicates whether this string contains only spaces.
+    /// A boolean value that indicates whether this string contains only spaces.
     ///
     ///     "   ".containsOnlySpaces // true
     ///     " a ".containsOnlySpaces // false
@@ -43,7 +27,7 @@ public extension String {
         return true
     }
     
-    /// A Boolean value that indicates whether this string is a valid e-mail.
+    /// A boolean value that indicates whether this string is a valid e-mail.
     ///
     ///     "my.email@mod.kit".isValidEmail // true
     ///
@@ -63,8 +47,8 @@ public extension String {
     
     /// Returns a new string in which all spaces are replaced with non-breaking spaces.
     @inlinable var withNonbreakingSpaces: String {
-        let space = Character.space.toString
-        let nonbreakingSpace = Character.nonbreakingSpace.toString
+        let space = Character.space.toString()
+        let nonbreakingSpace = Character.nonbreakingSpace.toString()
         return replacingOccurrences(of: space, with: nonbreakingSpace)
     }
     
@@ -76,7 +60,7 @@ public extension String {
     ///     var str = "woRd"
     ///     str.capitalize() // "Word"
     ///
-    @inlinable mutating func capitalize() -> Void {
+    @inlinable mutating func capitalize() {
         self = capitalized
     }
     
@@ -85,11 +69,23 @@ public extension String {
     ///     var str = "  Hello, world! \n"
     ///     str.trim() // "Hello, world!"
     ///
-    mutating func trim() -> Void { self = trimmed }
+    mutating func trim() -> Void {
+        self = trimmed
+    }
     
     /// Returns `true` if this string matches the given regex; otherwise, `false`.
     func matches(_ regex: String) -> Bool {
         return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: self)
+    }
+    
+    /// Returns an NSAttributedString value converted from this string value.
+    ///
+    ///     let attributedString = "Hello!"
+    ///         .toNSAttributedString()
+    ///         .applying(font: .title3)
+    ///
+    @inlinable func toNSAttributedString() -> NSAttributedString {
+        return NSAttributedString(string: self)
     }
     
 }

@@ -2,11 +2,14 @@ public extension Set {
     
     /// Creates a set that has no elements.
     ///
-    /// It's often used when you need to specify the empty set as an argument:
+    /// Example of usage:
     ///
     ///     let c = Configuration(parameters: .empty)
     ///
     @inlinable static var empty: Self { [] }
+    
+    
+    // MARK: Methods
     
     /// Returns a new set with the specified element inserted.
     ///
@@ -37,13 +40,13 @@ public extension Set {
     ///     print(set)
     ///     // Prints [0, 1]
     ///
-    @inlinable mutating func remove(_ elements: [Element]) -> Void {
+    @inlinable mutating func remove(_ elements: [Element]) {
         self = subtracting(elements)
     }
     
     /// Returns a new set with the specified elements removed.
     ///
-    ///     var set: Set<Int> = [0, 1, 2, 3]
+    ///     let set: Set<Int> = [0, 1, 2, 3]
     ///     print(set.removing([2, 3]))
     ///     // Prints [0, 1]
     ///
@@ -53,7 +56,7 @@ public extension Set {
     
     /// Returns a new set with the specified element removed.
     ///
-    ///     var set: Set<Int> = [0, 1, 2, 3]
+    ///     let set: Set<Int> = [0, 1, 2, 3]
     ///     print(set.removing(2))
     ///     // Prints [0, 1, 3]
     ///

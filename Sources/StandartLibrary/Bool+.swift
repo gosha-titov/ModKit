@@ -7,19 +7,17 @@ public extension Bool {
     ///
     @inlinable var toggled: Bool { !self }
     
-    /// An Int value converted from this boolean value.
+    
+    // MARK: Methods
+    
+    /// Return an Int value converted from this boolean value.
     ///
     ///     let bool = true
-    ///     bool.toInt // 1
+    ///     bool.toInt() // 1
     ///
-    @inlinable var toInt: Int { self ? 1 : 0 }
-    
-    /// A String value converted from this boolean value.
-    ///
-    ///     let bool = false
-    ///     bool.toString // "false"
-    ///
-    @inlinable var toString: String { String(self) }
+    @inlinable func toInt() -> Int {
+        return self ? 1 : 0
+    }
     
     
     // MARK: Inits

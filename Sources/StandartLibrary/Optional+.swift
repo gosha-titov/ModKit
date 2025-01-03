@@ -1,15 +1,6 @@
 public extension Optional {
     
-    // MARK: Properties
-    
-    /// A Boolean value that indicates whether this optional object is `nil`.
-    ///
-    ///     var age: Int?
-    ///     age.isNil // true
-    ///
-    @inlinable var isNil: Bool { self == nil }
-    
-    /// A Boolean value that indicates whether this optional object is not `nil`.
+    /// A boolean value that indicates whether this optional object is not `nil`.
     ///
     ///     var name: String? = "gosha"
     ///     name.hasValue // true
@@ -21,7 +12,7 @@ public extension Optional {
 
 public extension Optional where Wrapped: Collection {
     
-    /// A Boolean value that indicates whether the optional object is empty or `nil`.
+    /// A boolean value that indicates whether the optional object is empty or `nil`.
     ///
     ///     var str: String? = nil
     ///     str.isEmptyOrNil // true

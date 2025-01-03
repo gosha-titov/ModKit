@@ -41,17 +41,17 @@ public extension UIView {
     ///
     ///     view.addSubviews(label, button, textField)
     ///
-    @inlinable func addSubviews(_ views: UIView...) -> Void {
+    @inlinable func addSubviews(_ views: UIView...) {
         views.forEach { addSubview($0) }
     }
     
     /// Unlinks all subview of this view and its window, and removes them from the responder chain.
-    @inlinable func removeAllSubviews() -> Void {
+    @inlinable func removeAllSubviews() {
         subviews.forEach { $0.removeFromSuperview() }
     }
     
     /// Removes all constraints from this view.
-    @inlinable func removeAllConstraints() -> Void {
+    @inlinable func removeAllConstraints() {
         removeConstraints(constraints)
     }
     

@@ -42,19 +42,11 @@ public extension NSAttributedString {
         mutableString.append(rhs)
         return mutableString
     }
-
-    @inlinable static func + (lhs: NSAttributedString, rhs: String) -> NSAttributedString {
-        return lhs + rhs.toNSAttributedString
-    }
     
-    @inlinable static func += (lhs: inout NSAttributedString, rhs: NSAttributedString) -> Void {
+    @inlinable static func += (lhs: inout NSAttributedString, rhs: NSAttributedString) {
         let mutableString = lhs.mutable
         mutableString.append(rhs)
         lhs = mutableString
-    }
-    
-    @inlinable static func += (lhs: inout NSAttributedString, rhs: String) -> Void {
-        lhs += rhs.toNSAttributedString
     }
 
 }

@@ -12,20 +12,19 @@ public extension UITableView {
     ///     class SomeCell: UITableViewCell {}
     ///     SomeCell.reuseIdentifier // "SomeCell"
     ///
-    /// That is, the original method is:
+    /// This is a short simplified method of the original one:
     ///
+    ///     // Short method
+    ///     tableView.register(cellClass: SomeCell.self)
+    ///
+    ///     // Original method
     ///     tableView.register(
     ///         SomeCell.self,
     ///         forCellReuseIdentifier: SomeCell.reuseIdentifier
     ///     )
     ///
-    /// While the short method is:
-    ///
-    ///     tableView.register(cellClass: SomeCell.self)
-    ///
     /// - Parameter cellClass: The class of a cell that you want to use in the collection view.
-    ///
-    @inlinable func register<T: UITableViewCell>(cellClass: T.Type) -> Void {
+    @inlinable func register<T: UITableViewCell>(cellClass: T.Type) {
         register(T.self, forCellReuseIdentifier: T.reuseIdentifier)
     }
     
@@ -34,16 +33,16 @@ public extension UITableView {
     /// Call this method from your data source object when asked to provide a new cell for the table view.
     /// This method dequeues an existing cell if one is available or creates a new one based on the class or nib file you previously registered.
     ///
-    /// The original method is:
+    /// This is a short simplified method of the original one:
     ///
+    ///     // Short method
+    ///     let cell: SomeCell = tableView.dequeueReusableCell(for: indexPath)
+    ///
+    ///     // Original method
     ///     let cell = tableView.dequeueReusableCell(
     ///         withReuseIdentifier: SomeCell.reuseIdentifier,
     ///         for: indexPath
     ///     ) as! SomeCell
-    ///
-    /// While the short method is:
-    ///
-    ///     let cell: SomeCell = tableView.dequeueReusableCell(for: indexPath)
     ///
     /// - Important: You must register a class using the `register(cellClass:)` method before calling this method.
     ///
@@ -55,7 +54,6 @@ public extension UITableView {
     /// This method uses the index path to perform additional configuration based on the cell’s position in the collection view.
     ///
     /// - Returns: A valid `UITableViewCell` object.
-    ///
     @inlinable func dequeueReusableCell<T: UITableViewCell>(for indexPath: IndexPath) -> T {
         return dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as! T
     }

@@ -47,7 +47,7 @@ public extension FloatingPoint {
     ///     number = 9.3
     ///     number.clamp(to: limits) // 8.9
     ///
-    @inlinable mutating func clamp(to limits: ClosedRange<Self>) -> Void {
+    @inlinable mutating func clamp(to limits: ClosedRange<Self>) {
         self = clamped(to: limits)
     }
     

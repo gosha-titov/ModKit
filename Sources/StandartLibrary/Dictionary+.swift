@@ -2,7 +2,7 @@ public extension Dictionary {
     
     /// Creates a dictionary that has no key-value pairs.
     ///
-    /// It's often used when you need to specify the empty dictionary as an argument:
+    /// Example of usage:
     ///
     ///     let c = Configuration(attributes: .empty)
     ///
@@ -81,9 +81,9 @@ public extension Dictionary.Keys {
     /// Therefore, we have to use such "hacks":
     ///
     ///     let dict = ["a": 1, "b": 2]
-    ///     let keys: [String] = dict.keys.toArray // ["a", "b"]
+    ///     let keys: [String] = dict.keys.toArray() // ["a", "b"]
     ///
-    @inlinable var toArray: [Key] { Array(self) }
+    @inlinable func toArray() -> [Key] { Array(self) }
     
 }
 
@@ -96,8 +96,8 @@ public extension Dictionary.Values {
     /// Therefore, we have to use such "hacks":
     ///
     ///     let dict = ["a": 1, "b": 2]
-    ///     let values: [Int] = dict.values.toArray // [1, 2]
+    ///     let values: [Int] = dict.values.toArray() // [1, 2]
     ///
-    @inlinable var toArray: [Value] { Array(self) }
+    @inlinable func toArray() -> [Value] { Array(self) }
     
 }

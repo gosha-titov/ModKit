@@ -2,7 +2,7 @@ public extension Array {
     
     /// Creates an array that has no elements.
     ///
-    /// It's often used when you need to specify the empty array as an argument:
+    /// Example of usage:
     ///
     ///     let c = Configuration(parameters: .empty)
     ///
@@ -28,7 +28,7 @@ public extension Array {
     ///     var array = ["a", "b", "c", "d"]
     ///     array.rearrangeElement(from: 3, to: 1) // ["a", "d", "b", "c"]
     ///
-    @inlinable mutating func rearrangeElement(from indexToRemove: Int, to indexToInsert: Int) -> Void {
+    @inlinable mutating func rearrangeElement(from indexToRemove: Int, to indexToInsert: Int) {
         self = rearrangingElement(from: indexToRemove, to: indexToInsert)
     }
     
@@ -56,6 +56,7 @@ public extension Array {
     ///     arr.first(3) // [1, 2, 3]
     ///
     @inlinable func first(_ k: Int) -> Self {
+        guard k > 0 else { return self }
         let k = k.clamped(to: 0...count)
         return Array(self[0..<k])
     }
@@ -66,6 +67,7 @@ public extension Array {
     ///     arr.last(3) // [3, 4, 5]
     ///
     @inlinable func last(_ k: Int) -> Self {
+        guard k > 0 else { return self }
         let k = k.clamped(to: 0...count)
         return Array(self[(count - k)..<count])
     }
@@ -98,7 +100,7 @@ public extension Array where Element: Equatable {
     ///     var array = [1, 2, 3, 2, 4]
     ///     array.remove([2, 4]) // [1, 3]
     ///
-    @inlinable mutating func remove(_ elements: [Element]) -> Void {
+    @inlinable mutating func remove(_ elements: [Element]) {
         self = removing(elements)
     }
     
@@ -118,7 +120,9 @@ public extension Array where Element: Equatable {
     ///
     @inlinable func removingDuplicates() -> Self {
         var result = [Element]()
-        forEach { if !result.contains($0) { result.append($0) } }
+        for element in self where !result.contains(element) {
+            result.append(element)
+        }
         return result
     }
     
@@ -127,7 +131,7 @@ public extension Array where Element: Equatable {
     ///     var array = [1, 2, 3, 2, 4, 4, 5, 4]
     ///     array.removeDuplicates() // [1, 2, 3, 4, 5]
     ///
-    @inlinable mutating func removeDuplicates() -> Void {
+    @inlinable mutating func removeDuplicates() {
         self = removingDuplicates()
     }
     
@@ -152,7 +156,9 @@ public extension Array where Element: Equatable {
     ///     arr.indexes(of: 2) // [1, 4]
     ///
     @inlinable func indexes(of element: Element) -> [Int] {
-        return enumerated().filter { $0.element == element }.map { $0.offset }
+        return enumerated()
+            .filter { $0.element == element }
+            .map(\.offset)
     }
     
 
@@ -175,9 +181,9 @@ public extension Array where Element: AnyObject {
     ///
     @inlinable func removingReferences(_ objects: [Element]) -> Self {
         return filter { sourceObject in
-            !objects.contains(where: { removedObject in
+            !objects.contains { removedObject in
                 sourceObject === removedObject
-            })
+            }
         }
     }
     
@@ -186,7 +192,7 @@ public extension Array where Element: AnyObject {
     ///     var array = [t1, t2, t3, t2, t4]
     ///     array.removeReferences([t2, t4]) // [t1, t3]
     ///
-    @inlinable mutating func removeReferences(_ objects: [Element]) -> Void {
+    @inlinable mutating func removeReferences(_ objects: [Element]) {
         self = removingReferences(objects)
     }
     
@@ -225,11 +231,10 @@ public extension Array where Element == Character {
     /// A string that contains all characters of this array.
     ///
     ///     let array = [Character("H"), Character("i"), Character("!")]
-    ///     print(array.toString)
-    ///     // Prints "Hi!"
+    ///     array.toString() // "Hi!"
     ///
-    @inlinable var toString: String {
-        return reduce("") { $0 + $1 }
+    @inlinable func toString() -> String {
+        return reduce("") { $0.appending($1) }
     }
     
 }

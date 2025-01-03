@@ -6,17 +6,17 @@ public extension CGSize {
     ///
     ///     size.width // 200
     ///     size.height // 50
-    ///     size.maximumDimension // 200
+    ///     size.maxDimension // 200
     ///
-    @inlinable var maximumDimension: CGFloat { max(width, height) }
+    @inlinable var maxDimension: CGFloat { max(width, height) }
     
     /// Minimum dimension between this size width and its height.
     ///
     ///     size.width // 200
     ///     size.height // 50
-    ///     size.minimumDimension // 50
+    ///     size.minDimension // 50
     ///
-    @inlinable var minimumDimension: CGFloat { min(width, height) }
+    @inlinable var minDimension: CGFloat { min(width, height) }
     
     /// Returns a value corresponding to the ratio of this size width to its height.
     ///
@@ -47,59 +47,99 @@ public extension CGSize {
     }
     
     
+    // MARK: Methods
+    
+    /// Scales this size by multiplying the width and height by the specified scale factor.
+    ///
+    ///     var size = CGSize(width: 100, height: 50)
+    ///     size.scale(by: 1.5)
+    ///     // CGSize(width: 150, height: 75)
+    ///
+    @inlinable mutating func scale(by scale: CGFloat) {
+        width *= scale
+        height *= scale
+    }
+    
+    /// Returns a new size with the width and height multiplied by the specified scale factor.
+    ///
+    ///     let size = CGSize(width: 100, height: 50)
+    ///     let newSize = size.scaled(by: 1.5)
+    ///     // CGSize(width: 150, height: 75)
+    ///
+    @inlinable func scaled(by scale: CGFloat) -> CGSize {
+        return CGSize(width: width * scale, height: height * scale)
+    }
+    
+    
+    /// Returns a new size replacing the current width with the specified one.
+    ///
+    ///     // Short way
+    ///     let newSize = size.withWidth(newWidth)
+    ///
+    ///     // Manual way
+    ///     let newSize = CGSize(
+    ///         width: newWidth,
+    ///         height: size.height
+    ///     )
+    @inlinable func withWidth(_ newWidth: CGFloat) -> CGSize {
+        return CGSize(width: newWidth, height: height)
+    }
+    
+    /// Returns a new size with the current width updated.
+    ///
+    ///     // Short way
+    ///     let newSize = size.withWidth { $0 * 1.5 }
+    ///
+    ///     // Manual way
+    ///     let newSize = CGSize(
+    ///         width: size.width * 1.5,
+    ///         height: size.height
+    ///     )
+    @inlinable func withWidth(update: (CGFloat) -> CGFloat) -> CGSize {
+        return withWidth(update(width))
+    }
+    
+    
+    /// Returns a new size replacing the current height with the specified one.
+    ///
+    ///     // Short way
+    ///     let newSize = size.withHeight(newHeight)
+    ///
+    ///     // Manual way
+    ///     let newSize = CGSize(
+    ///         width: size.width,
+    ///         height: newHeight
+    ///     )
+    @inlinable func withHeight(_ newHeight: CGFloat) -> CGSize {
+        return CGSize(width: width, height: newHeight)
+    }
+    
+    /// Returns a new size with the current height updated.
+    ///
+    ///     // Short way
+    ///     let newSize = size.withHeight { $0 * 1.5 }
+    ///
+    ///     // Manual way
+    ///     let newSize = CGSize(
+    ///         width: size.width,
+    ///         height: size.height * 1.5
+    ///     )
+    @inlinable func withHeight(update: (CGFloat) -> CGFloat) -> CGSize {
+        return withHeight(update(height))
+    }
+    
+    
     // MARK: Init
     
     /// Creates a size with the specified dimension for the width and height properties.
     ///
-    ///     let size = CGSize(dimension: 100.0)
-    ///     size.width  // 100.0
-    ///     size.height // 100.0
+    ///     let size = CGSize(dimension: 100)
+    ///
+    ///     // The same as
+    ///     let size = CGSize(width: 100, height: 100)
     ///
     @inlinable init(dimension: CGFloat) {
         self.init(width: dimension, height: dimension)
-    }
-    
-    
-    // MARK: Operators
-    
-    @inlinable static func + (lhs: CGSize, rhs: CGSize) -> CGSize {
-        return CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
-    }
-
-    @inlinable static func - (lhs: CGSize, rhs: CGSize) -> CGSize {
-        return CGSize(width: lhs.width - rhs.width, height: lhs.height - rhs.height)
-    }
-
-    @inlinable static func * (lhs: CGSize, rhs: CGSize) -> CGSize {
-        return CGSize(width: lhs.width * rhs.width, height: lhs.height * rhs.height)
-    }
-
-    @inlinable static func * (lhs: CGSize, scalar: CGFloat) -> CGSize {
-        return CGSize(width: lhs.width * scalar, height: lhs.height * scalar)
-    }
-
-    @inlinable static func * (scalar: CGFloat, rhs: CGSize) -> CGSize {
-        return CGSize(width: scalar * rhs.width, height: scalar * rhs.height)
-    }
-    
-    @inlinable static func += (lhs: inout CGSize, rhs: CGSize) {
-        lhs.width += rhs.width
-        lhs.height += rhs.height
-    }
-    
-    @inlinable static func -= (lhs: inout CGSize, rhs: CGSize) {
-        lhs.width -= rhs.width
-        lhs.height -= rhs.height
-    }
-
-    @inlinable static func *= (lhs: inout CGSize, rhs: CGSize) {
-        lhs.width *= rhs.width
-        lhs.height *= rhs.height
-    }
-
-    @inlinable static func *= (lhs: inout CGSize, scalar: CGFloat) {
-        lhs.width *= scalar
-        lhs.height *= scalar
     }
     
 }

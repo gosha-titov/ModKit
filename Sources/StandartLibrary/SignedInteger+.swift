@@ -6,7 +6,7 @@ public extension SignedInteger {
     ///     number.digits // [3, 1, 2]
     ///
     @inlinable var digits: [Int] {
-        return abs.toString.compactMap { $0.toInt }
+        return abs.toString().compactMap { $0.toInt() }
     }
 
     /// The absolute value of this integer.

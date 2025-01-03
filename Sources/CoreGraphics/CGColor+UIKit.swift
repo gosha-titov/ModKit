@@ -4,8 +4,10 @@ import UIKit
 
 public extension CGColor {
     
-    /// A UIColor value converted from this CGColor value.
-    @inlinable var toUIColor: UIColor { UIColor(cgColor: self) }
+    /// Return a UIColor value converted from this CGColor value.
+    @inlinable func toUIColor() -> UIColor {
+        return UIColor(cgColor: self)
+    }
     
 }
 

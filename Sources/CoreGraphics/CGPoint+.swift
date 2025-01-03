@@ -13,34 +13,90 @@ public extension CGPoint {
     }
     
     
-    // MARK: Operations
+    // MARK: Methods
     
-    @inlinable static func + (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
-        return CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
-    }
-    
-    @inlinable static func - (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
-        return CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
-    }
-
-    @inlinable static func * (point: CGPoint, scalar: CGFloat) -> CGPoint {
-        return CGPoint(x: point.x * scalar, y: point.y * scalar)
-    }
-    
-    @inlinable static func * (scalar: CGFloat, point: CGPoint) -> CGPoint {
-        return CGPoint(x: point.x * scalar, y: point.y * scalar)
+    /// Returns a new point replacing the current X-position with the specified one.
+    ///
+    ///     // Short way
+    ///     let newPoint = point.withX(newX)
+    ///
+    ///     // Manual way
+    ///     let newPoint = CGPoint(
+    ///         x: newX,
+    ///         y: point.y
+    ///     )
+    @inlinable func withX(_ newX: CGFloat) -> CGPoint {
+        return CGPoint(x: newX, y: y)
     }
     
-    @inlinable static func += (lhs: inout CGPoint, rhs: CGPoint) -> Void {
-        lhs = lhs + rhs
-    }
-
-    @inlinable static func -= (lhs: inout CGPoint, rhs: CGPoint) -> Void {
-        lhs = lhs - rhs
+    /// Returns a new point with the current X-position updated.
+    ///
+    ///     // Short way
+    ///     let newPoint = point.withX { $0 + 16 }
+    ///
+    ///     // Manual way
+    ///     let newPoint = CGPoint(
+    ///         x: point.x + 16,
+    ///         y: point.y
+    ///     )
+    @inlinable func withX(update: (CGFloat) -> CGFloat) -> CGPoint {
+        return withX(update(x))
     }
     
-    @inlinable static func *= (point: inout CGPoint, scalar: CGFloat) -> Void {
-        point = point * scalar
+    /// Returns a new point offsetting the current X-position by the specified value.
+    ///
+    ///     // Short way
+    ///     let newPoint = point.withX(offsetedBy: 16)
+    ///
+    ///     // Manual way
+    ///     let newPoint = CGPoint(
+    ///         x: point.x + 16,
+    ///         y: point.y
+    ///     )
+    @inlinable func withX(offsetBy xOffset: CGFloat) -> CGPoint {
+        return withX(x + xOffset)
+    }
+    
+    /// Returns a new point replacing the current Y-position with the specified one.
+    ///
+    ///     // Short way
+    ///     let newPoint = point.withY(newY)
+    ///
+    ///     // Manual way
+    ///     let newPoint = CGPoint(
+    ///         x: point.x,
+    ///         y: newY
+    ///     )
+    @inlinable func withY(_ newY: CGFloat) -> CGPoint {
+        return CGPoint(x: x, y: newY)
+    }
+    
+    /// Returns a new point with the current Y-position updated.
+    ///
+    ///     // Short way
+    ///     let newPoint = point.withY { $0 + 16 }
+    ///
+    ///     // Manual way
+    ///     let newPoint = CGPoint(
+    ///         x: point.x,
+    ///         y: point.y + 16
+    ///     )
+    @inlinable func withY(update: (CGFloat) -> CGFloat) -> CGPoint {
+        return withY(update(y))
+    }
+    
+    /// Returns a new point offsetting the current Y-position by the specified value.
+    ///
+    ///     // Short way
+    ///     let newPoint = point.withY(offsetedBy: 16)
+    ///
+    ///     // Manual way
+    ///     let newPoint = CGPoint(
+    ///         x: point.x,
+    ///         y: point.y + 16
+    ///     )
+    @inlinable func withY(offsetBy yOffset: CGFloat) -> CGPoint {
+        return withY(y + yOffset)
     }
     
 }

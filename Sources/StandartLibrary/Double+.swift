@@ -7,7 +7,7 @@ public extension Double {
     ///
     @inlinable var digits: [Int] {
         guard self != 0 else { return [0] } // otherwise, it returns [0, 0]
-        return abs.toString.compactMap { $0.toInt }
+        return abs.toString().compactMap { $0.toInt() }
     }
     
     /// The absolute value of this double value.
@@ -16,20 +16,6 @@ public extension Double {
     ///     number.abs // 30.8
     ///
     @inlinable var abs: Self { Swift.abs(self) }
-    
-    /// An Int value converted from this double value.
-    ///
-    ///     let number = 34.56
-    ///     number.toInt // 34
-    ///
-    @inlinable var toInt: Int { Int(self) }
-    
-    /// A String value converted from this double value.
-    ///
-    ///     let number = 13.24
-    ///     number.toString // "13.24"
-    ///
-    @inlinable var toString: String { String(self) }
     
     
     // MARK: Methods
@@ -59,8 +45,23 @@ public extension Double {
     ///     var time = 1.5
     ///     time.convertTime(from: .days, to: .minutes)  // 2160.0
     ///
-    @inlinable mutating func convertTime(from start: TimeUnit, to end: TimeUnit) -> Void {
+    @inlinable mutating func convertTime(from start: TimeUnit, to end: TimeUnit) {
         self = convertedTime(from: start, to: end)
     }
+    
+    
+    /// Returns an Int value converted from this double value.
+    ///
+    ///     let number = 34.56
+    ///     number.toInt // 34
+    ///
+    @inlinable func toInt() -> Int { Int(self) }
+    
+    /// Returns a String value converted from this double value.
+    ///
+    ///     let number = 13.24
+    ///     number.toString // "13.24"
+    ///
+    @inlinable func toString() -> String { String(self) }
     
 }

@@ -20,7 +20,7 @@ public extension Numeric {
     ///     var d = 1.5
     ///     d.raise(to: 3) // 3.375
     ///
-    @inlinable mutating func raise(to power: Int) -> Void {
+    @inlinable mutating func raise(to power: Int) {
         self = raised(to: power)
     }
     

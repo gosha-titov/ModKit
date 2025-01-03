@@ -1,21 +1,11 @@
 public extension String {
     
-    /// An optional Int value converted from this string.
-    ///
-    ///     let str = "213"
-    ///     str.toInt // Optional(213)
-    ///
-    @inlinable var toInt: Int? { Int(self) }
-    
-    /// An optional character converted from this string.
-    ///
-    ///     let str = "A"
-    ///     str.toCharacter! // Character("A")
-    ///
-    @inlinable var toCharacter: Character? { Character(self) }
-    
-    
-    // MARK: Methods
+    /// Returns a new string with the specified char appended.
+    @inlinable func appending(_ char: Character) -> String {
+        var copy = self
+        copy.append(char)
+        return copy
+    }
     
     /// Returns a string containing characters this string and the given string have in common,
     /// starting from the ending of each up to the first characters that aren’t equivalent.
@@ -30,8 +20,8 @@ public extension String {
         let str1 = self.last(min)
         let str2 = str .last(min)
         for (char1, char2) in zip(str1, str2).reversed() {
-            if char1 == char2 { suffix += char1 }
-            else { break }
+            guard char1 == char2 else { break }
+            suffix.append(char1)
         }
         return String(suffix.reversed())
     }
@@ -69,7 +59,7 @@ public extension String {
     ///     var str = "WorD"
     ///     str.uppercase() // "WORD"
     ///
-    @inlinable mutating func uppercase() -> Void {
+    @inlinable mutating func uppercase() {
         self = uppercased()
     }
     
@@ -78,24 +68,17 @@ public extension String {
     ///     var str = "WorD"
     ///     str.lowercase() // "word"
     ///
-    @inlinable mutating func lowercase() -> Void {
+    @inlinable mutating func lowercase() {
         self = lowercased()
     }
     
     
-    // MARK: Operators
-    
-    @inlinable static func += (lhs: inout String, rhs: Character) -> Void {
-        lhs = lhs + String(rhs)
-    }
-    
-    @inlinable static func + (lhs: String, rhs: Character) -> String {
-        return lhs + String(rhs)
-    }
-    
-    @inlinable static func + (lhs: Character, rhs: String) -> String {
-        return String(lhs) + rhs
-    }
+    /// Returns an optional Int value converted from this string.
+    ///
+    ///     let str = "213"
+    ///     str.toInt // Optional(213)
+    ///
+    @inlinable func toInt() -> Int? { Int(self) }
     
     
     // MARK: Subscripts

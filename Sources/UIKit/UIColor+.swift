@@ -44,9 +44,6 @@ public extension UIColor {
         return resolvedColor(with: traitCollection)
     }
     
-    /// A CGColor value converted from this UIColor value.
-    @inlinable var toCGColor: CGColor { cgColor }
-    
     
     // MARK: Methods
     
@@ -60,6 +57,9 @@ public extension UIColor {
         }
     }
     
+    /// Returns a CGColor value converted from this UIColor value.
+    @inlinable func toCGColor() -> CGColor { cgColor }
+    
     
     // MARK: Init
     
@@ -67,18 +67,18 @@ public extension UIColor {
     ///
     ///     let color = UIColor(hex: 0xC7508B)
     ///
-    @inlinable convenience init(hex value: Int) {
+    @inlinable convenience init(hex value: Int, alpha: CGFloat = 1.0) {
         self.init(
             red:   CGFloat((value & 0xFF0000) >> 16) / 255.0,
             green: CGFloat((value & 0x00FF00) >> 8) / 255.0,
             blue:  CGFloat(value & 0x0000FF) / 255.0,
-            alpha: CGFloat(1.0)
+            alpha: alpha
         )
     }
     
     /// Creates a color object using the specified hex string.
     ///
-    ///     let color = UIColor(hex: "#8F0A2D")
+    ///     let color = UIColor(hex: "#C7508B")
     ///
     @inlinable convenience init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
