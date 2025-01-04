@@ -1,3 +1,5 @@
+#if canImport(Foundation)
+
 import Foundation
 
 public extension NSMutableAttributedString {
@@ -26,3 +28,5 @@ public extension NSMutableAttributedString {
     }
     
 }
+
+#endif

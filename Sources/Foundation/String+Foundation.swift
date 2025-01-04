@@ -1,3 +1,5 @@
+#if canImport(Foundation)
+
 import Foundation
 
 public extension String {
@@ -89,3 +91,5 @@ public extension String {
     }
     
 }
+
+#endif

@@ -1,3 +1,5 @@
+#if canImport(CoreGraphics)
+
 import CoreGraphics
 
 public extension CGRect {
@@ -352,3 +354,5 @@ public extension CGRect {
     }
     
 }
+
+#endif

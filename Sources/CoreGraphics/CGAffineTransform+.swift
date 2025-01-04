@@ -1,3 +1,5 @@
+#if canImport(CoreGraphics)
+
 import CoreGraphics
 
 public extension CGAffineTransform {
@@ -10,3 +12,5 @@ public extension CGAffineTransform {
     }
     
 }
+
+#endif

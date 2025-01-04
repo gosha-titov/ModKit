@@ -1,3 +1,5 @@
+#if canImport(Foundation)
+
 import Foundation
 
 public extension NSAttributedString {
@@ -29,24 +31,20 @@ public extension NSAttributedString {
     /// If `nil` is specified, the given attributes are applied to the full string.
     @inlinable func applying(_ attributes: [Key: Any], inRange range: NSRange? = nil) -> NSAttributedString {
         guard !string.isEmpty else { return self }
-        let mutableCopy = mutable
-        mutableCopy.apply(attributes, inRange: range)
-        return mutableCopy
+        return mutating(mutable) { $0.apply(attributes, inRange: range) }
     }
     
 
     // MARK: Operators
 
     @inlinable static func + (lhs: NSAttributedString, rhs: NSAttributedString) -> NSAttributedString {
-        let mutableString = lhs.mutable
-        mutableString.append(rhs)
-        return mutableString
+        return mutating(lhs.mutable) { $0.append(rhs) }
     }
     
     @inlinable static func += (lhs: inout NSAttributedString, rhs: NSAttributedString) {
-        let mutableString = lhs.mutable
-        mutableString.append(rhs)
-        lhs = mutableString
+        lhs = mutating(lhs.mutable) { $0.append(rhs) }
     }
 
 }
+
+#endif

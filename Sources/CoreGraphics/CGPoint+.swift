@@ -1,3 +1,5 @@
+#if canImport(CoreGraphics)
+
 import CoreGraphics
 
 public extension CGPoint {
@@ -100,3 +102,5 @@ public extension CGPoint {
     }
     
 }
+
+#endif

@@ -1,3 +1,5 @@
+#if canImport(Foundation)
+
 import Foundation
 
 public extension Encodable {
@@ -18,3 +20,5 @@ public extension Encodable {
     }
     
 }
+
+#endif

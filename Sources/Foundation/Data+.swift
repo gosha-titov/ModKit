@@ -1,3 +1,5 @@
+#if canImport(Foundation)
+
 import Foundation
 
 public extension Data {
@@ -34,3 +36,5 @@ public extension Data {
     }
     
 }
+
+#endif

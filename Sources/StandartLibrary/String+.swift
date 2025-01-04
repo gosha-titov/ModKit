@@ -1,10 +1,14 @@
 public extension String {
     
+    /// Creates a string that has no characters.
+    @inlinable static var empty: Self { String() }
+    
+    
+    // MARK: Methods
+    
     /// Returns a new string with the specified char appended.
     @inlinable func appending(_ char: Character) -> String {
-        var copy = self
-        copy.append(char)
-        return copy
+        return mutating(self) { $0.append(char) }
     }
     
     /// Returns a string containing characters this string and the given string have in common,
@@ -25,6 +29,7 @@ public extension String {
         }
         return String(suffix.reversed())
     }
+    
     
     /// Returns the first K elements of the string.
     ///
@@ -53,6 +58,7 @@ public extension String {
         }
         return last
     }
+    
     
     /// Makes this string uppercase.
     ///

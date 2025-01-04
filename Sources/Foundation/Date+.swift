@@ -1,3 +1,5 @@
+#if canImport(Foundation)
+
 import Foundation
 
 public extension Date {
@@ -51,3 +53,5 @@ public extension Date {
     }
     
 }
+
+#endif

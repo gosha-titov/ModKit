@@ -1,3 +1,5 @@
+#if canImport(Foundation)
+
 import Foundation
 
 public extension SingleValueDecodingContainer {
@@ -57,3 +59,5 @@ public extension KeyedDecodingContainer {
     }
     
 }
+
+#endif

@@ -71,9 +71,7 @@ public extension BinaryInteger {
     ///     9.clamped(to: limits) // 8
     ///
     @inlinable func clamped(to limits: ClosedRange<Self>) -> Self {
-        if self > limits.upperBound { return limits.upperBound }
-        if self < limits.lowerBound { return limits.lowerBound }
-        return self
+        return max(limits.lowerBound, min(self, limits.upperBound))
     }
     
     /// Returns an integer clamped to the given limiting range.

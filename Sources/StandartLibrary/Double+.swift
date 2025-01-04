@@ -10,13 +10,6 @@ public extension Double {
         return abs.toString().compactMap { $0.toInt() }
     }
     
-    /// The absolute value of this double value.
-    ///
-    ///     let number = -30.8
-    ///     number.abs // 30.8
-    ///
-    @inlinable var abs: Self { Swift.abs(self) }
-    
     
     // MARK: Methods
     
