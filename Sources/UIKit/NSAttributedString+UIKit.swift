@@ -54,6 +54,27 @@ public extension NSAttributedString {
         return applying([.shadow: shadow], inRange: range)
     }
     
+    
+    /// Calculates the width for the container rectangle necessary to draw the string.
+    @inlinable func width(basedOn containerHeight: CGFloat) -> CGFloat {
+        let rect = boundingRect(
+            with: CGSize(width: .greatestFiniteMagnitude, height: containerHeight),
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            context: nil
+        )
+        return ceil(rect.size.width)
+    }
+    
+    /// Calculates the height for the container rectangle necessary to draw the string.
+    @inlinable func height(basedOn containerWidth: CGFloat) -> CGFloat {
+        let rect = boundingRect(
+            with: CGSize(width: containerWidth, height: .greatestFiniteMagnitude),
+            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            context: nil
+        )
+        return ceil(rect.size.height)
+    }
+    
 }
 
 #endif
