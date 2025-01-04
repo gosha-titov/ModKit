@@ -1,5 +1,12 @@
 public extension FloatingPoint {
     
+    /// The absolute value of this double value.
+    ///
+    ///     let number = -30.8
+    ///     number.abs // 30.8
+    ///
+    @inlinable var abs: Self { Swift.abs(self) }
+    
     /// A value converted from the value of this instance in degrees to a value in radians.
     ///
     ///     let angle = 120.0
@@ -49,6 +56,25 @@ public extension FloatingPoint {
     ///
     @inlinable mutating func clamp(to limits: ClosedRange<Self>) {
         self = clamped(to: limits)
+    }
+    
+    
+    /// Returns this value rounded to the specified decimal places using the specified rounding rule.
+    ///
+    ///     let pi = 3.14159
+    ///
+    ///     print(pi.rounded(toDecimalPlaces: 3, rule: .toNearestOrAwayFromZero))
+    ///     // Prints "3.142"
+    ///
+    ///     print(pi.rounded(toDecimalPlaces: 3, rule: .up)
+    ///     // Prints "3.142"
+    ///
+    ///     print(pi.rounded(toDecimalPlaces: 3, rule: .down)
+    ///     // Prints "3.141"
+    ///
+    @inlinable func rounded(toDecimalPlaces number: Int, rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> Self {
+        let factor = Self(10.raised(to: number))
+        return (self * factor).rounded(rule) / factor
     }
     
 }
