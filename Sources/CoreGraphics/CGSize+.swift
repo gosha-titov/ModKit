@@ -1,3 +1,5 @@
+#if canImport(CoreGraphics)
+
 import CoreGraphics
 
 public extension CGSize {
@@ -49,17 +51,6 @@ public extension CGSize {
     
     // MARK: Methods
     
-    /// Scales this size by multiplying the width and height by the specified scale factor.
-    ///
-    ///     var size = CGSize(width: 100, height: 50)
-    ///     size.scale(by: 1.5)
-    ///     // CGSize(width: 150, height: 75)
-    ///
-    @inlinable mutating func scale(by scale: CGFloat) {
-        width *= scale
-        height *= scale
-    }
-    
     /// Returns a new size with the width and height multiplied by the specified scale factor.
     ///
     ///     let size = CGSize(width: 100, height: 50)
@@ -68,6 +59,18 @@ public extension CGSize {
     ///
     @inlinable func scaled(by scale: CGFloat) -> CGSize {
         return CGSize(width: width * scale, height: height * scale)
+    }
+    
+    /// Returns a new size with the width and height scaled so that it can fit the specified size, while maintaining the source aspect ratio.
+    ///
+    ///     let size = CGSize(width: 100, height: 50)
+    ///
+    ///     size.scaledToFit(to: CGSize(width: 80, height: 80)
+    ///     // CGSize(width: 80, height: 40)
+    ///
+    @inlinable func scaledToFit(to boundingSize: CGSize) -> CGSize {
+        let ratio = min(boundingSize.width / width, boundingSize.height / height)
+        return CGSize(width: width * ratio, height: height * ratio)
     }
     
     
@@ -143,3 +146,5 @@ public extension CGSize {
     }
     
 }
+
+#endif
