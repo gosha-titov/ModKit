@@ -4,21 +4,40 @@ import UIKit
 
 public extension UIScrollView {
     
-    /// Scrolls to top by setting the content offset to zero.
-    /// - Parameter animated: Specify `true` to animate scroll transition, or `false` if you do not want the scroll transition to be animated.
-    /// The default value is `true`.
+    /// Scrolls to top by setting the content offset to the top point.
+    /// - Parameter animated: Specify `true` to animate the transition at a constant
+    ///   velocity to the new offset, `false` to make the transition immediate.
     @inlinable func scrollToTop(animated: Bool = true) {
-        setContentOffset(.zero, animated: animated)
+        let topPoint = CGPoint(x: contentOffset.x, y: .zero)
+        setContentOffset(topPoint, animated: animated)
+    }
+    
+    /// Scrolls to left by setting the content offset to the left point.
+    /// - Parameter animated: Specify `true` to animate the transition at a constant
+    ///   velocity to the new offset, `false` to make the transition immediate.
+    @inlinable func scrollToLeft(animated: Bool = true) {
+        let leftPoint = CGPoint(x: .zero, y: contentOffset.y)
+        setContentOffset(leftPoint, animated: animated)
     }
     
     /// Scrolls to bottom by setting the content offset to the bottom point.
-    /// - Parameter animated: Specify `true` to animate scroll transition, or `false` if you do not want the scroll transition to be animated.
-    /// The default value is `true`.
+    /// - Parameter animated: Specify `true` to animate the transition at a constant
+    ///   velocity to the new offset, `false` to make the transition immediate.
     @inlinable func scrollToBottom(animated: Bool = true) {
         let yOffset: CGFloat = contentSize.height - bounds.size.height
         guard yOffset > 0 else { return }
-        let offset = CGPoint(x: 0, y: yOffset)
-        setContentOffset(offset, animated: animated)
+        let bottomPoint = CGPoint(x: contentOffset.x, y: yOffset)
+        setContentOffset(bottomPoint, animated: animated)
+    }
+    
+    /// Scrolls to bottom by setting the content offset to the bottom point.
+    /// - Parameter animated: Specify `true` to animate the transition at a constant
+    ///   velocity to the new offset, `false` to make the transition immediate.
+    @inlinable func scrollToRight(animated: Bool = true) {
+        let xOffset: CGFloat = contentSize.width - bounds.size.width
+        guard xOffset > 0 else { return }
+        let rightPoint = CGPoint(x: xOffset, y: contentOffset.y)
+        setContentOffset(rightPoint, animated: animated)
     }
     
     /// Zooms to a specific point of the content so that it’s visible in the scroll view.
