@@ -51,6 +51,54 @@ public extension CGSize {
     
     // MARK: Methods
     
+    /// Returns a new size with the width and height scaled so that it can fit the specified size, while maintaining the source aspect ratio.
+    ///
+    ///     let size = CGSize(width: 100, height: 50)
+    ///
+    ///     size.scaledToFit(to: CGSize(width: 80, height: 80)
+    ///     // CGSize(width: 80, height: 40)
+    ///
+    ///     size.scaledToFit(to: CGSize(width: 120, height: 120)
+    ///     // CGSize(width: 120, height: 60)
+    ///
+    /// - Note: The result's dimensions are not greater than the corresponding dimensions of the specified size.
+    @inlinable func scaledToFit(to boundingSize: CGSize) -> CGSize {
+        let widthRatio = boundingSize.width / width
+        let heightRatio = boundingSize.height / height
+        // In order to avoid inaccuracy like 99.99999 instead of 100.0
+        if widthRatio < heightRatio {
+            return CGSize(width: boundingSize.width, height: height * widthRatio)
+        } else if heightRatio < widthRatio {
+            return CGSize(width: width * heightRatio, height: boundingSize.height)
+        } else {
+            return boundingSize
+        }
+    }
+    
+    /// Returns a new size with the width and height scaled so that it can fill the specified size, while maintaining the source aspect ratio.
+    ///
+    ///     let size = CGSize(width: 100, height: 50)
+    ///
+    ///     size.scaledToFit(to: CGSize(width: 80, height: 80)
+    ///     // CGSize(width: 160, height: 80)
+    ///
+    ///     size.scaledToFit(to: CGSize(width: 120, height: 120)
+    ///     // CGSize(width: 240, height: 120)
+    ///
+    /// - Note: The result's dimensions are not less than the corresponding dimensions of the specified size.
+    @inlinable func scaledToFill(to boundingSize: CGSize) -> CGSize {
+        let widthRatio = boundingSize.width / width
+        let heightRatio = boundingSize.height / height
+        // In order to avoid inaccuracy like 99.99999 instead of 100.0
+        if widthRatio > heightRatio {
+            return CGSize(width: boundingSize.width, height: height * widthRatio)
+        } else if heightRatio > widthRatio {
+            return CGSize(width: width * heightRatio, height: boundingSize.height)
+        } else {
+            return boundingSize
+        }
+    }
+    
     /// Returns a new size with the width and height multiplied by the specified scale factor.
     ///
     ///     let size = CGSize(width: 100, height: 50)
@@ -59,18 +107,6 @@ public extension CGSize {
     ///
     @inlinable func scaled(by scale: CGFloat) -> CGSize {
         return CGSize(width: width * scale, height: height * scale)
-    }
-    
-    /// Returns a new size with the width and height scaled so that it can fit the specified size, while maintaining the source aspect ratio.
-    ///
-    ///     let size = CGSize(width: 100, height: 50)
-    ///
-    ///     size.scaledToFit(to: CGSize(width: 80, height: 80)
-    ///     // CGSize(width: 80, height: 40)
-    ///
-    @inlinable func scaledToFit(to boundingSize: CGSize) -> CGSize {
-        let ratio = min(boundingSize.width / width, boundingSize.height / height)
-        return CGSize(width: width * ratio, height: height * ratio)
     }
     
     
