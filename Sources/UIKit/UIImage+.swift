@@ -39,15 +39,46 @@ public extension UIImage {
             context.cgContext.drawLinearGradient(gradient, start: startPoint, end: endPoint, options: options)
         }
     }
+        
+    /// Returns an average color of this image.
+    @inlinable func averageColor() -> UIColor? {
+        guard let ciImage = ciImage ?? CIImage(image: self) else { return nil }
+        let parameters = [kCIInputImageKey: ciImage, kCIInputExtentKey: CIVector(cgRect: ciImage.extent)]
+        let filter = CIFilter(name: "CIAreaAverage", parameters: parameters)
+        guard let outputImage = filter?.outputImage else { return nil }
+        var bitmap = [UInt8](repeating: 0, count: 4)
+        let workingColorSpace: Any = cgImage?.colorSpace ?? NSNull()
+        let context = CIContext(options: [.workingColorSpace: workingColorSpace])
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        context.render(
+            outputImage, toBitmap: &bitmap, rowBytes: 4,
+            bounds: rect, format: .RGBA8, colorSpace: nil
+        )
+        return UIColor(
+            red:   CGFloat(bitmap[0]) / 255.0,
+            green: CGFloat(bitmap[1]) / 255.0,
+            blue:  CGFloat(bitmap[2]) / 255.0,
+            alpha: CGFloat(bitmap[3]) / 255.0
+        )
+    }
     
-    /// Returns a created image fully filled with the specified color.
-    ///
-    ///     let image: UIImage = .filled(withColor: .red)
-    ///
-    @inlinable static func filled(withColor color: UIColor, size: CGSize = CGSize(dimension: 1)) -> UIImage {
-        return UIGraphicsImageRenderer(size: size).image { rendererContext in
-            color.setFill()
-            rendererContext.fill(CGRect(origin: .zero, size: size))
+    
+    /// Returns a new version of the current image with rounded corners
+    /// - Parameter radius: The radius of each corner. A value of 0 results in an image without rounded corners.
+    ///   Values larger than half the rectangle’s width or height are clamped appropriately to half the width or height.
+    ///   If `nil` is specified, the maximum possible radius is used to round corners.
+    @inlinable func withRoundedCorners(ofRadius radius: CGFloat? = nil) -> UIImage {
+        let maxRadius = size.minDimension / 2
+        let radius = if let radius { radius.clamped(to: 0...maxRadius) } else { maxRadius }
+        guard radius > 0 else { return self }
+        let rect = CGRect(origin: .zero, size: size)
+        let bezierPath = UIBezierPath(roundedRect: rect, cornerRadius: radius)
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = scale
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+        return renderer.image { _ in
+            bezierPath.addClip()
+            draw(in: rect)
         }
     }
     
@@ -57,10 +88,34 @@ public extension UIImage {
             width: size.width + insets.left + insets.right,
             height: size.height + insets.top + insets.bottom
         )
-        return UIGraphicsImageRenderer(size: newSize).image { rendererContext in
+        return UIGraphicsImageRenderer(size: newSize).image { _ in
             let origin = CGPoint(x: insets.left, y: insets.top)
             draw(at: origin)
         }
+    }
+    
+    
+    // MARK: Inits
+    
+    /// Creates an image fully filled with the specified color.
+    ///
+    ///     let image = UIImage(color: .red)
+    ///
+    /// - Parameter color: The color that will fill an entire result image.
+    /// - Parameter size: The size of a result image.
+    @inlinable convenience init(color: UIColor, size: CGSize = CGSize(dimension: 1)) {
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = 1
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+        let image = renderer.image { context in
+            color.setFill()
+            context.fill(context.format.bounds)
+        }
+        guard let cgImage = image.cgImage else {
+            self.init()
+            return
+        }
+        self.init(cgImage: cgImage)
     }
     
 }
