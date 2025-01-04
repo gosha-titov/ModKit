@@ -1,11 +1,6 @@
 public extension Array {
     
     /// Creates an array that has no elements.
-    ///
-    /// Example of usage:
-    ///
-    ///     let c = Configuration(parameters: .empty)
-    ///
     @inlinable static var empty: Self { [] }
     
     
@@ -17,10 +12,7 @@ public extension Array {
     ///     array.rearrangingElement(from: 3, to: 1) // ["a", "d", "b", "c"]
     ///
     @inlinable func rearrangingElement(from indexToRemove: Int, to indexToInsert: Int) -> Self {
-        var mutableSelf = self
-        let element = mutableSelf.remove(at: indexToRemove)
-        mutableSelf.insert(element, at: indexToInsert)
-        return mutableSelf
+        return mutating(self) { $0.rearrangeElement(from: indexToRemove, to: indexToInsert) }
     }
     
     /// Rearranges an element from one specific position to another.
@@ -29,7 +21,18 @@ public extension Array {
     ///     array.rearrangeElement(from: 3, to: 1) // ["a", "d", "b", "c"]
     ///
     @inlinable mutating func rearrangeElement(from indexToRemove: Int, to indexToInsert: Int) {
-        self = rearrangingElement(from: indexToRemove, to: indexToInsert)
+        let element = remove(at: indexToRemove)
+        insert(element, at: indexToInsert)
+    }
+    
+    
+    /// Adds the elements of a sequence to the end of the array.
+    ///
+    ///     var array = [0, 1]
+    ///     array.append([2, 3]) // [0, 1, 2, 3]
+    ///
+    @inlinable mutating func append(_ newElements: any Sequence<Element>) {
+        append(contentsOf: newElements)
     }
     
     /// Returns a new array with the specified element appended.
@@ -37,18 +40,56 @@ public extension Array {
     ///     let array = [0, 1]
     ///     array.appending(2) // [0, 1, 2]
     ///
-    @inlinable func appending(_ element: Element) -> Self {
-        return self + [element]
+    @inlinable func appending(_ newElement: Element) -> Self {
+        return mutating(self) { $0.append(newElement) }
     }
     
-    /// Returns a new array with the specified elements appended.
+    /// Returns a new array with the elements of the specified sequence added to the end of the array.
     ///
     ///     let array = [0, 1]
     ///     array.appending([2, 3]) // [0, 1, 2, 3]
     ///
-    @inlinable func appending(_ elements: [Element]) -> Self {
-        return self + elements
+    @inlinable func appending(_ newElements: any Sequence<Element>) -> Self {
+        return mutating(self) { $0.append(newElements) }
     }
+    
+    
+    /// Adds a new element at the beginning of the array.
+    ///
+    ///     var array = [1, 2, 3]
+    ///     array.prepend(0) // [0, 1, 2, 3]
+    ///
+    @inlinable mutating func prepend(_ newElement: Element) {
+        insert(newElement, at: .zero)
+    }
+    
+    /// Adds the elements of a sequence to the beginning of the array.
+    ///
+    ///     var array = [2, 3]
+    ///     array.prepend([0, 1]) // [0, 1, 2, 3]
+    ///
+    @inlinable mutating func prepend(_ newElements: any Collection<Element>) {
+        insert(contentsOf: newElements, at: .zero)
+    }
+    
+    /// Returns a new array with the specified element added at the beginning of the array.
+    ///
+    ///     var array = [1, 2, 3]
+    ///     array.prepend(0) // [0, 1, 2, 3]
+    ///
+    @inlinable func prepending(_ newElement: Element) -> Self {
+        return mutating(self) { $0.prepend(newElement) }
+    }
+    
+    /// Returns a new array with the specified elements of a sequence added to the beginning of the array.
+    ///
+    ///     let array = [2, 3]
+    ///     array.prepending([0, 1]) // [0, 1, 2, 3]
+    ///
+    @inlinable mutating func prepending(_ newElements: any Collection<Element>) -> Self {
+        return mutating(self) { $0.prepend(newElements) }
+    }
+    
     
     /// Returns the first K elements of this array.
     ///
@@ -56,7 +97,7 @@ public extension Array {
     ///     arr.first(3) // [1, 2, 3]
     ///
     @inlinable func first(_ k: Int) -> Self {
-        guard k > 0 else { return self }
+        guard k > 0 else { return .empty }
         let k = k.clamped(to: 0...count)
         return Array(self[0..<k])
     }
@@ -67,7 +108,7 @@ public extension Array {
     ///     arr.last(3) // [3, 4, 5]
     ///
     @inlinable func last(_ k: Int) -> Self {
-        guard k > 0 else { return self }
+        guard k > 0 else { return .empty }
         let k = k.clamped(to: 0...count)
         return Array(self[(count - k)..<count])
     }
@@ -80,10 +121,10 @@ public extension Array where Element: Equatable {
     /// Returns a new array containing all but the specified elements.
     ///
     ///     let array = [1, 2, 3, 2, 4]
-    ///     array.removing([2, 4]) // [1, 3]
+    ///     array.removingAll(contentsOf: [2, 4]) // [1, 3]
     ///
-    @inlinable func removing(_ elements: [Element]) -> Self {
-        return filter { !elements.contains($0) }
+    @inlinable func removing(_ oldElements: any Sequence<Element>) -> Self {
+        return mutating(self) { $0.remove(oldElements) }
     }
     
     /// Returns a new array containing all but the specified element.
@@ -91,27 +132,28 @@ public extension Array where Element: Equatable {
     ///     let array = [1, 2, 3, 2, 4]
     ///     array.removing(2) // [1, 3, 4]
     ///
-    @inlinable func removing(_ element: Element) -> Self {
-        return filter { $0 != element }
+    @inlinable func removing(_ oldElement: Element) -> Self {
+        return mutating(self) { $0.remove(oldElement) }
     }
     
-    /// Removes the specified elements from the array.
+    /// Removes all the specified elements from the array.
     ///
     ///     var array = [1, 2, 3, 2, 4]
-    ///     array.remove([2, 4]) // [1, 3]
+    ///     array.removeAll(contentsOf: [2, 4]) // [1, 3]
     ///
-    @inlinable mutating func remove(_ elements: [Element]) {
-        self = removing(elements)
+    @inlinable mutating func remove(_ oldElements: any Sequence<Element>) {
+        removeAll(where: { oldElements.contains($0) })
     }
     
-    /// Removes the specified elements from the array.
+    /// Removes all the elements equal to the specified one from the array.
     ///
     ///     var array = [1, 2, 3, 2, 4]
-    ///     array.remove(2) // [1, 3, 4]
+    ///     array.removeAll(2) // [1, 3, 4]
     ///
-    @inlinable func remove(_ element: Element) -> Self {
-        return filter { $0 != element }
+    @inlinable mutating func remove(_ oldElement: Element) {
+        removeAll(where: { $0 == oldElement })
     }
+    
     
     /// Returns a new array containing all but duplicates, leaving only the first element of them.
     ///
@@ -119,11 +161,11 @@ public extension Array where Element: Equatable {
     ///     array.removingDuplicates() // [1, 2, 3, 4, 5]
     ///
     @inlinable func removingDuplicates() -> Self {
-        var result = [Element]()
-        for element in self where !result.contains(element) {
-            result.append(element)
+        return reduce(into: .empty) { result, element in
+            if result.contains(element) == false {
+                result.append(element)
+            }
         }
-        return result
     }
     
     /// Removes all duplicate elements, leaving only the first element of them.
@@ -135,15 +177,16 @@ public extension Array where Element: Equatable {
         self = removingDuplicates()
     }
     
+    
     /// Returns a Boolean value that indicates whether the sequence contains all the given elements.
     ///
     ///     let array = [3, 1, 4, 1, 5]
-    ///     array.contains([5, 4, 6]) // false
-    ///     array.contains([5, 4])    // true
+    ///     array.containsAll([5, 4, 6]) // false
+    ///     array.containsAll([5, 4])    // true
     ///
     /// - Parameter elements: The elements to find in the sequence.
-    /// - Returns: `true` if all elements were found in the sequence; otherwise, `false`.
-    @inlinable func contains(_ elements: [Element]) -> Bool {
+    /// - Returns: `True` if all elements were found in the sequence; otherwise, `false`.
+    @inlinable func containsAll(_ elements: any Sequence<Element>) -> Bool {
         for element in elements {
             guard contains(element) else { return false }
         }
