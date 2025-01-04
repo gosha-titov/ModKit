@@ -42,12 +42,7 @@ public extension CGRect {
     ///
     @inlinable var topPoint: CGPoint {
         get { return CGPoint(x: midX, y: minY) }
-        set {
-            origin = CGPoint(
-                x: newValue.x - width  / 2.0,
-                y: newValue.y
-            )
-        }
+        set { origin = newValue.withX(offsetBy: -width / 2) }
     }
     
     /// The point associated with the top-right point of this rectangle, settable.
@@ -63,12 +58,7 @@ public extension CGRect {
     ///
     @inlinable var topRightPoint: CGPoint {
         get { return CGPoint(x: maxX, y: minY) }
-        set {
-            origin = CGPoint(
-                x: newValue.x - width,
-                y: newValue.y
-            )
-        }
+        set { origin = newValue.withX(offsetBy: -width) }
     }
     
     /// The point associated with the middle-left point of this rectangle, settable.
@@ -84,12 +74,7 @@ public extension CGRect {
     ///
     @inlinable var leftPoint: CGPoint {
         get { return CGPoint(x: minX, y: midY) }
-        set {
-            origin = CGPoint(
-                x: newValue.x,
-                y: newValue.y - height / 2.0
-            )
-        }
+        set { origin = newValue.withY(offsetBy: -height / 2) }
     }
     
     /// The point associated with the center of this rectangle, settable.
@@ -105,12 +90,7 @@ public extension CGRect {
     ///
     @inlinable var center: CGPoint {
         get { return CGPoint(x: midX, y: midY) }
-        set {
-            origin = CGPoint(
-                x: newValue.x - width  / 2.0,
-                y: newValue.y - height / 2.0
-            )
-        }
+        set { origin = newValue.offsetBy(dx: -width / 2, dy: -height / 2) }
     }
     
     /// The point associated with the middle-right point of this rectangle, settable.
@@ -126,12 +106,7 @@ public extension CGRect {
     ///
     @inlinable var rightPoint: CGPoint {
         get { return CGPoint(x: maxX, y: midY) }
-        set {
-            origin = CGPoint(
-                x: newValue.x - width,
-                y: newValue.y - height / 2.0
-            )
-        }
+        set { origin = newValue.offsetBy(dx: -width, dy: -height / 2) }
     }
     
     /// The point associated with the bottom-left point of this rectangle, settable.
@@ -147,12 +122,7 @@ public extension CGRect {
     ///
     @inlinable var bottomLeftPoint: CGPoint {
         get { return CGPoint(x: minX, y: maxY) }
-        set {
-            origin = CGPoint(
-                x: newValue.x,
-                y: newValue.y - height
-            )
-        }
+        set { origin = newValue.withY(offsetBy: -height) }
     }
     
     /// The point associated with the bottom-middle point of this rectangle, settable.
@@ -168,12 +138,7 @@ public extension CGRect {
     ///
     @inlinable var bottomPoint: CGPoint {
         get { return CGPoint(x: midX, y: maxY) }
-        set {
-            origin = CGPoint(
-                x: newValue.x - width  / 2.0,
-                y: newValue.y - height
-            )
-        }
+        set { origin = newValue.offsetBy(dx: -width / 2, dy: -height) }
     }
     
     /// The point associated with the bottom-right point of this rectangle, settable.
@@ -189,12 +154,7 @@ public extension CGRect {
     ///
     @inlinable var bottomRightPoint: CGPoint {
         get { return CGPoint(x: maxX, y: maxY) }
-        set {
-            origin = CGPoint(
-                x: newValue.x - width,
-                y: newValue.y - height
-            )
-        }
+        set { origin = newValue.offsetBy(dx: -width, dy: -height) }
     }
     
     
@@ -217,13 +177,13 @@ public extension CGRect {
     /// Returns a new rectangle with the current origin updated.
     ///
     ///     // Short way
-    ///     let newRect = rect.withOrigin { $0.withY(.zero) }
+    ///     let newRect = rect.withOrigin { $0.withY(offsetBy: 16) }
     ///
     ///     // Manual way
     ///     let newRect = CGRect(
     ///         origin: CGPoint(
     ///             x: rect.origin.x,
-    ///             y: .zero
+    ///             y: rect.origin.y + 16
     ///         ),
     ///         size: size
     ///     )
@@ -331,7 +291,7 @@ public extension CGRect {
     }
     
     
-    // MARK: Init
+    // MARK: Inits
     
     /// Creates a rectangle with dimensions specified as CGFloat values and the origin at zero.
     @inlinable init(width: CGFloat, height: CGFloat) {
@@ -341,10 +301,7 @@ public extension CGRect {
     
     /// Creates a rectangle with the specified center and size.
     @inlinable init(center: CGPoint, size: CGSize) {
-        let origin = CGPoint(
-            x: center.x - size.width / 2.0,
-            y: center.y - size.height / 2.0
-        )
+        let origin = center.offsetBy(dx: -size.width / 2, dy: -size.height / 2)
         self.init(origin: origin, size: size)
     }
     

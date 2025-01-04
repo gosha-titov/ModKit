@@ -17,6 +17,20 @@ public extension CGPoint {
     
     // MARK: Methods
     
+    /// Returns a new point offsetting the current X- and Y- positions by the specified values.
+    ///
+    ///     // Short way
+    ///     let newPoint = point.offsetBy(dx: 8, dy: 16)
+    ///
+    ///     // Manual way
+    ///     let newPoint = CGPoint(
+    ///         x: point.x + 8,
+    ///         y: point.y + 16
+    ///     )
+    @inlinable func offsetBy(dx: CGFloat, dy: CGFloat) -> CGPoint {
+        return CGPoint(x: x + dx, y: y + dy)
+    }
+    
     /// Returns a new point replacing the current X-position with the specified one.
     ///
     ///     // Short way
@@ -34,11 +48,11 @@ public extension CGPoint {
     /// Returns a new point with the current X-position updated.
     ///
     ///     // Short way
-    ///     let newPoint = point.withX { $0 + 16 }
+    ///     let newPoint = point.withX { $0 * 2 }
     ///
     ///     // Manual way
     ///     let newPoint = CGPoint(
-    ///         x: point.x + 16,
+    ///         x: point.x * 2,
     ///         y: point.y
     ///     )
     @inlinable func withX(update: (CGFloat) -> CGFloat) -> CGPoint {
@@ -76,12 +90,12 @@ public extension CGPoint {
     /// Returns a new point with the current Y-position updated.
     ///
     ///     // Short way
-    ///     let newPoint = point.withY { $0 + 16 }
+    ///     let newPoint = point.withY { $0 * 2 }
     ///
     ///     // Manual way
     ///     let newPoint = CGPoint(
     ///         x: point.x,
-    ///         y: point.y + 16
+    ///         y: point.y * 2
     ///     )
     @inlinable func withY(update: (CGFloat) -> CGFloat) -> CGPoint {
         return withY(update(y))
