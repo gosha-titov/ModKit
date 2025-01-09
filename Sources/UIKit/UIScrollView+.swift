@@ -4,6 +4,14 @@ import UIKit
 
 public extension UIScrollView {
     
+    /// The rectangle of the currently visible area.
+    @inlinable var visibleRect: CGRect {
+        return CGRect(origin: contentOffset, size: bounds.size)
+    }
+    
+    
+    // MARK: Methods
+    
     /// Scrolls to top by setting the content offset to the top point.
     /// - Parameter animated: Specify `true` to animate the transition at a constant
     ///   velocity to the new offset, `false` to make the transition immediate.
