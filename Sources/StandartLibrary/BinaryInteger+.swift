@@ -10,7 +10,6 @@ public extension BinaryInteger {
     ///     // Prints "N is 2"
     ///
     /// - Parameter body: A closure that takes the current loop number as a parameter.
-    ///
     @inlinable func times(_ body: (Int) -> Void) {
         guard self > 0 else { return }
         for n in 0..<Int(self) { body(n) }

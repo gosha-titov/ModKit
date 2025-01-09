@@ -8,8 +8,8 @@ public extension Sequence {
     ///     )
     ///     // Prints "0, 2, 4"
     ///
-    @inlinable func forEach(where condition: (Element) throws -> Bool, body: (Element) throws -> Void) rethrows {
-        try lazy.filter(condition).forEach(body)
+    @inlinable func forEach(where isIncluded: (Element) throws -> Bool, body: (Element) throws -> Void) rethrows {
+        try lazy.filter(isIncluded).forEach(body)
     }
     
 }

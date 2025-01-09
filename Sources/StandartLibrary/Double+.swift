@@ -46,14 +46,14 @@ public extension Double {
     /// Returns an Int value converted from this double value.
     ///
     ///     let number = 34.56
-    ///     number.toInt // 34
+    ///     number.toInt() // 34
     ///
     @inlinable func toInt() -> Int { Int(self) }
     
     /// Returns a String value converted from this double value.
     ///
     ///     let number = 13.24
-    ///     number.toString // "13.24"
+    ///     number.toString() // "13.24"
     ///
     @inlinable func toString() -> String { String(self) }
     

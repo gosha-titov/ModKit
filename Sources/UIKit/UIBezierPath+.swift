@@ -5,28 +5,36 @@ import UIKit
 public extension UIBezierPath {
     
     /// Creates and returns a new Bézier path object with a rounded rectangular path.
+    /// - Parameter rect: The rectangle that defines the basic shape of the path.
+    /// - Parameter topLeftCornerRadius: The radius of the top-left corner oval.
+    /// - Parameter topRightCornerRadius: The radius of the top-right corner oval.
+    /// - Parameter bottomLeftCornerRadius: The radius of the bottom-left corner oval.
+    /// - Parameter bottomRigthCornerRadius: The radius of the bottom-right corner oval.
     @inlinable convenience init(
         roundedRect rect: CGRect,
-        topLeftRadius: CGFloat,
-        topRightRadius: CGFloat,
-        bottomLeftRadius: CGFloat,
-        bottomRightRadius: CGFloat
+        topLeftCornerRadius: CGFloat, topRightCornerRadius: CGFloat,
+        bottomLeftCornerRadius: CGFloat, bottomRightCornerRadius: CGFloat
     ) {
         self.init(
             roundedRect: rect,
-            topLeftRadius: CGSize(dimension: topLeftRadius),
-            topRightRadius: CGSize(dimension: topRightRadius),
-            bottomLeftRadius: CGSize(dimension: bottomLeftRadius),
-            bottomRightRadius: CGSize(dimension: bottomRightRadius)
+            topLeftCornerRadius: CGSize(dimension: topLeftCornerRadius),
+            topRightCornerRadius: CGSize(dimension: topRightCornerRadius),
+            bottomLeftCornerRadius: CGSize(dimension: bottomLeftCornerRadius),
+            bottomRightCornerRadius: CGSize(dimension: bottomRightCornerRadius)
         )
     }
     
     
     /// Creates and returns a new Bézier path object with a rounded rectangular path.
+    /// - Parameter rect: The rectangle that defines the basic shape of the path.
+    /// - Parameter topLeftCornerRadius: The radius of the top-left corner oval.
+    /// - Parameter topRightCornerRadius: The radius of the top-right corner oval.
+    /// - Parameter bottomLeftCornerRadius: The radius of the bottom-left corner oval.
+    /// - Parameter bottomRigthCornerRadius: The radius of the bottom-right corner oval.
     @inlinable convenience init(
         roundedRect rect: CGRect,
-        topLeftRadius radius1: CGSize, topRightRadius radius2: CGSize,
-        bottomLeftRadius radius4: CGSize, bottomRightRadius radius3: CGSize
+        topLeftCornerRadius radius1: CGSize, topRightCornerRadius radius2: CGSize,
+        bottomLeftCornerRadius radius4: CGSize, bottomRightCornerRadius radius3: CGSize
     ) {
         self.init()
         let path = CGMutablePath()

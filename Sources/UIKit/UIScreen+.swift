@@ -6,7 +6,8 @@ public extension UIScreen {
     
     /// The corner radius of the device screen.
     ///
-    ///     let cornerRadius = window?.screen.displayCornerRadius ?? .zero
+    ///     let cornerRadius = window?.screen.displayCornerRadius
+    ///     print(cornerRadius) // Prints 55.0
     ///
     var displayCornerRadius: CGFloat {
         // https://github.com/yihui-hu/YUI/blob/main/YUI/Utils/UIScreen%2BExtensions.swift
