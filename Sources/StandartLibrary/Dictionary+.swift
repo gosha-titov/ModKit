@@ -1,11 +1,6 @@
 public extension Dictionary {
     
     /// Creates a dictionary that has no key-value pairs.
-    ///
-    /// Example of usage:
-    ///
-    ///     let c = Configuration(attributes: .empty)
-    ///
     @inlinable static var empty: Self { [:] }
     
     
@@ -84,30 +79,31 @@ public extension Dictionary {
 
 public extension Dictionary where Value: Equatable {
     
-    /// Returns a key of the given value; otherwise, `nil`.
+    /// Returns an array of keys whose corresponding values equal to the specified value.
     ///
-    ///     let dict = ["a": 1, "b": 2, "c": 3]
-    ///     dict.key(byValue: 2) // "b"
-    ///     dict.key(byValue: 0) // nil
+    ///     let dict = [0: "a", 1: "b", 2: "c"]
+    ///     dict.keys(forValue: "b") // [1]
+    ///     dict.keys(forValue: "e") // []
     ///
-    @inlinable func key(byValue value: Value) -> Key? {
-        return first { $1 == value }?.key
+    @inlinable func keys(forValue value: Value) -> [Key] {
+        return filter { $0.value == value }.map(\.key)
     }
     
 }
 
+
 public extension Dictionary where Value: AnyObject {
     
-    /// Returns a key where its value and the given one are the same reference; otherwise, `nil`.
+    /// Returns an array of keys whose corresponding values and the specified value are the same objects.
     ///
     ///     class T {}
     ///     let t0 = T(), t1 = T(), t2 = T()
     ///     let dict = [0: t0, 1: t1]
-    ///     dict.key(byReference: t1) // 1
-    ///     dict.key(byReference: t2) // nil
+    ///     dict.keys(forReference: t1) // [1]
+    ///     dict.keys(forReference: t2) // []
     ///
-    @inlinable func key(byReference value: Value) -> Key? {
-        return first { $1 === value }?.key
+    @inlinable func keys(forReference value: Value) -> [Key] {
+        return filter { $0.value === value }.map(\.key)
     }
     
 }
