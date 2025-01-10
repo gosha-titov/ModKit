@@ -1,6 +1,6 @@
 extension RandomAccessCollection {
     
-    /// Returns the elements of the sequence, sorted using the given predicate as the comparison between some elements.
+    /// Returns the elements of the sequence, sorted using the given predicate as the comparison between elements.
     ///
     ///     struct User {
     ///         let id: Int
@@ -18,7 +18,7 @@ extension RandomAccessCollection {
         return sorted { compare($0[keyPath: keyPath], $1[keyPath: keyPath]) }
     }
     
-    /// Returns the elements of the sequence, sorted using the given predicate as the comparison between some elements.
+    /// Returns the elements of the sequence, sorted using the given predicate as the comparison between elements.
     ///
     ///     struct User {
     ///         let id: Int
@@ -41,7 +41,7 @@ extension RandomAccessCollection {
 
 extension RandomAccessCollection where Self: MutableCollection {
     
-    /// Returns the elements of the sequence, sorted using the given predicate as the comparison between some elements.
+    /// Sorts the collection in place, using the given predicate as the comparison between elements.
     ///
     ///     struct User {
     ///         let id: Int
@@ -51,12 +51,30 @@ extension RandomAccessCollection where Self: MutableCollection {
     ///         User(id: 0, name: "James"), User(id: 1, name: "Robert"),
     ///         User(id: 2, name: "Mary"), User(id: 3, name: "Lisa")
     ///     ]
-    ///     users.sort(by: \.name, with: <)
+    ///     users.sort(by: \.name, using: <)
     ///     /* [User(id: 0, name: James), User(id: 3, name: Lisa),
     ///         User(id: 2, name: Mary), User(id: 1, name: Robert)] */
     ///
     @inlinable mutating func sort<T>(by keyPath: KeyPath<Element, T>, using compare: (T, T) -> Bool) {
         sort { compare($0[keyPath: keyPath], $1[keyPath: keyPath]) }
+    }
+    
+    /// Sorts the collection in place, using the given predicate as the comparison between elements.
+    ///
+    ///     struct User {
+    ///         let id: Int
+    ///         let name: String
+    ///     }
+    ///     var users = [
+    ///         User(id: 0, name: "James"), User(id: 1, name: "Robert"),
+    ///         User(id: 2, name: "Mary"), User(id: 3, name: "Lisa")
+    ///     ]
+    ///     users.sort(by: \.name)
+    ///     /* [User(id: 0, name: James), User(id: 3, name: Lisa),
+    ///         User(id: 2, name: Mary), User(id: 1, name: Robert)] */
+    ///
+    @inlinable mutating func sort<T: Comparable>(by keyPath: KeyPath<Element, T>) {
+        sort { $0[keyPath: keyPath] < $1[keyPath: keyPath] }
     }
     
 }

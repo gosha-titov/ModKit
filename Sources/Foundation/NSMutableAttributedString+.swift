@@ -7,13 +7,13 @@ public extension NSMutableAttributedString {
     /// Applies the given collection of attributes to the characters in the specified range.
     ///
     ///     attributedString.apply([
-    ///         .strikethroughStyle: NSUnderlineStyle.single,
-    ///         .strikethroughColor: UIColor.red,
     ///         .font: UIFont.boldSystemFont(ofSize: 16),
     ///         .backgroundColor: UIColor.orange,
     ///         .foregroundColor: UIColor.black,
+    ///         .underlineStyle: NSUnderlineStyle.single,
     ///         .underlineColor: UIColor.blue,
-    ///         .underlineStyle: 1,
+    ///         .strikethroughColor: UIColor.red,
+    ///         .strikethroughStyle: 1,
     ///     ])
     ///
     /// - Parameter attributes: A dictionary containing the attributes to add.

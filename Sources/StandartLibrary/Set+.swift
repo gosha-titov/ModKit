@@ -10,6 +10,7 @@ public extension Set {
     ///
     ///     var set: Set<Int> = [0, 1]
     ///     set.insert([2, 3]) // [0, 1, 2, 3]
+    ///     
     @inlinable mutating func insert(_ newElements: any Sequence<Element>) {
         newElements.forEach { insert($0) }
     }

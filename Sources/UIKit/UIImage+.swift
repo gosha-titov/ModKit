@@ -131,7 +131,7 @@ public extension UIImage {
     /// Returns a new image with a border added.
     /// - Parameter color: The color of the border.
     /// - Parameter width: The width of the border.
-    /// - Parameter radius: The radius of each corner. A value of 0 results in an image without rounded corners.
+    /// - Parameter radius: The radius of each corner.
     ///   Values larger than half the rectangle’s width or height are clamped appropriately to half the width or height.
     ///   If `nil` is specified, the maximum possible radius is used to round corners.
     @inlinable func bordered(withColor color: UIColor, width: CGFloat, radius: CGFloat? = nil) -> UIImage {

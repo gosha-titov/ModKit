@@ -7,7 +7,7 @@
 ///     print(mutatedArray)
 ///     // Prints [1, 2, 3, 4]
 ///
-/// - Note: This method allows you use `mutating` methods over a copy of some constant value.
+/// - Note: This method allows you to use `mutating` methods over a copy of some constant value.
 @usableFromInline
 internal func mutating<V>(_ value: V, mutate: (inout V) -> Void) -> V {
     var value = value
