@@ -122,10 +122,10 @@ public extension Array {
     ///     arr.first(3) // [1, 2, 3]
     ///
     @inlinable @inline(__always)
-    func first(_ k: Int) -> ArraySlice<Element> {
-        guard k > 0 else { return [] }
+    func first(_ k: Int) -> Self {
+        guard k > 0 else { return .empty }
         let k = k.clamped(to: 0...count)
-        return self[0..<k]
+        return Array(self[0..<k])
     }
     
     /// Returns the last K elements of this array.
@@ -134,10 +134,10 @@ public extension Array {
     ///     arr.last(3) // [3, 4, 5]
     ///
     @inlinable @inline(__always)
-    func last(_ k: Int) -> ArraySlice<Element> {
-        guard k > 0 else { return [] }
+    func last(_ k: Int) -> Self {
+        guard k > 0 else { return .empty }
         let k = k.clamped(to: 0...count)
-        return self[(count - k)..<count]
+        return Array(self[(count - k)..<count])
     }
     
 }

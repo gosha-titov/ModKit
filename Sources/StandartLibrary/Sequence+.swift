@@ -10,7 +10,7 @@ public extension Sequence {
     ///
     @inlinable @inline(__always)
     func forEach(where isIncluded: (Element) throws -> Bool, body: (Element) throws -> Void) rethrows {
-        try lazy.filter(isIncluded).forEach(body)
+        try forEach { if try isIncluded($0) { try body($0) } }
     }
     
     /// Returns an array containing, in order, the elements of the sequence except for the ones that satisfy the given predicate.
@@ -21,7 +21,7 @@ public extension Sequence {
     ///     let names = sourceNames.except(where: \.isEmpty)
     ///     // ["Mia", "Emma", "Luna"]
     ///
-    ///     // This is the same as the above
+    ///     // This is the same as above
     ///     let names = sourceNames.filter { !$0.isEmpty }
     ///
     /// - Parameter isNotIncluded: A closure that takes an element of the sequence as its argument

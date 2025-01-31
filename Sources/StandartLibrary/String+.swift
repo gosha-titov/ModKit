@@ -60,8 +60,8 @@ public extension String {
     ///     str.first(3) // "abc"
     ///
     @inlinable @inline(__always)
-    func first(_ k: Int) -> Substring {
-        guard k > 0 else { return Substring() }
+    func first(_ k: Int) -> String {
+        guard k > 0 else { return .empty }
         let k = k.clamped(to: 0...count)
         return self[0..<k]
     }
@@ -72,8 +72,8 @@ public extension String {
     ///     str.last(3) // "cde"
     ///
     @inlinable @inline(__always)
-    func last(_ k: Int) -> Substring {
-        guard k > 0 else { return Substring() }
+    func last(_ k: Int) -> String {
+        guard k > 0 else { return .empty }
         let k = k.clamped(to: 0...count)
         return self[(count - k)..<count]
     }
@@ -112,35 +112,35 @@ public extension String {
     // MARK: Subscripts
     
     @inlinable @inline(__always)
-    subscript(bounds: ClosedRange<Int>) -> Substring {
+    subscript(bounds: ClosedRange<Int>) -> String {
         let lowerBound = index(startIndex, offsetBy: bounds.lowerBound)
         let upperBound = index(startIndex, offsetBy: bounds.upperBound)
-        return self[lowerBound...upperBound]
+        return String(self[lowerBound...upperBound])
     }
 
     @inlinable @inline(__always)
-    subscript(bounds: Range<Int>) -> Substring {
+    subscript(bounds: Range<Int>) -> String {
         let lowerBound = index(startIndex, offsetBy: bounds.lowerBound)
         let upperBound = index(startIndex, offsetBy: bounds.upperBound)
-        return self[lowerBound..<upperBound]
+        return String(self[lowerBound..<upperBound])
     }
 
     @inlinable @inline(__always)
-    subscript(bounds: PartialRangeFrom<Int>) -> Substring {
+    subscript(bounds: PartialRangeFrom<Int>) -> String {
         let lowerBound = index(startIndex, offsetBy: bounds.lowerBound)
-        return self[lowerBound...]
+        return String(self[lowerBound...])
     }
 
     @inlinable @inline(__always)
-    subscript(bounds: PartialRangeUpTo<Int>) -> Substring {
+    subscript(bounds: PartialRangeUpTo<Int>) -> String {
         let upperBound = index(startIndex, offsetBy: bounds.upperBound)
-        return self[..<upperBound]
+        return String(self[..<upperBound])
     }
 
     @inlinable @inline(__always)
-    subscript(bounds: PartialRangeThrough<Int>) -> Substring {
+    subscript(bounds: PartialRangeThrough<Int>) -> String {
         let upperBound = index(startIndex, offsetBy: bounds.upperBound)
-        return self[...upperBound]
+        return String(self[...upperBound])
     }
     
     
