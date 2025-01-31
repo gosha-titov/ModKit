@@ -1,4 +1,4 @@
-extension RandomAccessCollection {
+public extension RandomAccessCollection {
     
     /// Returns the elements of the sequence, sorted using the given predicate as the comparison between elements.
     ///
@@ -41,7 +41,7 @@ extension RandomAccessCollection {
 }
 
 
-extension RandomAccessCollection where Self: MutableCollection {
+public extension RandomAccessCollection where Self: MutableCollection {
     
     /// Sorts the collection in place, using the given predicate as the comparison between elements.
     ///
