@@ -10,7 +10,8 @@ public extension String {
     ///     print(text.hasLTRDominantLanguage)
     ///     // Prints true
     ///
-    @inlinable var hasLTRDominantLanguage: Bool {
+    @inlinable @inline(__always)
+    var hasLTRDominantLanguage: Bool {
         return hasRTLDominantLanguage == false
     }
     
@@ -20,7 +21,8 @@ public extension String {
     ///     print(text.hasRTLDominantLanguage)
     ///     // Prints true
     ///
-    @inlinable var hasRTLDominantLanguage: Bool {
+    @inlinable @inline(__always)
+    var hasRTLDominantLanguage: Bool {
         return NLLanguageRecognizer.dominantLanguage(for: self)?.isRTL ?? false
     }
     

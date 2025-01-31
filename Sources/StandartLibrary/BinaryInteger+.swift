@@ -10,7 +10,8 @@ public extension BinaryInteger {
     ///     // Prints "N is 2"
     ///
     /// - Parameter body: A closure that takes the current loop number as a parameter.
-    @inlinable func times(_ body: (Int) -> Void) {
+    @inlinable @inline(__always)
+    func times(_ body: (Int) -> Void) {
         guard self > 0 else { return }
         for n in 0..<Int(self) { body(n) }
     }
@@ -24,7 +25,8 @@ public extension BinaryInteger {
     ///     // Prints "Hello, world!"
     ///     // Prints "Hello, world!"
     ///
-    @inlinable func times(_ body: () -> Void) {
+    @inlinable @inline(__always)
+    func times(_ body: () -> Void) {
         guard self > 0 else { return }
         for _ in 0..<Int(self) { body() }
     }
@@ -35,7 +37,8 @@ public extension BinaryInteger {
     ///     let number = 19
     ///     number.isInRange(5..<99) // true
     ///
-    @inlinable func isInRange(_ range: Range<Self>) -> Bool {
+    @inlinable @inline(__always)
+    func isInRange(_ range: Range<Self>) -> Bool {
         return range.contains(self)
     }
     
@@ -44,7 +47,8 @@ public extension BinaryInteger {
     ///     let number = 19
     ///     number.isInRange(5...99) // true
     ///
-    @inlinable func isInRange(_ range: ClosedRange<Self>) -> Bool {
+    @inlinable @inline(__always)
+    func isInRange(_ range: ClosedRange<Self>) -> Bool {
         return range.contains(self)
     }
     
@@ -56,7 +60,8 @@ public extension BinaryInteger {
     ///     5.clamped(to: limits) // 5
     ///     8.clamped(to: limits) // 7
     ///
-    @inlinable func clamped(to limits: Range<Self>) -> Self {
+    @inlinable @inline(__always)
+    func clamped(to limits: Range<Self>) -> Self {
         if self < limits.lowerBound { return limits.lowerBound }
         if self >= limits.upperBound { return limits.upperBound - 1 }
         return self
@@ -69,7 +74,8 @@ public extension BinaryInteger {
     ///     7.clamped(to: limits) // 7
     ///     9.clamped(to: limits) // 8
     ///
-    @inlinable func clamped(to limits: ClosedRange<Self>) -> Self {
+    @inlinable @inline(__always)
+    func clamped(to limits: ClosedRange<Self>) -> Self {
         return max(limits.lowerBound, min(self, limits.upperBound))
     }
     
@@ -79,7 +85,8 @@ public extension BinaryInteger {
     ///     3.clamped(to: limits) // 5
     ///     7.clamped(to: limits) // 7
     ///
-    @inlinable func clamped(to limits: PartialRangeFrom<Self>) -> Self {
+    @inlinable @inline(__always)
+    func clamped(to limits: PartialRangeFrom<Self>) -> Self {
         if self < limits.lowerBound { return limits.lowerBound }
         return self
     }
@@ -90,7 +97,8 @@ public extension BinaryInteger {
     ///     3.clamped(to: limits) // 3
     ///     7.clamped(to: limits) // 5
     ///
-    @inlinable func clamped(to limits: PartialRangeThrough<Self>) -> Self {
+    @inlinable @inline(__always)
+    func clamped(to limits: PartialRangeThrough<Self>) -> Self {
         if self > limits.upperBound { return limits.upperBound }
         return self
     }
@@ -108,7 +116,8 @@ public extension BinaryInteger {
     ///     number = 8
     ///     number.clamped(to: limits) // 7
     ///
-    @inlinable mutating func clamp(to limits: Range<Self>) {
+    @inlinable @inline(__always)
+    mutating func clamp(to limits: Range<Self>) {
         self = clamped(to: limits)
     }
     
@@ -125,7 +134,8 @@ public extension BinaryInteger {
     ///     number = 9
     ///     number.clamp(to: limits) // 8
     ///
-    @inlinable mutating func clamp(to limits: ClosedRange<Self>) {
+    @inlinable @inline(__always)
+    mutating func clamp(to limits: ClosedRange<Self>) {
         self = clamped(to: limits)
     }
     
@@ -139,7 +149,8 @@ public extension BinaryInteger {
     ///     number = 7
     ///     number.clamp(to: limits) // 7
     ///
-    @inlinable mutating func clamp(to limits: PartialRangeFrom<Self>) {
+    @inlinable @inline(__always)
+    mutating func clamp(to limits: PartialRangeFrom<Self>) {
         self = clamped(to: limits)
     }
     
@@ -153,7 +164,8 @@ public extension BinaryInteger {
     ///     number = 7
     ///     number.clamp(to: limits) // 5
     ///
-    @inlinable mutating func clamp(to limits: PartialRangeThrough<Self>) {
+    @inlinable @inline(__always)
+    mutating func clamp(to limits: PartialRangeThrough<Self>) {
         self = clamped(to: limits)
     }
     
@@ -163,26 +175,23 @@ public extension BinaryInteger {
     ///     let number = 49
     ///     number.toDouble() // 49.0
     ///
-    @inlinable func toDouble() -> Double {
-        return Double(self)
-    }
+    @inlinable @inline(__always)
+    func toDouble() -> Double { Double(self) }
     
     /// Returns a Float value converted from this integer.
     ///
     ///     let number = 21
     ///     number.toFloat() // 21.0
     ///
-    @inlinable func toFloat() -> Float {
-        return Float(self)
-    }
+    @inlinable @inline(__always)
+    func toFloat() -> Float { Float(self) }
     
     /// Returns a String value converted from this integer.
     ///
     ///     let number = 53
     ///     number.toString() // "53"
     ///
-    @inlinable func toString() -> String {
-        return String(self)
-    }
+    @inlinable @inline(__always)
+    func toString() -> String { String(self) }
     
 }

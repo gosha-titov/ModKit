@@ -21,7 +21,8 @@ public extension NSMutableAttributedString {
     /// For information about the system-supplied attribute keys, see the Constants section in `NSAttributedString`.
     /// - Parameter range: The range of characters to which the specified attributes apply.
     /// If `nil` is specified, the given attributes are applied to the full string.
-    @inlinable func apply(_ attributes: [Key: Any], inRange range: NSRange? = nil) {
+    @inlinable @inline(__always)
+    func apply(_ attributes: [Key: Any], inRange range: NSRange? = nil) {
         guard !string.isEmpty else { return }
         let range: NSRange = if let range { range } else { NSRange(0..<length) }
         addAttributes(attributes, range: range)

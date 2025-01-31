@@ -5,12 +5,14 @@ import CoreGraphics
 public extension CGPoint {
     
     /// A distance between two points.
-    @inlinable static func distance(from point1: CGPoint, to point2: CGPoint) -> CGFloat {
+    @inlinable @inline(__always)
+    static func distance(from point1: CGPoint, to point2: CGPoint) -> CGFloat {
         return sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2))
     }
     
     /// A distance between this point and another point.
-    @inlinable func distance(to point: CGPoint) -> CGFloat {
+    @inlinable @inline(__always)
+    func distance(to point: CGPoint) -> CGFloat {
         return CGPoint.distance(from: self, to: point)
     }
     
@@ -27,7 +29,8 @@ public extension CGPoint {
     ///         x: point.x + 8,
     ///         y: point.y + 16
     ///     )
-    @inlinable func offsetBy(dx: CGFloat, dy: CGFloat) -> CGPoint {
+    @inlinable @inline(__always)
+    func offsetBy(dx: CGFloat, dy: CGFloat) -> CGPoint {
         return CGPoint(x: x + dx, y: y + dy)
     }
     
@@ -41,7 +44,8 @@ public extension CGPoint {
     ///         x: newX,
     ///         y: point.y
     ///     )
-    @inlinable func withX(_ newX: CGFloat) -> CGPoint {
+    @inlinable @inline(__always)
+    func withX(_ newX: CGFloat) -> CGPoint {
         return CGPoint(x: newX, y: y)
     }
     
@@ -55,7 +59,8 @@ public extension CGPoint {
     ///         x: point.x * 2,
     ///         y: point.y
     ///     )
-    @inlinable func withX(update: (CGFloat) -> CGFloat) -> CGPoint {
+    @inlinable @inline(__always)
+    func withX(update: (CGFloat) -> CGFloat) -> CGPoint {
         return withX(update(x))
     }
     
@@ -69,7 +74,8 @@ public extension CGPoint {
     ///         x: point.x + 16,
     ///         y: point.y
     ///     )
-    @inlinable func withX(offsetBy dx: CGFloat) -> CGPoint {
+    @inlinable @inline(__always)
+    func withX(offsetBy dx: CGFloat) -> CGPoint {
         return withX(x + dx)
     }
     
@@ -83,7 +89,8 @@ public extension CGPoint {
     ///         x: point.x,
     ///         y: newY
     ///     )
-    @inlinable func withY(_ newY: CGFloat) -> CGPoint {
+    @inlinable @inline(__always)
+    func withY(_ newY: CGFloat) -> CGPoint {
         return CGPoint(x: x, y: newY)
     }
     
@@ -97,7 +104,8 @@ public extension CGPoint {
     ///         x: point.x,
     ///         y: point.y * 2
     ///     )
-    @inlinable func withY(update: (CGFloat) -> CGFloat) -> CGPoint {
+    @inlinable @inline(__always)
+    func withY(update: (CGFloat) -> CGFloat) -> CGPoint {
         return withY(update(y))
     }
     
@@ -111,7 +119,8 @@ public extension CGPoint {
     ///         x: point.x,
     ///         y: point.y + 16
     ///     )
-    @inlinable func withY(offsetBy dy: CGFloat) -> CGPoint {
+    @inlinable @inline(__always)
+    func withY(offsetBy dy: CGFloat) -> CGPoint {
         return withY(y + dy)
     }
     

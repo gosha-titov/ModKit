@@ -10,7 +10,8 @@ public extension UIBezierPath {
     /// - Parameter topRightCornerRadius: The radius of the top-right corner oval.
     /// - Parameter bottomLeftCornerRadius: The radius of the bottom-left corner oval.
     /// - Parameter bottomRigthCornerRadius: The radius of the bottom-right corner oval.
-    @inlinable convenience init(
+    @inlinable @inline(__always)
+    convenience init(
         roundedRect rect: CGRect,
         topLeftCornerRadius: CGFloat, topRightCornerRadius: CGFloat,
         bottomLeftCornerRadius: CGFloat, bottomRightCornerRadius: CGFloat
@@ -31,7 +32,8 @@ public extension UIBezierPath {
     /// - Parameter topRightCornerRadius: The radius of the top-right corner oval.
     /// - Parameter bottomLeftCornerRadius: The radius of the bottom-left corner oval.
     /// - Parameter bottomRigthCornerRadius: The radius of the bottom-right corner oval.
-    @inlinable convenience init(
+    @inlinable
+    convenience init(
         roundedRect rect: CGRect,
         topLeftCornerRadius radius1: CGSize, topRightCornerRadius radius2: CGSize,
         bottomLeftCornerRadius radius4: CGSize, bottomRightCornerRadius radius3: CGSize

@@ -5,14 +5,16 @@ public extension FloatingPoint {
     ///     let number = -30.8
     ///     number.abs // 30.8
     ///
-    @inlinable var abs: Self { Swift.abs(self) }
+    @inlinable @inline(__always)
+    var abs: Self { Swift.abs(self) }
     
     /// A value converted from the value of this instance in degrees to a value in radians.
     ///
     ///     let angle = 120.0
     ///     angle.degreesToRadians // 2.094...
     ///
-    @inlinable var degreesToRadians: Self {
+    @inlinable @inline(__always)
+    var degreesToRadians: Self {
         return self * .pi / 180
     }
     
@@ -21,7 +23,8 @@ public extension FloatingPoint {
     ///     let angle = 2.0
     ///     angle.radiansToDegrees // 114.5...
     ///
-    @inlinable var radiansToDegrees: Self {
+    @inlinable @inline(__always)
+    var radiansToDegrees: Self {
         return self * 180 / .pi
     }
     
@@ -35,7 +38,8 @@ public extension FloatingPoint {
     ///     (7.1).clamped(to: limits) // 7.1
     ///     (9.3).clamped(to: limits) // 8.9
     ///
-    @inlinable func clamped(to limits: ClosedRange<Self>) -> Self {
+    @inlinable @inline(__always)
+    func clamped(to limits: ClosedRange<Self>) -> Self {
         return max(limits.lowerBound, min(self, limits.upperBound))
     }
     
@@ -52,7 +56,8 @@ public extension FloatingPoint {
     ///     number = 9.3
     ///     number.clamp(to: limits) // 8.9
     ///
-    @inlinable mutating func clamp(to limits: ClosedRange<Self>) {
+    @inlinable @inline(__always)
+    mutating func clamp(to limits: ClosedRange<Self>) {
         self = clamped(to: limits)
     }
     
@@ -70,7 +75,8 @@ public extension FloatingPoint {
     ///     print(pi.rounded(toDecimalPlaces: 3, rule: .down)
     ///     // Prints "3.141"
     ///
-    @inlinable func rounded(toDecimalPlaces number: Int, rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> Self {
+    @inlinable
+    func rounded(toDecimalPlaces number: Int, rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> Self {
         let factor = Self(10.raised(to: number))
         return (self * factor).rounded(rule) / factor
     }

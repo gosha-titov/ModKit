@@ -10,7 +10,8 @@ public extension UITableViewCell {
     ///
     ///     SomeCell.reuseIdentifier // "SomeCell"
     ///
-    @inlinable static var reuseIdentifier: String {
+    @inlinable @inline(__always)
+    static var reuseIdentifier: String {
         return String(describing: self)
     }
     

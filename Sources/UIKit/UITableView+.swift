@@ -24,7 +24,8 @@ public extension UITableView {
     ///     )
     ///
     /// - Parameter cellClass: The class of a cell that you want to use in the collection view.
-    @inlinable func register<T: UITableViewCell>(cellClass: T.Type) {
+    @inlinable @inline(__always)
+    func register<T: UITableViewCell>(cellClass: T.Type) {
         register(T.self, forCellReuseIdentifier: T.reuseIdentifier)
     }
     
@@ -54,7 +55,8 @@ public extension UITableView {
     /// This method uses the index path to perform additional configuration based on the cell’s position in the collection view.
     ///
     /// - Returns: A valid `UITableViewCell` object.
-    @inlinable func dequeueReusableCell<T: UITableViewCell>(for indexPath: IndexPath) -> T {
+    @inlinable @inline(__always)
+    func dequeueReusableCell<T: UITableViewCell>(for indexPath: IndexPath) -> T {
         return dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as! T
     }
     

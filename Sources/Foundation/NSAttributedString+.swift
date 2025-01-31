@@ -8,7 +8,8 @@ public extension NSAttributedString {
     ///
     ///     let mutableString = attributedString.mutable
     ///
-    @inlinable var mutable: NSMutableAttributedString {
+    @inlinable @inline(__always)
+    var mutable: NSMutableAttributedString {
         return NSMutableAttributedString(attributedString: self)
     }
     
@@ -29,7 +30,8 @@ public extension NSAttributedString {
     /// For information about the system-supplied attribute keys, see the Constants section in `NSAttributedString`.
     /// - Parameter range: The range of characters to which the specified attributes apply.
     /// If `nil` is specified, the given attributes are applied to the full string.
-    @inlinable func applying(_ attributes: [Key: Any], inRange range: NSRange? = nil) -> NSAttributedString {
+    @inlinable @inline(__always)
+    func applying(_ attributes: [Key: Any], inRange range: NSRange? = nil) -> NSAttributedString {
         guard !string.isEmpty else { return self }
         return mutating(mutable) { $0.apply(attributes, inRange: range) }
     }
@@ -37,11 +39,13 @@ public extension NSAttributedString {
 
     // MARK: Operators
 
-    @inlinable static func + (lhs: NSAttributedString, rhs: NSAttributedString) -> NSAttributedString {
+    @inlinable @inline(__always)
+    static func + (lhs: NSAttributedString, rhs: NSAttributedString) -> NSAttributedString {
         return mutating(lhs.mutable) { $0.append(rhs) }
     }
     
-    @inlinable static func += (lhs: inout NSAttributedString, rhs: NSAttributedString) {
+    @inlinable @inline(__always)
+    static func += (lhs: inout NSAttributedString, rhs: NSAttributedString) {
         lhs = mutating(lhs.mutable) { $0.append(rhs) }
     }
 

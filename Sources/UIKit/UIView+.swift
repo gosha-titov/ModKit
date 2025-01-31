@@ -5,7 +5,8 @@ import UIKit
 public extension UIView {
     
     /// Creates a view that has a horizontal-spacer behaviour.
-    @inlinable static var horizontalSpacer: UIView {
+    @inlinable @inline(__always)
+    static var horizontalSpacer: UIView {
         let view = UIView()
         view.setContentCompressionResistancePriority(.fittingSizeLevel, for: .horizontal)
         view.setContentHuggingPriority(.fittingSizeLevel, for: .horizontal)
@@ -14,7 +15,8 @@ public extension UIView {
     }
     
     /// Creates a view that has a vertical-spacer behaviour.
-    @inlinable static var verticalSpacer: UIView {
+    @inlinable @inline(__always)
+    static var verticalSpacer: UIView {
         let view = UIView()
         view.setContentCompressionResistancePriority(.fittingSizeLevel, for: .vertical)
         view.setContentHuggingPriority(.fittingSizeLevel, for: .vertical)
@@ -23,7 +25,8 @@ public extension UIView {
     }
     
     /// Returns a view controller that owns this view; otherwise, `nil`.
-    @inlinable var viewController: UIViewController? {
+    @inlinable @inline(__always)
+    var viewController: UIViewController? {
         var parentResponder: UIResponder? = next
         while parentResponder.hasValue {
             if let viewController = parentResponder as? UIViewController {
@@ -41,17 +44,20 @@ public extension UIView {
     ///
     ///     view.addSubviews(label, button, textField)
     ///
-    @inlinable func addSubviews(_ views: UIView...) {
+    @inlinable @inline(__always)
+    func addSubviews(_ views: UIView...) {
         views.forEach { addSubview($0) }
     }
     
     /// Unlinks all subview of this view and its window, and removes them from the responder chain.
-    @inlinable func removeAllSubviews() {
+    @inlinable @inline(__always)
+    func removeAllSubviews() {
         subviews.forEach { $0.removeFromSuperview() }
     }
     
     /// Removes all constraints from this view.
-    @inlinable func removeAllConstraints() {
+    @inlinable @inline(__always)
+    func removeAllConstraints() {
         removeConstraints(constraints)
     }
     

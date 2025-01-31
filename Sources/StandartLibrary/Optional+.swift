@@ -5,7 +5,8 @@ public extension Optional {
     ///     var name: String? = "gosha"
     ///     name.hasValue // true
     ///
-    @inlinable var hasValue: Bool { self != nil }
+    @inlinable @inline(__always)
+    var hasValue: Bool { self != nil }
     
 }
 
@@ -23,7 +24,8 @@ public extension Optional where Wrapped: Collection {
     ///     var dict: [Int: String]? = [12: "34"]
     ///     dict.isEmptyOrNil // false
     ///
-    @inlinable var isEmptyOrNil: Bool {
+    @inlinable @inline(__always)
+    var isEmptyOrNil: Bool {
         return self?.isEmpty ?? true
     }
     

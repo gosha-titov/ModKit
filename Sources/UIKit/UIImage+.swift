@@ -18,7 +18,8 @@ public extension UIImage {
     /// - Parameter startPoint: The start point of the gradient when drawn in the layer’s coordinate space.
     /// - Parameter endPoint: The end point of the gradient when drawn in the layer’s coordinate space.
     /// - Note: The points are defined in the unit coordinate space (0...1) and are then mapped to the result rectangle when drawn.
-    @inlinable static func gradient(size: CGSize, colors: [UIColor], startPoint: CGPoint = CGPoint(x: 0.5, y: 0.0), endPoint: CGPoint = CGPoint(x: 0.5, y: 1.0)) -> UIImage {
+    @inlinable
+    static func gradient(size: CGSize, colors: [UIColor], startPoint: CGPoint = CGPoint(x: 0.5, y: 0.0), endPoint: CGPoint = CGPoint(x: 0.5, y: 1.0)) -> UIImage {
         guard size != .zero, colors.isEmpty == false else { return UIImage() }
         let format = UIGraphicsImageRendererFormat.default()
         format.opaque = true
@@ -42,7 +43,8 @@ public extension UIImage {
     
         
     /// Returns an average color of this image.
-    @inlinable func averageColor() -> UIColor? {
+    @inlinable
+    func averageColor() -> UIColor? {
         guard let ciImage = ciImage ?? CIImage(image: self) else { return nil }
         let parameters = [kCIInputImageKey: ciImage, kCIInputExtentKey: CIVector(cgRect: ciImage.extent)]
         let filter = CIFilter(name: "CIAreaAverage", parameters: parameters)
@@ -66,7 +68,8 @@ public extension UIImage {
     
     /// Returns a new image with a size scaled so that it can fit the specified size, while maintaining the source aspect ratio.
     /// - Note: The result image’s dimensions are not greater than the corresponding dimensions of the specified size.
-    @inlinable func scaledToFit(to availableSize: CGSize) -> UIImage {
+    @inlinable
+    func scaledToFit(to availableSize: CGSize) -> UIImage {
         let newSize = size.scaledToFit(to: availableSize)
         let renderer = UIGraphicsImageRenderer(size: newSize)
         return renderer.image { _ in
@@ -76,7 +79,8 @@ public extension UIImage {
     
     /// Returns a new image with a size scaled so that it can fill the specified size, while maintaining the source aspect ratio.
     /// - Note: The result image’s dimensions are not less than the corresponding dimensions of the specified size.
-    @inlinable func scaledToFill(to availableSize: CGSize) -> UIImage {
+    @inlinable
+    func scaledToFill(to availableSize: CGSize) -> UIImage {
         let newSize = size.scaledToFill(to: availableSize)
         let renderer = UIGraphicsImageRenderer(size: newSize)
         return renderer.image { _ in
@@ -87,7 +91,8 @@ public extension UIImage {
     /// Returns a new image cropped to the specified size from the center.
     /// - Parameter size: The size of the result image.
     ///   If `nil` is specified, the image will be cropped to a maximum fitting square.
-    @inlinable func cropped(to newSize: CGSize? = nil) -> UIImage {
+    @inlinable
+    func cropped(to newSize: CGSize? = nil) -> UIImage {
         let newSize = if let newSize { newSize } else { CGSize(dimension: size.minDimension) }
         let renderer = UIGraphicsImageRenderer(size: newSize)
         return renderer.image { _ in
@@ -100,7 +105,8 @@ public extension UIImage {
     }
     
     /// Returns a new image cropped to the specified rectangle.
-    @inlinable func cropped(to rect: CGRect) -> UIImage {
+    @inlinable
+    func cropped(to rect: CGRect) -> UIImage {
         let renderer = UIGraphicsImageRenderer(size: rect.size)
         return renderer.image { context in
             let origin = CGPoint(
@@ -115,7 +121,8 @@ public extension UIImage {
     /// - Parameter radius: The radius of each corner. A value of 0 results in an image without rounded corners.
     ///   Values larger than half the rectangle’s width or height are clamped appropriately to half the width or height.
     ///   If `nil` is specified, the maximum possible radius is used to round corners.
-    @inlinable func rounded(withRadius radius: CGFloat? = nil) -> UIImage {
+    @inlinable
+    func rounded(withRadius radius: CGFloat? = nil) -> UIImage {
         let maxRadius = size.minDimension / 2
         let radius = if let radius { radius.clamped(to: 0...maxRadius) } else { maxRadius }
         guard radius > 0 else { return self }
@@ -134,7 +141,8 @@ public extension UIImage {
     /// - Parameter radius: The radius of each corner.
     ///   Values larger than half the rectangle’s width or height are clamped appropriately to half the width or height.
     ///   If `nil` is specified, the maximum possible radius is used to round corners.
-    @inlinable func bordered(withColor color: UIColor, width: CGFloat, radius: CGFloat? = nil) -> UIImage {
+    @inlinable
+    func bordered(withColor color: UIColor, width: CGFloat, radius: CGFloat? = nil) -> UIImage {
         let maxRadius = size.minDimension / 2
         let radius = if let radius { radius.clamped(to: 0...maxRadius) } else { maxRadius }
         let rect = CGRect(size: size)
@@ -153,14 +161,15 @@ public extension UIImage {
         }
     }
     
-    /// Returns a new image with the specified insets.
-    @inlinable func withInsets(_ insets: UIEdgeInsets) -> UIImage {
+    /// Returns a new image with the specified margins.
+    @inlinable
+    func withMargins(_ margins: UIEdgeInsets) -> UIImage {
         let newSize = CGSize(
-            width: size.width + insets.left + insets.right,
-            height: size.height + insets.top + insets.bottom
+            width: size.width + margins.left + margins.right,
+            height: size.height + margins.top + margins.bottom
         )
         return UIGraphicsImageRenderer(size: newSize).image { _ in
-            let origin = CGPoint(x: insets.left, y: insets.top)
+            let origin = CGPoint(x: margins.left, y: margins.top)
             draw(at: origin)
         }
     }
@@ -174,7 +183,8 @@ public extension UIImage {
     ///
     /// - Parameter color: The color that will fill an entire result image.
     /// - Parameter size: The size of a result image.
-    @inlinable convenience init(color: UIColor, size: CGSize = CGSize(dimension: 1)) {
+    @inlinable @inline(__always)
+    convenience init(color: UIColor, size: CGSize = CGSize(dimension: 1)) {
         let renderer = UIGraphicsImageRenderer(size: size)
         let image = renderer.image { context in
             color.setFill()

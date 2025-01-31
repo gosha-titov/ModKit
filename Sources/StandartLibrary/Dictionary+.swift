@@ -1,7 +1,8 @@
 public extension Dictionary {
     
     /// Creates a dictionary that has no key-value pairs.
-    @inlinable static var empty: Self { [:] }
+    @inlinable @inline(__always)
+    static var empty: Self { [:] }
     
     
     // MARK: Methods
@@ -12,7 +13,8 @@ public extension Dictionary {
     ///     dict.hasKey(2) // true
     ///     dict.hasKey(3) // false
     ///
-    @inlinable func hasKey(_ key: Key) -> Bool { self[key].hasValue }
+    @inlinable @inline(__always)
+    func hasKey(_ key: Key) -> Bool { self[key].hasValue }
     
     
     /// Returns a new dictionary that is a copy of this one with the value updated or added for the specified key.
@@ -20,7 +22,8 @@ public extension Dictionary {
     ///     let dict = [0: "a", 1: "b"]
     ///     dict.adding("c", forKey: 2) // [0: "a", 1: "b", 2: "c"]
     ///
-    @inlinable func adding(_ value: Value, forKey key: Key) -> Self {
+    @inlinable @inline(__always)
+    func adding(_ value: Value, forKey key: Key) -> Self {
         return mutating(self) { $0.updateValue(value, forKey: key) }
     }
     
@@ -29,7 +32,8 @@ public extension Dictionary {
     ///     let dict = [0: "a", 1: "b", 2: "c"]
     ///     dict.removingValue(forKey: 1) // [0: "a", 2: "c"]
     ///
-    @inlinable func removingValue(forKey oldKey: Key) -> Self {
+    @inlinable @inline(__always)
+    func removingValue(forKey oldKey: Key) -> Self {
         return mutating(self) { $0.removeValue(forKey: oldKey) }
     }
     
@@ -38,7 +42,8 @@ public extension Dictionary {
     ///     let dict = [0: "a", 1: "b", 2: "c"]
     ///     dict.removingValues(forKeys: [0, 1]) // [2: "c"]
     ///
-    @inlinable func removingValues(forKeys oldKeys: any Sequence<Key>) -> Self {
+    @inlinable @inline(__always)
+    func removingValues(forKeys oldKeys: any Sequence<Key>) -> Self {
         return mutating(self) { $0.removeValues(forKeys: oldKeys) }
     }
     
@@ -47,31 +52,9 @@ public extension Dictionary {
     ///     var dict = [0: "a", 1: "b", 2: "c"]
     ///     dict.removeValues(forKeys: [0, 1]) // [2: "c"]
     ///
-    @inlinable mutating func removeValues(forKeys oldKeys: any Sequence<Key>) {
+    @inlinable @inline(__always)
+    mutating func removeValues(forKeys oldKeys: any Sequence<Key>) {
         oldKeys.forEach { removeValue(forKey: $0) }
-    }
-    
-    
-    // MARK: Operators
-    
-    /// Returns a new dictionary with key-value pairs of both dictionaries.
-    ///
-    ///     let dict1 = [0: "a", 1: "b"]
-    ///     let dict2 = [2: "c", 3: "d"]
-    ///     dict1 + dict2 // [0: "a", 1: "b", 2: "c", 3: "d"]
-    ///
-    @inlinable static func + (lhs: Self, rhs: Self) -> Self {
-        return lhs.reduce(into: rhs) { $0[$1.key] = $1.value }
-    }
-    
-    /// Adds key-value pairs of the second dictionary into the first one.
-    ///
-    ///     var dict1 = [0: "a", 1: "b"]
-    ///     let dict2 = [2: "c", 3: "d"]
-    ///     dict1 += dict2 // [0: "a", 1: "b", 2: "c", 3: "d"]
-    ///
-    @inlinable static func += (lhs: inout Self, rhs: Self) {
-        rhs.forEach { lhs[$0] = $1 }
     }
     
 }
@@ -85,7 +68,8 @@ public extension Dictionary where Value: Equatable {
     ///     dict.keys(forValue: "b") // [1]
     ///     dict.keys(forValue: "e") // []
     ///
-    @inlinable func keys(forValue value: Value) -> [Key] {
+    @inlinable @inline(__always)
+    func keys(forValue value: Value) -> [Key] {
         return filter { $0.value == value }.map(\.key)
     }
     
@@ -102,7 +86,8 @@ public extension Dictionary where Value: AnyObject {
     ///     dict.keys(forReference: t1) // [1]
     ///     dict.keys(forReference: t2) // []
     ///
-    @inlinable func keys(forReference value: Value) -> [Key] {
+    @inlinable @inline(__always)
+    func keys(forReference value: Value) -> [Key] {
         return filter { $0.value === value }.map(\.key)
     }
     
@@ -116,7 +101,8 @@ public extension Dictionary.Keys {
     ///     let dict = ["a": 1, "b": 2]
     ///     let keys: [String] = dict.keys.toArray() // ["a", "b"]
     ///
-    @inlinable func toArray() -> [Key] { Array(self) }
+    @inlinable @inline(__always)
+    func toArray() -> [Key] { Array(self) }
     
 }
 
@@ -128,6 +114,7 @@ public extension Dictionary.Values {
     ///     let dict = ["a": 1, "b": 2]
     ///     let values: [Int] = dict.values.toArray() // [1, 2]
     ///
-    @inlinable func toArray() -> [Value] { Array(self) }
+    @inlinable @inline(__always)
+    func toArray() -> [Value] { Array(self) }
     
 }

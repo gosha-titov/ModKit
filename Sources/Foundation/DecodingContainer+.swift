@@ -15,7 +15,8 @@ public extension SingleValueDecodingContainer {
     /// - Returns: A value of the requested type.
     /// - Throws: `DecodingError.typeMismatch` if the encountered encoded value cannot be converted to the requested type.
     /// - Throws: `DecodingError.valueNotFound` if the encountered encoded value is null.
-    @inlinable func decode<T: Decodable>() throws -> T {
+    @inlinable @inline(__always)
+    func decode<T: Decodable>() throws -> T {
         return try decode(T.self)
     }
     
@@ -37,7 +38,8 @@ public extension KeyedDecodingContainer {
     /// - Throws: `DecodingError.typeMismatch` if the encountered encoded value is not convertible to the requested type.
     /// - Throws: `DecodingError.keyNotFound` if `self` does not have an entry for the given key.
     /// - Throws: `DecodingError.valueNotFound` if `self` has a null entry for the given key.
-    @inlinable func decode<T: Decodable>(forKey key: Key) throws -> T {
+    @inlinable @inline(__always)
+    func decode<T: Decodable>(forKey key: Key) throws -> T {
         return try decode(T.self, forKey: key)
     }
     
@@ -54,7 +56,8 @@ public extension KeyedDecodingContainer {
     /// - Parameter key: The key that the decoded value is associated with.
     /// - Returns: A decoded value of the requested type, or `nil` if the `Decoder` does not have an entry associated with the given key, or if the value is a null value.
     /// - Throws: `DecodingError.typeMismatch` if the encountered encoded value is not convertible to the requested type.
-    @inlinable func decodeIfPresent<T: Decodable>(forKey key: Key) throws -> T? {
+    @inlinable @inline(__always)
+    func decodeIfPresent<T: Decodable>(forKey key: Key) throws -> T? {
         return try decodeIfPresent(T.self, forKey: key)
     }
     

@@ -5,7 +5,8 @@ public extension SignedInteger {
     ///     let number = -312
     ///     number.digits // [3, 1, 2]
     ///
-    @inlinable var digits: [Int] {
+    @inlinable @inline(__always)
+    var digits: [Int] {
         return abs.toString().compactMap { $0.toInt() }
     }
 
@@ -14,6 +15,7 @@ public extension SignedInteger {
     ///     let number = -30
     ///     number.abs // 30
     ///
-    @inlinable var abs: Self { Swift.abs(self) }
+    @inlinable @inline(__always)
+    var abs: Self { Swift.abs(self) }
     
 }

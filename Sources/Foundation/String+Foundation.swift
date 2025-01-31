@@ -10,7 +10,8 @@ public extension String {
     ///     "12a".containsOnlyDigits // false
     ///
     /// - Note: The empty string is considered to satisfy this condition, so the value is `true`.
-    @inlinable var containsOnlyDigits: Bool {
+    @inlinable @inline(__always)
+    var containsOnlyDigits: Bool {
         let digitsSet = CharacterSet.decimalDigits
         let stringSet = CharacterSet(charactersIn: self)
         return digitsSet.isSuperset(of: stringSet)
@@ -22,8 +23,10 @@ public extension String {
     ///     " a ".containsOnlySpaces // false
     ///
     /// - Note: The empty string is considered to satisfy this condition, so the value is `true`.
-    @inlinable var containsOnlySpaces: Bool {
-        for char in self where char != .space && char != .nonbreakingSpace {
+    @inlinable @inline(__always)
+    var containsOnlySpaces: Bool {
+        let characterSet = CharacterSet.whitespaces
+        for char in unicodeScalars where characterSet.contains(char) {
             return false
         }
         return true
@@ -33,7 +36,8 @@ public extension String {
     ///
     ///     "my.email@mod.kit".isValidEmail // true
     ///
-    @inlinable var isValidEmail: Bool {
+    @inlinable @inline(__always)
+    var isValidEmail: Bool {
         let regex = "[A-Z0-9a-z._-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         return matches(regex)
     }
@@ -43,15 +47,9 @@ public extension String {
     ///     let str = "  Hello, world! \n"
     ///     str.trimmed // "Hello, world!"
     ///
-    @inlinable var trimmed: String {
+    @inlinable @inline(__always)
+    var trimmed: String {
         return trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-    
-    /// Returns a new string in which all spaces are replaced with non-breaking spaces.
-    @inlinable var withNonbreakingSpaces: String {
-        let space = Character.space.toString()
-        let nonbreakingSpace = Character.nonbreakingSpace.toString()
-        return replacingOccurrences(of: space, with: nonbreakingSpace)
     }
     
      
@@ -62,7 +60,8 @@ public extension String {
     ///     var str = "woRd"
     ///     str.capitalize() // "Word"
     ///
-    @inlinable mutating func capitalize() {
+    @inlinable @inline(__always)
+    mutating func capitalize() {
         self = capitalized
     }
     
@@ -71,14 +70,17 @@ public extension String {
     ///     var str = "  Hello, world! \n"
     ///     str.trim() // "Hello, world!"
     ///
+    @inlinable @inline(__always)
     mutating func trim() -> Void {
         self = trimmed
     }
     
     /// Returns `true` if this string matches the given regex; otherwise, `false`.
+    @inlinable @inline(__always)
     func matches(_ regex: String) -> Bool {
         return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: self)
     }
+    
     
     /// Returns an NSAttributedString value converted from this string value.
     ///
@@ -86,7 +88,8 @@ public extension String {
     ///         .toNSAttributedString()
     ///         .applying(font: .title3)
     ///
-    @inlinable func toNSAttributedString() -> NSAttributedString {
+    @inlinable @inline(__always)
+    func toNSAttributedString() -> NSAttributedString {
         return NSAttributedString(string: self)
     }
     

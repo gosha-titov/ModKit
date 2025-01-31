@@ -1,19 +1,24 @@
 public extension Character {
     
     /// The non-breaking space character that prevents an automatic line break at its position.
-    @inlinable static var nonbreakingSpace: Character { "\u{00A0}" }
+    @inlinable @inline(__always)
+    static var nonbreakingSpace: Character { "\u{00A0}" }
     
     /// The character that is a thin space.
-    @inlinable static var thinSpace: Character { "\u{2009}" }
+    @inlinable @inline(__always)
+    static var thinSpace: Character { "\u{2009}" }
     
     /// The character that is a space.
-    @inlinable static var space: Character { "\u{0020}" }
+    @inlinable @inline(__always)
+    static var space: Character { "\u{0020}" }
     
     /// The new-line character (`"\n"`) that signifies the end of a line of text and the start of a new one.
-    @inlinable static var newline: String { "\u{000A}" }
+    @inlinable @inline(__always)
+    static var newline: Character { "\u{000A}" }
     
     /// The character that is a tab (`"\t"`).
-    @inlinable static var tab: String { "\u{0009}" }
+    @inlinable @inline(__always)
+    static var tab: Character { "\u{0009}" }
     
     
     /// An uppercase version of this character.
@@ -21,8 +26,9 @@ public extension Character {
     ///     let char = Character("a")
     ///     char.uppercased // Character("A")
     ///
-    @inlinable var uppercased: Character {
-        return toString().uppercased().first!
+    @inlinable @inline(__always)
+    var uppercased: Character {
+        return String(self).uppercased().first!
     }
     
     /// A lowercase version of this character.
@@ -30,8 +36,9 @@ public extension Character {
     ///     let char = Character("A")
     ///     char.lowercased // Character("a")
     ///
-    @inlinable var lowercased: Character {
-        return toString().lowercased().first!
+    @inlinable @inline(__always)
+    var lowercased: Character {
+        return String(self).lowercased().first!
     }
     
     
@@ -42,7 +49,8 @@ public extension Character {
     ///     var char = Character("a")
     ///     char.uppercase() // Character("A")
     ///
-    @inlinable mutating func uppercase() {
+    @inlinable @inline(__always)
+    mutating func uppercase() {
         self = uppercased
     }
     
@@ -51,7 +59,8 @@ public extension Character {
     ///     var char = Character("A")
     ///     char.lowercase() // Character("a")
     ///
-    @inlinable mutating func lowercase() {
+    @inlinable @inline(__always)
+    mutating func lowercase() {
         self = lowercased
     }
     
@@ -61,17 +70,15 @@ public extension Character {
     ///     let char = Character("4")
     ///     char.toInt() // Optional(4)
     ///
-    @inlinable func toInt() -> Int? {
-        return Int(toString())
-    }
+    @inlinable @inline(__always)
+    func toInt() -> Int? { String(self).toInt() }
  
     /// Returns a String value converted from this character.
     ///
     ///     let char = Character("!")
     ///     let str = "Hello" + char.toString() // "Hello!"
     ///
-    @inlinable func toString() -> String {
-        return String(self)
-    }
+    @inlinable @inline(__always)
+    func toString() -> String { String(self) }
     
 }

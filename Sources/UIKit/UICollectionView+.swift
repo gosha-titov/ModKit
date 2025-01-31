@@ -24,7 +24,8 @@ public extension UICollectionView {
     ///     )
     ///
     /// - Parameter cellClass: The class of a cell that you want to use in the collection view.
-    @inlinable func register<T: UICollectionViewCell>(cellClass: T.Type) {
+    @inlinable @inline(__always)
+    func register<T: UICollectionViewCell>(cellClass: T.Type) {
         register(T.self, forCellWithReuseIdentifier: T.reuseIdentifier)
     }
     
@@ -49,7 +50,8 @@ public extension UICollectionView {
     ///     )
     ///
     /// - Parameter headerClass: The class to use for the header view.
-    @inlinable func register<T: UICollectionReusableView>(headerClass: T.Type) {
+    @inlinable @inline(__always)
+    func register<T: UICollectionReusableView>(headerClass: T.Type) {
         register(
             T.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -78,7 +80,8 @@ public extension UICollectionView {
     ///     )
     ///
     /// - Parameter footerClass: The class to use for the footer view.
-    @inlinable func register<T: UICollectionReusableView>(footerClass: T.Type) {
+    @inlinable @inline(__always)
+    func register<T: UICollectionReusableView>(footerClass: T.Type) {
         register(
             T.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
@@ -113,7 +116,8 @@ public extension UICollectionView {
     /// This method uses the index path to perform additional configuration based on the cell’s position in the collection view.
     ///
     /// - Returns: A valid `UICollectionReusableView` object.
-    @inlinable func dequeueReusableCell<T: UICollectionViewCell>(for indexPath: IndexPath) -> T {
+    @inlinable @inline(__always)
+    func dequeueReusableCell<T: UICollectionViewCell>(for indexPath: IndexPath) -> T {
         return dequeueReusableCell(withReuseIdentifier: T.reuseIdentifier, for: indexPath) as! T
     }
     
@@ -145,7 +149,8 @@ public extension UICollectionView {
     /// This method uses the information to perform additional configuration based on the view’s position in the collection view.
     ///
     /// - Returns: A valid `UICollectionReusableView` object.
-    @inlinable func dequeueReusableHeaderView<T: UICollectionReusableView>(for indexPath: IndexPath) -> T {
+    @inlinable @inline(__always)
+    func dequeueReusableHeaderView<T: UICollectionReusableView>(for indexPath: IndexPath) -> T {
         return dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: T.reuseIdentifier,
@@ -181,7 +186,8 @@ public extension UICollectionView {
     /// This method uses the information to perform additional configuration based on the view’s position in the collection view.
     ///
     /// - Returns: A valid `UICollectionReusableView` object.
-    @inlinable func dequeueReusableFooterView<T: UICollectionReusableView>(for indexPath: IndexPath) -> T {
+    @inlinable @inline(__always)
+    func dequeueReusableFooterView<T: UICollectionReusableView>(for indexPath: IndexPath) -> T {
         return dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionFooter,
             withReuseIdentifier: T.reuseIdentifier,

@@ -10,7 +10,8 @@ public extension CGSize {
     ///     size.height // 50
     ///     size.maxDimension // 200
     ///
-    @inlinable var maxDimension: CGFloat { max(width, height) }
+    @inlinable @inline(__always)
+    var maxDimension: CGFloat { max(width, height) }
     
     /// Minimum dimension between this size width and its height.
     ///
@@ -18,7 +19,8 @@ public extension CGSize {
     ///     size.height // 50
     ///     size.minDimension // 50
     ///
-    @inlinable var minDimension: CGFloat { min(width, height) }
+    @inlinable @inline(__always)
+    var minDimension: CGFloat { min(width, height) }
     
     /// Returns a value corresponding to the ratio of this size width to its height.
     ///
@@ -30,7 +32,8 @@ public extension CGSize {
     ///         equalTo: view.heightAnchor,
     ///         multiplier: size.widthToHeightRatio
     ///     )
-    @inlinable var widthToHeightRatio: CGFloat {
+    @inlinable @inline(__always)
+    var widthToHeightRatio: CGFloat {
         return width / height
     }
     
@@ -44,7 +47,8 @@ public extension CGSize {
     ///         equalTo: view.widthAnchor,
     ///         multiplier: size.heightToWidthRatio
     ///     )
-    @inlinable var heightToWidthRatio: CGFloat {
+    @inlinable @inline(__always)
+    var heightToWidthRatio: CGFloat {
         return height / width
     }
     
@@ -62,7 +66,8 @@ public extension CGSize {
     ///     // CGSize(width: 120, height: 60)
     ///
     /// - Note: The result's dimensions are not greater than the corresponding dimensions of the specified size.
-    @inlinable func scaledToFit(to boundingSize: CGSize) -> CGSize {
+    @inlinable @inline(__always)
+    func scaledToFit(to boundingSize: CGSize) -> CGSize {
         let widthRatio = boundingSize.width / width
         let heightRatio = boundingSize.height / height
         // In order to avoid inaccuracy like 99.99999 instead of 100.0
@@ -86,7 +91,8 @@ public extension CGSize {
     ///     // CGSize(width: 240, height: 120)
     ///
     /// - Note: The result's dimensions are not less than the corresponding dimensions of the specified size.
-    @inlinable func scaledToFill(to boundingSize: CGSize) -> CGSize {
+    @inlinable @inline(__always)
+    func scaledToFill(to boundingSize: CGSize) -> CGSize {
         let widthRatio = boundingSize.width / width
         let heightRatio = boundingSize.height / height
         // In order to avoid inaccuracy like 99.99999 instead of 100.0
@@ -105,7 +111,8 @@ public extension CGSize {
     ///     let newSize = size.scaled(by: 1.5)
     ///     // CGSize(width: 150, height: 75)
     ///
-    @inlinable func scaled(by scale: CGFloat) -> CGSize {
+    @inlinable @inline(__always)
+    func scaled(by scale: CGFloat) -> CGSize {
         return CGSize(width: width * scale, height: height * scale)
     }
     
@@ -120,7 +127,8 @@ public extension CGSize {
     ///         width: newWidth,
     ///         height: size.height
     ///     )
-    @inlinable func withWidth(_ newWidth: CGFloat) -> CGSize {
+    @inlinable @inline(__always)
+    func withWidth(_ newWidth: CGFloat) -> CGSize {
         return CGSize(width: newWidth, height: height)
     }
     
@@ -134,7 +142,8 @@ public extension CGSize {
     ///         width: size.width * 1.5,
     ///         height: size.height
     ///     )
-    @inlinable func withWidth(update: (CGFloat) -> CGFloat) -> CGSize {
+    @inlinable @inline(__always)
+    func withWidth(update: (CGFloat) -> CGFloat) -> CGSize {
         return withWidth(update(width))
     }
     
@@ -149,7 +158,8 @@ public extension CGSize {
     ///         width: size.width,
     ///         height: newHeight
     ///     )
-    @inlinable func withHeight(_ newHeight: CGFloat) -> CGSize {
+    @inlinable @inline(__always)
+    func withHeight(_ newHeight: CGFloat) -> CGSize {
         return CGSize(width: width, height: newHeight)
     }
     
@@ -163,7 +173,8 @@ public extension CGSize {
     ///         width: size.width,
     ///         height: size.height * 1.5
     ///     )
-    @inlinable func withHeight(update: (CGFloat) -> CGFloat) -> CGSize {
+    @inlinable @inline(__always)
+    func withHeight(update: (CGFloat) -> CGFloat) -> CGSize {
         return withHeight(update(height))
     }
     
@@ -177,7 +188,8 @@ public extension CGSize {
     ///     // The same as
     ///     let size = CGSize(width: 100, height: 100)
     ///
-    @inlinable init(dimension: CGFloat) {
+    @inlinable @inline(__always)
+    init(dimension: CGFloat) {
         self.init(width: dimension, height: dimension)
     }
     

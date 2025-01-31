@@ -12,7 +12,8 @@ public extension Date {
     ///     // Usage example:
     ///     storage.save(image, expirationDate: .untilTomorrow)
     ///
-    @inlinable static var untilTomorrow: Date {
+    @inlinable @inline(__always)
+    static var untilTomorrow: Date {
         return Date().endOfDay
     }
     
@@ -21,7 +22,8 @@ public extension Date {
     ///     let now = Date.now // "28 Feb 2024 at 9:02:27 AM"
     ///     now.yesterday      // "27 Feb 2024 at 9:02:27 AM"
     ///
-    @inlinable var yesterday: Date {
+    @inlinable @inline(__always)
+    var yesterday: Date {
         return Calendar.current.date(byAdding: .day, value: -1, to: self)!
     }
     
@@ -30,7 +32,8 @@ public extension Date {
     ///     let now = Date.now // "28 Feb 2024 at 9:02:27 AM"
     ///     now.tomorrow       // "29 Feb 2024 at 9:02:27 AM"
     ///
-    @inlinable var tomorrow: Date {
+    @inlinable @inline(__always)
+    var tomorrow: Date {
         return Calendar.current.date(byAdding: .day, value: 1, to: self)!
     }
     
@@ -39,7 +42,8 @@ public extension Date {
     ///     let now = Date.now // "28 Feb 2024 at 9:02:27 AM"
     ///     now.startOfDay     // "28 Feb 2024 at 12:00:00 AM"
     ///
-    @inlinable var startOfDay: Date {
+    @inlinable @inline(__always)
+    var startOfDay: Date {
         return Calendar.current.startOfDay(for: self)
     }
     
@@ -48,7 +52,8 @@ public extension Date {
     ///     let now = Date.now // "28 Feb 2024 at 9:02:27 AM"
     ///     now.endOfDay       // "28 Feb 2024 at 11:59:59 PM"
     ///
-    @inlinable var endOfDay: Date {
+    @inlinable @inline(__always)
+    var endOfDay: Date {
         return tomorrow.startOfDay.addingTimeInterval(-1)
     }
     

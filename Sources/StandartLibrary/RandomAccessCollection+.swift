@@ -10,11 +10,12 @@ extension RandomAccessCollection {
     ///         User(id: 0, name: "James"), User(id: 1, name: "Robert"),
     ///         User(id: 2, name: "Mary"), User(id: 3, name: "Lisa")
     ///     ]
-    ///     let sortedUsers = users.sorted(by: \.name, using: <)
+    ///     let sortedUsers = users.sorted(by: \.name) { $0 < $1 }
     ///     /* [User(id: 0, name: James), User(id: 3, name: Lisa),
     ///         User(id: 2, name: Mary), User(id: 1, name: Robert)] */
     ///
-    @inlinable func sorted<T>(by keyPath: KeyPath<Element, T>, using compare: (T, T) -> Bool) -> [Element] {
+    @inlinable @inline(__always)
+    func sorted<T>(by keyPath: KeyPath<Element, T>, using compare: (T, T) -> Bool) -> [Element] {
         return sorted { compare($0[keyPath: keyPath], $1[keyPath: keyPath]) }
     }
     
@@ -32,7 +33,8 @@ extension RandomAccessCollection {
     ///     /* [User(id: 0, name: James), User(id: 3, name: Lisa),
     ///         User(id: 2, name: Mary), User(id: 1, name: Robert)] */
     ///
-    @inlinable func sorted<T: Comparable>(by keyPath: KeyPath<Element, T>) -> [Element] {
+    @inlinable @inline(__always)
+    func sorted<T: Comparable>(by keyPath: KeyPath<Element, T>) -> [Element] {
         return sorted { $0[keyPath: keyPath] < $1[keyPath: keyPath] }
     }
     
@@ -51,11 +53,12 @@ extension RandomAccessCollection where Self: MutableCollection {
     ///         User(id: 0, name: "James"), User(id: 1, name: "Robert"),
     ///         User(id: 2, name: "Mary"), User(id: 3, name: "Lisa")
     ///     ]
-    ///     users.sort(by: \.name, using: <)
+    ///     users.sort(by: \.name) { $0 < $1 }
     ///     /* [User(id: 0, name: James), User(id: 3, name: Lisa),
     ///         User(id: 2, name: Mary), User(id: 1, name: Robert)] */
     ///
-    @inlinable mutating func sort<T>(by keyPath: KeyPath<Element, T>, using compare: (T, T) -> Bool) {
+    @inlinable @inline(__always)
+    mutating func sort<T>(by keyPath: KeyPath<Element, T>, using compare: (T, T) -> Bool) {
         sort { compare($0[keyPath: keyPath], $1[keyPath: keyPath]) }
     }
     
@@ -73,7 +76,8 @@ extension RandomAccessCollection where Self: MutableCollection {
     ///     /* [User(id: 0, name: James), User(id: 3, name: Lisa),
     ///         User(id: 2, name: Mary), User(id: 1, name: Robert)] */
     ///
-    @inlinable mutating func sort<T: Comparable>(by keyPath: KeyPath<Element, T>) {
+    @inlinable @inline(__always)
+    mutating func sort<T: Comparable>(by keyPath: KeyPath<Element, T>) {
         sort { $0[keyPath: keyPath] < $1[keyPath: keyPath] }
     }
     

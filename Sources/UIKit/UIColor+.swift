@@ -5,7 +5,8 @@ import UIKit
 public extension UIColor {
     
     /// Creates a random color where the alpha component is equal to `1.0`.
-    @inlinable static var random: UIColor {
+    @inlinable @inline(__always)
+    static var random: UIColor {
         return UIColor(
             red:   CGFloat.random(in: 0...1.0),
             green: CGFloat.random(in: 0...1.0),
@@ -17,7 +18,8 @@ public extension UIColor {
     /// A color that is specified for the light mode.
     ///
     /// The color is created by using the `UITraitCollection.current` but with specified `.light` value for the `userInterfaceStyle` property.
-    @inlinable var lightModeColor: UIColor {
+    @inlinable @inline(__always)
+    var lightModeColor: UIColor {
         let traitCollection: UITraitCollection
         if #available(iOS 17, *){
             traitCollection = UITraitCollection.current.modifyingTraits { traits in
@@ -32,7 +34,8 @@ public extension UIColor {
     /// A color that is specified for the dark mode.
     ///
     /// The color is created by using the `UITraitCollection.current` but with specified `.dark` value for the `userInterfaceStyle` property.
-    @inlinable var darkModeColor: UIColor {
+    @inlinable @inline(__always)
+    var darkModeColor: UIColor {
         let traitCollection: UITraitCollection
         if #available(iOS 17, *){
             traitCollection = UITraitCollection.current.modifyingTraits { traits in
@@ -51,14 +54,16 @@ public extension UIColor {
     ///
     ///     let color: UIColor = .dynamic(light: .white, dark: .black)
     ///
-    @inlinable static func dynamic(light lightColor: UIColor, dark darkColor: UIColor) -> UIColor {
+    @inlinable @inline(__always)
+    static func dynamic(light lightColor: UIColor, dark darkColor: UIColor) -> UIColor {
         return UIColor { (traitCollection: UITraitCollection) -> UIColor in
             return traitCollection.userInterfaceStyle == .dark ? darkColor : lightColor
         }
     }
     
     /// Returns a CGColor value converted from this UIColor value.
-    @inlinable func toCGColor() -> CGColor { cgColor }
+    @inlinable @inline(__always)
+    func toCGColor() -> CGColor { cgColor }
     
     
     // MARK: Init
@@ -67,7 +72,8 @@ public extension UIColor {
     ///
     ///     let color = UIColor(hex: 0xC7508B)
     ///
-    @inlinable convenience init(hex value: Int, alpha: CGFloat = 1.0) {
+    @inlinable @inline(__always)
+    convenience init(hex value: Int, alpha: CGFloat = 1.0) {
         self.init(
             red:   CGFloat((value & 0xFF0000) >> 16) / 255.0,
             green: CGFloat((value & 0x00FF00) >> 8) / 255.0,
@@ -80,7 +86,8 @@ public extension UIColor {
     ///
     ///     let color = UIColor(hex: "#C7508B")
     ///
-    @inlinable convenience init(hex: String) {
+    @inlinable @inline(__always)
+    convenience init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int = UInt64()
         Scanner(string: hex).scanHexInt64(&int)

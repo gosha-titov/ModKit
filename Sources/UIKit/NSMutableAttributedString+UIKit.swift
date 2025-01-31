@@ -9,7 +9,8 @@ public extension NSMutableAttributedString {
     /// - Parameter color: The color of the underline.
     /// - Parameter range: The range of characters to which these attributes apply.
     /// If `nil` is specified,  these attributes are applied to the full string.
-    @inlinable func apply(underlineStyle style: NSUnderlineStyle, withColor color: UIColor, inRange range: NSRange? = nil) {
+    @inlinable @inline(__always)
+    func apply(underlineStyle style: NSUnderlineStyle, withColor color: UIColor, inRange range: NSRange? = nil) {
         apply([.underlineColor: color, .underlineStyle: style.rawValue], inRange: range)
     }
     
@@ -18,7 +19,8 @@ public extension NSMutableAttributedString {
     /// - Parameter color: The color of the strikethrough.
     /// - Parameter range: The range of characters to which these attributes apply.
     /// If `nil` is specified,  these attributes are applied to the full string.
-    @inlinable func apply(strikethroughStyle style: Int, withColor color: UIColor, inRange range: NSRange? = nil) {
+    @inlinable @inline(__always)
+    func apply(strikethroughStyle style: Int, withColor color: UIColor, inRange range: NSRange? = nil) {
         apply([.strikethroughStyle: style, .strikethroughColor: color], inRange: range)
     }
     
@@ -26,7 +28,8 @@ public extension NSMutableAttributedString {
     /// - Parameter font: The font of the text.
     /// - Parameter range: The range of characters to which this attribute applies.
     /// If `nil` is specified, this attribute is applied to the full string.
-    @inlinable func apply(font: UIFont, inRange range: NSRange? = nil) {
+    @inlinable @inline(__always)
+    func apply(font: UIFont, inRange range: NSRange? = nil) {
         apply([.font: font], inRange: range)
     }
     
@@ -34,7 +37,8 @@ public extension NSMutableAttributedString {
     /// - Parameter backgroundColor: The color of the background behind the text.
     /// - Parameter range: The range of characters to which this attribute applies.
     /// If `nil` is specified, this attribute is applied to the full string.
-    @inlinable func apply(backgroundColor: UIColor, inRange range: NSRange? = nil) {
+    @inlinable @inline(__always)
+    func apply(backgroundColor: UIColor, inRange range: NSRange? = nil) {
         apply([.backgroundColor: backgroundColor], inRange: range)
     }
     
@@ -42,7 +46,8 @@ public extension NSMutableAttributedString {
     /// - Parameter foregroundColor: The color of the text.
     /// - Parameter range: The range of characters to which this attribute applies.
     /// If `nil` is specified, this attribute is applied to the full string.
-    @inlinable func apply(foregroundColor: UIColor, inRange range: NSRange? = nil) {
+    @inlinable @inline(__always)
+    func apply(foregroundColor: UIColor, inRange range: NSRange? = nil) {
         apply([.foregroundColor: foregroundColor], inRange: range)
     }
     
@@ -50,7 +55,8 @@ public extension NSMutableAttributedString {
     /// - Parameter shadow: The shadow of the text.
     /// - Parameter range: The range of characters to which this attribute applies.
     /// If `nil` is specified, this attribute is applied to the full string.
-    @inlinable func apply(shadow: NSShadow, inRange range: NSRange? = nil) {
+    @inlinable @inline(__always)
+    func apply(shadow: NSShadow, inRange range: NSRange? = nil) {
         apply([.shadow: shadow], inRange: range)
     }
     

@@ -1,13 +1,35 @@
 public extension String {
     
     /// Creates a string that has no characters.
-    @inlinable static var empty: Self { String() }
+    @inlinable @inline(__always)
+    static var empty: Self { String() }
+    
+    /// The non-breaking space string that prevents an automatic line break at its position.
+    @inlinable @inline(__always)
+    static var nonbreakingSpace: String { "\u{00A0}" }
+    
+    /// The string that is a thin space.
+    @inlinable @inline(__always)
+    static var thinSpace: String { "\u{2009}" }
+    
+    /// The string that is a space.
+    @inlinable @inline(__always)
+    static var space: String { "\u{0020}" }
+    
+    /// The new-line string (`"\n"`) that signifies the end of a line of text and the start of a new one.
+    @inlinable @inline(__always)
+    static var newline: String { "\u{000A}" }
+    
+    /// The string that is a tab (`"\t"`).
+    @inlinable @inline(__always)
+    static var tab: String { "\u{0009}" }
     
     
     // MARK: Methods
     
     /// Returns a new string with the specified char appended.
-    @inlinable func appending(_ char: Character) -> String {
+    @inlinable @inline(__always)
+    func appending(_ char: Character) -> String {
         return mutating(self) { $0.append(char) }
     }
     
@@ -18,7 +40,8 @@ public extension String {
     ///     let str2 = "abde"
     ///     str1.commonSuffix(with: str2) // "de"
     ///
-    @inlinable func commonSuffix(with str: String) -> String {
+    @inlinable @inline(__always)
+    func commonSuffix(with str: String) -> String {
         var suffix = String()
         let min = min(count, str.count)
         let str1 = self.last(min)
@@ -36,13 +59,11 @@ public extension String {
     ///     let str = "abcde"
     ///     str.first(3) // "abc"
     ///
-    @inlinable func first(_ k: Int) -> String {
-        let k = k > count ? count : k
-        var first = String()
-        for i in 0..<k {
-            first.append(self[i])
-        }
-        return first
+    @inlinable @inline(__always)
+    func first(_ k: Int) -> Substring {
+        guard k > 0 else { return Substring() }
+        let k = k.clamped(to: 0...count)
+        return self[0..<k]
     }
     
     /// Returns the last K elements of the string.
@@ -50,13 +71,11 @@ public extension String {
     ///     let str = "abcde"
     ///     str.last(3) // "cde"
     ///
-    @inlinable func last(_ k: Int) -> String {
-        let k = k > count ? count : k
-        var last = String()
-        for i in (count - k)..<count {
-            last.append(self[i])
-        }
-        return last
+    @inlinable @inline(__always)
+    func last(_ k: Int) -> Substring {
+        guard k > 0 else { return Substring() }
+        let k = k.clamped(to: 0...count)
+        return self[(count - k)..<count]
     }
     
     
@@ -65,7 +84,8 @@ public extension String {
     ///     var str = "WorD"
     ///     str.uppercase() // "WORD"
     ///
-    @inlinable mutating func uppercase() {
+    @inlinable @inline(__always)
+    mutating func uppercase() {
         self = uppercased()
     }
     
@@ -74,7 +94,8 @@ public extension String {
     ///     var str = "WorD"
     ///     str.lowercase() // "word"
     ///
-    @inlinable mutating func lowercase() {
+    @inlinable @inline(__always)
+    mutating func lowercase() {
         self = lowercased()
     }
     
@@ -84,44 +105,53 @@ public extension String {
     ///     let str = "213"
     ///     str.toInt // Optional(213)
     ///
-    @inlinable func toInt() -> Int? { Int(self) }
+    @inlinable @inline(__always)
+    func toInt() -> Int? { Int(self) }
     
     
     // MARK: Subscripts
     
-    @inlinable subscript(bounds: ClosedRange<Int>) -> String {
+    @inlinable @inline(__always)
+    subscript(bounds: ClosedRange<Int>) -> Substring {
         let lowerBound = index(startIndex, offsetBy: bounds.lowerBound)
         let upperBound = index(startIndex, offsetBy: bounds.upperBound)
-        return String(self[lowerBound...upperBound])
+        return self[lowerBound...upperBound]
     }
 
-    @inlinable subscript(bounds: Range<Int>) -> String {
+    @inlinable @inline(__always)
+    subscript(bounds: Range<Int>) -> Substring {
         let lowerBound = index(startIndex, offsetBy: bounds.lowerBound)
         let upperBound = index(startIndex, offsetBy: bounds.upperBound)
-        return String(self[lowerBound..<upperBound])
+        return self[lowerBound..<upperBound]
     }
 
-    @inlinable subscript(bounds: PartialRangeFrom<Int>) -> String {
+    @inlinable @inline(__always)
+    subscript(bounds: PartialRangeFrom<Int>) -> Substring {
         let lowerBound = index(startIndex, offsetBy: bounds.lowerBound)
-        return String(self[lowerBound...])
+        return self[lowerBound...]
     }
 
-    @inlinable subscript(bounds: PartialRangeUpTo<Int>) -> String {
+    @inlinable @inline(__always)
+    subscript(bounds: PartialRangeUpTo<Int>) -> Substring {
         let upperBound = index(startIndex, offsetBy: bounds.upperBound)
-        return String(self[..<upperBound])
+        return self[..<upperBound]
     }
 
-    @inlinable subscript(bounds: PartialRangeThrough<Int>) -> String {
+    @inlinable @inline(__always)
+    subscript(bounds: PartialRangeThrough<Int>) -> Substring {
         let upperBound = index(startIndex, offsetBy: bounds.upperBound)
-        return String(self[...upperBound])
+        return self[...upperBound]
     }
     
-    @inlinable subscript(offset: Int) -> Character {
+    
+    @inlinable @inline(__always)
+    subscript(offset: Int) -> Character {
         let index = index(startIndex, offsetBy: offset)
         return self[index]
     }
     
-    @inlinable subscript(safe offset: Int) -> Character? {
+    @inlinable @inline(__always)
+    subscript(safe offset: Int) -> Character? {
         guard (0..<count).contains(offset) else { return nil }
         return self[offset]
     }

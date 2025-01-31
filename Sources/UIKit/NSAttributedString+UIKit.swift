@@ -9,7 +9,8 @@ public extension NSAttributedString {
     /// - Parameter color: The color of the underline.
     /// - Parameter range: The range of characters to which these attributes apply.
     /// If `nil` is specified,  these attributes are applied to the full string.
-    @inlinable func applying(underlineStyle style: NSUnderlineStyle, withColor color: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
+    @inlinable @inline(__always)
+    func applying(underlineStyle style: NSUnderlineStyle, withColor color: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
         return applying([.underlineColor: color, .underlineStyle: style.rawValue], inRange: range)
     }
     
@@ -18,7 +19,8 @@ public extension NSAttributedString {
     /// - Parameter color: The color of the strikethrough.
     /// - Parameter range: The range of characters to which these attributes apply.
     /// If `nil` is specified,  these attributes are applied to the full string.
-    @inlinable func applying(strikethroughStyle style: Int, withColor color: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
+    @inlinable @inline(__always)
+    func applying(strikethroughStyle style: Int, withColor color: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
         return applying([.strikethroughStyle: style, .strikethroughColor: color], inRange: range)
     }
     
@@ -26,7 +28,8 @@ public extension NSAttributedString {
     /// - Parameter font: The font of the text.
     /// - Parameter range: The range of characters to which this attribute applies.
     /// If `nil` is specified, this attribute is applied to the full string.
-    @inlinable func applying(font: UIFont, inRange range: NSRange? = nil) -> NSAttributedString {
+    @inlinable @inline(__always)
+    func applying(font: UIFont, inRange range: NSRange? = nil) -> NSAttributedString {
         return applying([.font: font], inRange: range)
     }
     
@@ -34,7 +37,8 @@ public extension NSAttributedString {
     /// - Parameter backgroundColor: The color of the background behind the text.
     /// - Parameter range: The range of characters to which this attribute applies.
     /// If `nil` is specified, this attribute is applied to the full string.
-    @inlinable func applying(backgroundColor: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
+    @inlinable @inline(__always)
+    func applying(backgroundColor: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
         return applying([.backgroundColor: backgroundColor], inRange: range)
     }
     
@@ -42,7 +46,8 @@ public extension NSAttributedString {
     /// - Parameter foregroundColor: The color of the text.
     /// - Parameter range: The range of characters to which this attribute applies.
     /// If `nil` is specified, this attribute is applied to the full string.
-    @inlinable func applying(foregroundColor: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
+    @inlinable @inline(__always)
+    func applying(foregroundColor: UIColor, inRange range: NSRange? = nil) -> NSAttributedString {
         return applying([.foregroundColor: foregroundColor], inRange: range)
     }
     
@@ -50,13 +55,15 @@ public extension NSAttributedString {
     /// - Parameter shadow: The shadow of the text.
     /// - Parameter range: The range of characters to which this attribute applies.
     /// If `nil` is specified, this attribute is applied to the full string.
-    @inlinable func applying(shadow: NSShadow, inRange range: NSRange? = nil) -> NSAttributedString {
+    @inlinable @inline(__always)
+    func applying(shadow: NSShadow, inRange range: NSRange? = nil) -> NSAttributedString {
         return applying([.shadow: shadow], inRange: range)
     }
     
     
     /// Calculates the width for the container rectangle necessary to draw the string.
-    @inlinable func width(basedOn containerHeight: CGFloat) -> CGFloat {
+    @inlinable @inline(__always)
+    func width(basedOn containerHeight: CGFloat) -> CGFloat {
         let rect = boundingRect(
             with: CGSize(width: .greatestFiniteMagnitude, height: containerHeight),
             options: [.usesLineFragmentOrigin, .usesFontLeading],
@@ -66,7 +73,8 @@ public extension NSAttributedString {
     }
     
     /// Calculates the height for the container rectangle necessary to draw the string.
-    @inlinable func height(basedOn containerWidth: CGFloat) -> CGFloat {
+    @inlinable @inline(__always)
+    func height(basedOn containerWidth: CGFloat) -> CGFloat {
         let rect = boundingRect(
             with: CGSize(width: containerWidth, height: .greatestFiniteMagnitude),
             options: [.usesLineFragmentOrigin, .usesFontLeading],

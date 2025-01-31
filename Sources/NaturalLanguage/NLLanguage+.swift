@@ -6,7 +6,8 @@ public extension NLLanguage {
     
     /// Returns the array of all default languages.
     /// - Important: This array does not contain the `.undetermined` language case.
-    @inlinable static var allLanguages: [NLLanguage] {
+    @inlinable  @inline(__always)
+    static var allLanguages: [NLLanguage] {
         let kazakh = if #available(iOS 16.0, *) {
             NLLanguage.kazakh
         } else {
@@ -38,12 +39,14 @@ public extension NLLanguage {
     }
     
     /// Returns the array of all left-to-right default languages.
-    @inlinable static var ltrLanguages: [NLLanguage] {
+    @inlinable @inline(__always)
+    static var ltrLanguages: [NLLanguage] {
         return allLanguages.removing(rtlLanguages)
     }
     
     /// Returns the array of all right-to-left default languages.
-    @inlinable static var rtlLanguages: [NLLanguage] {
+    @inlinable @inline(__always)
+    static var rtlLanguages: [NLLanguage] {
         return [.arabic, .hebrew, .persian, .urdu]
     }
     
@@ -53,7 +56,8 @@ public extension NLLanguage {
     ///     print(language.isLTR)
     ///     // Prints true
     ///
-    @inlinable var isLTR: Bool {
+    @inlinable @inline(__always)
+    var isLTR: Bool {
         return isRTL == false
     }
     
@@ -63,7 +67,8 @@ public extension NLLanguage {
     ///     print(language.isRTL)
     ///     // Prints true
     ///
-    @inlinable var isRTL: Bool {
+    @inlinable @inline(__always)
+    var isRTL: Bool {
         return NLLanguage.rtlLanguages.contains(self)
     }
     

@@ -5,7 +5,8 @@ public extension Numeric {
     ///     (-11).raised(to: 3) // -1331
     ///     (2.5).raised(to: 2) // 6.25
     ///
-    @inlinable func raised(to power: Int) -> Self {
+    @inlinable @inline(__always)
+    func raised(to power: Int) -> Self {
         guard power > 0 else { return 1 }
         let multiplier = self; var result = self
         (power - 1).times { result *= multiplier }
@@ -20,7 +21,8 @@ public extension Numeric {
     ///     var d = 1.5
     ///     d.raise(to: 3) // 3.375
     ///
-    @inlinable mutating func raise(to power: Int) {
+    @inlinable @inline(__always)
+    mutating func raise(to power: Int) {
         self = raised(to: power)
     }
     

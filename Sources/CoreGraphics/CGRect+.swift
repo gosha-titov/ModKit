@@ -4,15 +4,6 @@ import CoreGraphics
 
 public extension CGRect {
     
-    /// The area of this rectangle.
-    ///
-    ///     let rect = CGRect(width: 15.0, height: 2.0)
-    ///     rect.area // 30.0
-    ///
-    @inlinable var area: CGFloat {
-        return width * height
-    }
-    
     /// The point associated with the origin of this rectangle, settable.
     ///
     ///     let rect = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 200.0)
@@ -24,7 +15,8 @@ public extension CGRect {
     ///     │       │
     ///     └───────┘
     ///
-    @inlinable var topLeftPoint: CGPoint {
+    @inlinable @inline(__always)
+    var topLeftPoint: CGPoint {
         get { origin }
         set { origin = newValue}
     }
@@ -40,7 +32,8 @@ public extension CGRect {
     ///     │       │
     ///     └───────┘
     ///
-    @inlinable var topPoint: CGPoint {
+    @inlinable @inline(__always)
+    var topPoint: CGPoint {
         get { return CGPoint(x: midX, y: minY) }
         set { origin = newValue.withX(offsetBy: -width / 2) }
     }
@@ -56,7 +49,8 @@ public extension CGRect {
     ///     │       │
     ///     └───────┘
     ///
-    @inlinable var topRightPoint: CGPoint {
+    @inlinable @inline(__always)
+    var topRightPoint: CGPoint {
         get { return CGPoint(x: maxX, y: minY) }
         set { origin = newValue.withX(offsetBy: -width) }
     }
@@ -72,7 +66,8 @@ public extension CGRect {
     ///     │       │
     ///     └───────┘
     ///
-    @inlinable var leftPoint: CGPoint {
+    @inlinable @inline(__always)
+    var leftPoint: CGPoint {
         get { return CGPoint(x: minX, y: midY) }
         set { origin = newValue.withY(offsetBy: -height / 2) }
     }
@@ -88,7 +83,8 @@ public extension CGRect {
     ///     │       │
     ///     └───────┘
     ///
-    @inlinable var center: CGPoint {
+    @inlinable @inline(__always)
+    var center: CGPoint {
         get { return CGPoint(x: midX, y: midY) }
         set { origin = newValue.offsetBy(dx: -width / 2, dy: -height / 2) }
     }
@@ -104,7 +100,8 @@ public extension CGRect {
     ///     │       │
     ///     └───────┘
     ///
-    @inlinable var rightPoint: CGPoint {
+    @inlinable @inline(__always)
+    var rightPoint: CGPoint {
         get { return CGPoint(x: maxX, y: midY) }
         set { origin = newValue.offsetBy(dx: -width, dy: -height / 2) }
     }
@@ -120,7 +117,8 @@ public extension CGRect {
     ///     │       │
     ///     ●───────┘
     ///
-    @inlinable var bottomLeftPoint: CGPoint {
+    @inlinable @inline(__always)
+    var bottomLeftPoint: CGPoint {
         get { return CGPoint(x: minX, y: maxY) }
         set { origin = newValue.withY(offsetBy: -height) }
     }
@@ -136,7 +134,8 @@ public extension CGRect {
     ///     │       │
     ///     └───●───┘
     ///
-    @inlinable var bottomPoint: CGPoint {
+    @inlinable @inline(__always)
+    var bottomPoint: CGPoint {
         get { return CGPoint(x: midX, y: maxY) }
         set { origin = newValue.offsetBy(dx: -width / 2, dy: -height) }
     }
@@ -152,7 +151,8 @@ public extension CGRect {
     ///     │       │
     ///     └───────●
     ///
-    @inlinable var bottomRightPoint: CGPoint {
+    @inlinable @inline(__always)
+    var bottomRightPoint: CGPoint {
         get { return CGPoint(x: maxX, y: maxY) }
         set { origin = newValue.offsetBy(dx: -width, dy: -height) }
     }
@@ -170,7 +170,8 @@ public extension CGRect {
     ///         origin: newOrigin,
     ///         size: size
     ///     )
-    @inlinable func withOrigin(_ newOrigin: CGPoint) -> CGRect {
+    @inlinable @inline(__always)
+    func withOrigin(_ newOrigin: CGPoint) -> CGRect {
         return CGRect(origin: newOrigin, size: size)
     }
     
@@ -187,7 +188,8 @@ public extension CGRect {
     ///         ),
     ///         size: size
     ///     )
-    @inlinable func withOrigin(update: (CGPoint) -> CGPoint) -> CGRect {
+    @inlinable @inline(__always)
+    func withOrigin(update: (CGPoint) -> CGPoint) -> CGRect {
         return withOrigin(update(origin))
     }
     
@@ -202,7 +204,8 @@ public extension CGRect {
     ///         origin: rect.origin,
     ///         size: newSize
     ///     )
-    @inlinable func withSize(_ newSize: CGSize) -> CGRect {
+    @inlinable @inline(__always)
+    func withSize(_ newSize: CGSize) -> CGRect {
         return CGRect(origin: origin, size: newSize)
     }
     
@@ -216,7 +219,8 @@ public extension CGRect {
     ///         origin: rect.origin,
     ///         size: rect.size.scaled(by: 1.5)
     ///     )
-    @inlinable func withSize(update: (CGSize) -> CGSize) -> CGRect {
+    @inlinable @inline(__always)
+    func withSize(update: (CGSize) -> CGSize) -> CGRect {
         return withSize(update(size))
     }
     
@@ -234,7 +238,8 @@ public extension CGRect {
     ///             height: rect.height
     ///         )
     ///     )
-    @inlinable func withWidth(_ newWidth: CGFloat) -> CGRect {
+    @inlinable @inline(__always)
+    func withWidth(_ newWidth: CGFloat) -> CGRect {
         return CGRect(origin: origin, size: size.withWidth(newWidth))
     }
     
@@ -251,7 +256,8 @@ public extension CGRect {
     ///             height: rect.height
     ///         )
     ///     )
-    @inlinable func withWidth(update: (CGFloat) -> CGFloat) -> CGRect {
+    @inlinable @inline(__always)
+    func withWidth(update: (CGFloat) -> CGFloat) -> CGRect {
         return withWidth(update(width))
     }
     
@@ -269,7 +275,8 @@ public extension CGRect {
     ///             height: newHeight
     ///         )
     ///     )
-    @inlinable func withHeight(_ newHeight: CGFloat) -> CGRect {
+    @inlinable @inline(__always)
+    func withHeight(_ newHeight: CGFloat) -> CGRect {
         return CGRect(origin: origin, size: size.withHeight(newHeight))
     }
     
@@ -286,7 +293,8 @@ public extension CGRect {
     ///             height: rect.height * 1.5
     ///         )
     ///     )
-    @inlinable func withHeight(update: (CGFloat) -> CGFloat) -> CGRect {
+    @inlinable @inline(__always)
+    func withHeight(update: (CGFloat) -> CGFloat) -> CGRect {
         return withHeight(update(height))
     }
     
@@ -294,19 +302,22 @@ public extension CGRect {
     // MARK: Inits
     
     /// Creates a rectangle with dimensions specified as CGFloat values and the origin at zero.
-    @inlinable init(width: CGFloat, height: CGFloat) {
+    @inlinable @inline(__always)
+    init(width: CGFloat, height: CGFloat) {
         let size = CGSize(width: width, height: height)
         self.init(origin: .zero, size: size)
     }
     
     /// Creates a rectangle with the specified center and size.
-    @inlinable init(center: CGPoint, size: CGSize) {
+    @inlinable @inline(__always)
+    init(center: CGPoint, size: CGSize) {
         let origin = center.offsetBy(dx: -size.width / 2, dy: -size.height / 2)
         self.init(origin: origin, size: size)
     }
     
     /// Creates a rectangle with the origin at zero and the specified size.
-    @inlinable init(size: CGSize) {
+    @inlinable @inline(__always)
+    init(size: CGSize) {
         self.init(origin: .zero, size: size)
     }
     
