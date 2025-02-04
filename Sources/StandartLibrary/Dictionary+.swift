@@ -14,7 +14,9 @@ public extension Dictionary {
     ///     dict.hasKey(3) // false
     ///
     @inlinable @inline(__always)
-    func hasKey(_ key: Key) -> Bool { self[key].hasValue }
+    func hasKey(_ key: Key) -> Bool {
+        return self[key].hasValue
+    }
     
     
     /// Returns a new dictionary that is a copy of this one with the value updated or added for the specified key.
@@ -90,31 +92,5 @@ public extension Dictionary where Value: AnyObject {
     func keys(forReference value: Value) -> [Key] {
         return filter { $0.value === value }.map(\.key)
     }
-    
-}
-
-
-public extension Dictionary.Keys {
-    
-    /// Returns an array consisting of keys.
-    ///
-    ///     let dict = ["a": 1, "b": 2]
-    ///     let keys: [String] = dict.keys.toArray() // ["a", "b"]
-    ///
-    @inlinable @inline(__always)
-    func toArray() -> [Key] { Array(self) }
-    
-}
-
-
-public extension Dictionary.Values {
-    
-    /// Returns an array consisting of values.
-    ///
-    ///     let dict = ["a": 1, "b": 2]
-    ///     let values: [Int] = dict.values.toArray() // [1, 2]
-    ///
-    @inlinable @inline(__always)
-    func toArray() -> [Value] { Array(self) }
     
 }

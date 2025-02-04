@@ -19,7 +19,6 @@ public extension UIEdgeInsets {
     ///     let insets = UIEdgeInsets(8)
     ///     // UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     ///
-
     @inlinable @inline(__always)
     init(_ inset: CGFloat) {
         self.init(top: inset, left: inset, bottom: inset, right: inset)
