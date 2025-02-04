@@ -103,6 +103,7 @@ public extension UIFont {
         return if italic { font.withItalicTrait() } else { font }
     }
     
+    
     /// Returns an instance of the system font with a specific weight for the specified text style with scaling for the user's selected content size category.
     /// - Parameter style: The text style for which to return a font. See `UIFont.TextStyle` for recognized values.
     /// - Parameter weight: The weight of the preffered font. See `UIFont.Weight` for recognized values.
@@ -121,12 +122,29 @@ public extension UIFont {
     }
     
     
-    /// Returns a font object that is the same as the font, but has the italic trait.
+    /// Returns a new font object that is the same as this font, but having the bold trait.
+    @inlinable @inline(__always)
+    func withBoldTrait() -> UIFont {
+        return withSymbolicTraits(.traitBold)
+    }
+    
+    /// Returns a new font object that is the same as this font, but having the italic trait.
     @inlinable @inline(__always)
     func withItalicTrait() -> UIFont {
-        let italicTrait = UIFontDescriptor.SymbolicTraits([.traitItalic])
-        let otherTraits = fontDescriptor.symbolicTraits
-        if let descriptor = fontDescriptor.withSymbolicTraits(italicTrait.union(otherTraits)) {
+        return withSymbolicTraits(.traitItalic)
+    }
+    
+    /// Returns a new font object that is the same as this font, but having the mono space trait.
+    @inlinable @inline(__always)
+    func withMonoSpaceTrait() -> UIFont {
+        return withSymbolicTraits(.traitMonoSpace)
+    }
+    
+    /// Returns a new font object that is the same as this font, but with the specified traits.
+    @inlinable @inline(__always)
+    func withSymbolicTraits(_ additionalTraits: UIFontDescriptor.SymbolicTraits) -> UIFont {
+        let traits = fontDescriptor.symbolicTraits.union(additionalTraits)
+        if let descriptor = fontDescriptor.withSymbolicTraits(traits) {
             return UIFont(descriptor: descriptor, size: pointSize)
         }
         return self
