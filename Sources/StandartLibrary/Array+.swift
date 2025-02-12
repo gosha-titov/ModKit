@@ -288,21 +288,6 @@ public extension Array where Element: AnyObject {
 }
 
 
-public extension Array where Element: Numeric {
-    
-    /// Returns the result of summing the elements of the sequence.
-    ///
-    ///     let arr = [3, 5, 7]
-    ///     arr.sum // 15
-    ///
-    @inlinable @inline(__always)
-    func sum() -> Element {
-        return reduce(0, +)
-    }
-    
-}
-
-
 public extension Array where Element: LosslessStringConvertible {
     
     /// Returns a string by converting the elements of the sequence to strings and concatenating them, adding the given separator between each element.
@@ -321,7 +306,7 @@ public extension Array where Element: LosslessStringConvertible {
 
 public extension Array where Element == Character {
     
-    /// A string that contains all characters of this array.
+    /// A string that contains all characters of the array.
     ///
     ///     let array = [Character("H"), Character("i"), Character("!")]
     ///     array.toString() // "Hi!"

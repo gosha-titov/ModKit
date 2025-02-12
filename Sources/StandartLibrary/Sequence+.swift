@@ -51,3 +51,18 @@ public extension Sequence where Element: Comparable {
     }
     
 }
+
+
+public extension Sequence where Element: Numeric {
+    
+    /// Returns the result of summing all the elements of the sequence.
+    ///
+    ///     let numbers = [3, 5, 7]
+    ///     numbers.sum // 15
+    ///
+    @inlinable @inline(__always)
+    func sum() -> Element {
+        return reduce(0, +)
+    }
+    
+}
