@@ -93,7 +93,7 @@ public extension UIImage {
     ///   If `nil` is specified, the image will be cropped to a maximum fitting square.
     @inlinable
     func cropped(to newSize: CGSize? = nil) -> UIImage {
-        let newSize = if let newSize { newSize } else { CGSize(dimension: size.minDimension) }
+        let newSize = newSize.orElse(CGSize(dimension: size.minDimension))
         let renderer = UIGraphicsImageRenderer(size: newSize)
         return renderer.image { _ in
             let origin = CGPoint(
@@ -124,7 +124,9 @@ public extension UIImage {
     @inlinable
     func rounded(withRadius radius: CGFloat? = nil) -> UIImage {
         let maxRadius = size.minDimension / 2
-        let radius = if let radius { radius.clamped(to: 0...maxRadius) } else { maxRadius }
+        let radius = radius
+            .maybe { $0.clamped(to: 0...maxRadius) }
+            .orElse(maxRadius)
         guard radius > 0 else { return self }
         let rect = CGRect(size: size)
         let bezierPath = UIBezierPath(roundedRect: rect, cornerRadius: radius)
@@ -144,7 +146,9 @@ public extension UIImage {
     @inlinable
     func bordered(withColor color: UIColor, width: CGFloat, radius: CGFloat? = nil) -> UIImage {
         let maxRadius = size.minDimension / 2
-        let radius = if let radius { radius.clamped(to: 0...maxRadius) } else { maxRadius }
+        let radius = radius
+            .maybe { $0.clamped(to: 0...maxRadius) }
+            .orElse(maxRadius)
         let rect = CGRect(size: size)
         let lineRect = rect.insetBy(dx: width / 2, dy: width / 2)
         let bezierPath = if radius > .zero {

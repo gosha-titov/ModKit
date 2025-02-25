@@ -24,7 +24,7 @@ public extension NSMutableAttributedString {
     @inlinable @inline(__always)
     func apply(_ attributes: [Key: Any], inRange range: NSRange? = nil) {
         guard !string.isEmpty else { return }
-        let range: NSRange = if let range { range } else { NSRange(0..<length) }
+        let range = range.orElse(NSRange(0..<length))
         addAttributes(attributes, range: range)
     }
     
