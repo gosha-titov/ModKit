@@ -16,7 +16,7 @@ public extension NSAttributedString {
     /// Returns an attributed string with applied the given collection of attributes to the characters in the specified range.
     ///
     ///     let newString = attributedString.applying([
-    ///         .font: UIFont.boldSystemFont(ofSize: 16),
+    ///         .font: UIFont.boldSystemFont(ofSize: 17),
     ///         .backgroundColor: UIColor.orange,
     ///         .foregroundColor: UIColor.black,
     ///         .underlineStyle: NSUnderlineStyle.single,
@@ -34,6 +34,25 @@ public extension NSAttributedString {
     func applying(_ attributes: [Key: Any], inRange range: NSRange? = nil) -> NSAttributedString {
         guard !string.isEmpty else { return self }
         return mutating(mutable) { $0.apply(attributes, inRange: range) }
+    }
+    
+    
+    // MARK: Init
+    
+    /// Creates a new attributed string from the contents of other ones.
+    @inlinable @inline(__always)
+    convenience init(concatenating attributedStrings: [NSAttributedString]) {
+        guard let firstString = attributedStrings.first else {
+            self.init(); return
+        }
+        guard attributedStrings.count > 1 else {
+            self.init(attributedString: firstString); return
+        }
+        let mutableString = firstString.mutable
+        for attributedString in attributedStrings[1...] {
+            mutableString.append(attributedString)
+        }
+        self.init(attributedString: mutableString)
     }
     
 

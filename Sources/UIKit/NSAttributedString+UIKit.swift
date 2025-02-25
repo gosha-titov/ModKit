@@ -83,25 +83,6 @@ public extension NSAttributedString {
         return ceil(rect.size.height)
     }
     
-    
-    // MARK: Init
-    
-    /// Creates a new attributed string from the contents of other ones.
-    @inlinable @inline(__always)
-    convenience init(_ attributedStrings: [NSAttributedString]) {
-        guard let firstString = attributedStrings.first else {
-            self.init(); return
-        }
-        guard attributedStrings.count > 1 else {
-            self.init(attributedString: firstString); return
-        }
-        let mutableString = firstString.mutable
-        for attributedString in attributedStrings[1...] {
-            mutableString.append(attributedString)
-        }
-        self.init(attributedString: mutableString)
-    }
-    
 }
 
 #endif
