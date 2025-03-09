@@ -59,6 +59,27 @@ public extension Dictionary {
         oldKeys.forEach { removeValue(forKey: $0) }
     }
     
+    
+    /// Removes all the key-value pairs that satisfy the given predicate.
+    ///
+    ///     var dict = [0: "a", 1: "", 2: "c"]
+    ///     dict.removeValues(where: \.isEmpty) // [0: "a", 2: "c"]
+    ///
+    @inlinable @inline(__always)
+    mutating func removeValues(where shouldBeRemoved: (Value) -> Bool) {
+        self = removingValues(where: shouldBeRemoved)
+    }
+    
+    /// Returns a new dictionary with removed key-value pairs satisfying the given predicate.
+    ///
+    ///     let dict = [0: "a", 1: "", 2: "c"]
+    ///     dict.removingValues(where: \.isEmpty) // [0: "a", 2: "c"]
+    ///
+    @inlinable @inline(__always)
+    func removingValues(where shouldBeRemoved: (Value) -> Bool) -> Self {
+        return filter { !shouldBeRemoved($0.value) }
+    }
+    
 }
 
 
