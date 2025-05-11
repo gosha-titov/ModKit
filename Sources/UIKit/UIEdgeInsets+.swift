@@ -4,6 +4,33 @@ import UIKit
 
 public extension UIEdgeInsets {
     
+    /// Returns a sum of the top and bottom edge insets' values.
+    ///
+    ///     let availableHeight = view.height - padding.topAndBottom
+    ///
+    ///     // The same as above:
+    ///     let availableHeight = view.height - (padding.top + padding.bottom)
+    ///
+    @inlinable @inline(__always)
+    var topAndBottom: CGFloat {
+        return top + bottom
+    }
+    
+    /// Returns a sum of the left and right edge insets' values.
+    ///
+    ///     let availableWidth = view.width - padding.leftAndRight
+    ///
+    ///     // The same as above:
+    ///     let availableWidth = view.width - (padding.left + padding.right)
+    ///
+    @inlinable @inline(__always)
+    var leftAndRight: CGFloat {
+        return left + right
+    }
+    
+    
+    // MARK: Inits
+    
     /// Creates an edge insets structure with the specified paired edges.
     ///
     ///     let insets = UIEdgeInsets(topAndBottom: 16, leftAndRight: 8)
