@@ -28,7 +28,7 @@ public extension Array {
     ///     array.rearrangingElement(from: 3, to: 1) // ["a", "d", "b", "c"]
     ///
     @inlinable @inline(__always)
-    func rearrangingElement(from indexToRemove: Int, to indexToInsert: Int) -> Self {
+    func rearrangingElement(from indexToRemove: Index, to indexToInsert: Index) -> Self {
         return mutating(self) { $0.rearrangeElement(from: indexToRemove, to: indexToInsert) }
     }
     
@@ -38,7 +38,7 @@ public extension Array {
     ///     array.rearrangeElement(from: 3, to: 1) // ["a", "d", "b", "c"]
     ///
     @inlinable @inline(__always)
-    mutating func rearrangeElement(from indexToRemove: Int, to indexToInsert: Int) {
+    mutating func rearrangeElement(from indexToRemove: Index, to indexToInsert: Index) {
         let element = remove(at: indexToRemove)
         insert(element, at: indexToInsert)
     }
@@ -111,7 +111,7 @@ public extension Array {
     ///     array.prepending([0, 1]) // [0, 1, 2, 3]
     ///
     @inlinable @inline(__always)
-    mutating func prepending(_ newElements: any Collection<Element>) -> Self {
+    func prepending(_ newElements: any Collection<Element>) -> Self {
         return mutating(self) { $0.prepend(newElements) }
     }
     
@@ -242,7 +242,7 @@ public extension Array where Element: Equatable {
     // MARK: Subscripts
     
     @inlinable @inline(__always)
-    subscript(safe offset: Int) -> Element? {
+    subscript(safe offset: Index) -> Element? {
         guard (0..<count).contains(offset) else { return nil }
         return self[offset]
     }

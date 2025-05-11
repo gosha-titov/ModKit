@@ -6,23 +6,33 @@ public extension String {
     
     /// The non-breaking space string that prevents an automatic line break at its position.
     @inlinable @inline(__always)
-    static var nonbreakingSpace: String { "\u{00A0}" }
+    static var nonbreakingSpace: String {
+        return Character.nonbreakingSpace.toString()
+    }
     
     /// The string that is a thin space.
     @inlinable @inline(__always)
-    static var thinSpace: String { "\u{2009}" }
+    static var thinSpace: String {
+        return Character.thinSpace.toString()
+    }
     
     /// The string that is a space.
     @inlinable @inline(__always)
-    static var space: String { "\u{0020}" }
+    static var space: String {
+        return Character.space.toString()
+    }
     
     /// The new-line string (`"\n"`) that signifies the end of a line of text and the start of a new one.
     @inlinable @inline(__always)
-    static var newline: String { "\u{000A}" }
+    static var newline: String {
+        return Character.newline.toString()
+    }
     
     /// The string that is a tab (`"\t"`).
     @inlinable @inline(__always)
-    static var tab: String { "\u{0009}" }
+    static var tab: String {
+        return Character.tab.toString()
+    }
     
     
     // MARK: Methods
