@@ -116,6 +116,17 @@ public extension Array {
     }
     
     
+    /// Returns a new array with an element at the specified index updated to a new one.
+    ///
+    ///     let array = ["a", "b", "c"]
+    ///     array.updating(to: "m", at: 1) // ["a", "m", "c"]
+    ///
+    @inlinable @inline(__always)
+    func updating(to newElement: Element, at index: Index) -> Self {
+        return mutating(self) { $0[index] = newElement }
+    }
+    
+    
     /// Returns the first K elements of this array.
     ///
     ///     let arr = [1, 2, 3, 4, 5]
