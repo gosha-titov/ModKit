@@ -34,6 +34,32 @@ public extension CGPoint {
         return CGPoint(x: x + dx, y: y + dy)
     }
     
+    /// Returns a new point offsetting the current X- and Y- positions by the specified radius and angle of the circle centered on this point.
+    ///
+    ///     let point = CGPoint(x: 100, y: 50)
+    ///     let newPoint = point.offsetBy(angle: .pi / 2, radius: 25)
+    ///     // CGPoint(x: 100, y: 75)
+    ///
+    ///     // ▲ y     .pi / 2
+    ///     // ├      ╭───●───╮
+    ///     // │      │   │   │
+    ///     // ├  .pi ┤   ○╶─ ┼ 0
+    ///     // │      │       │
+    ///     // │      ╰───┬───╯
+    ///     // │     .pi * 3 / 2
+    ///     // │
+    ///     // ┼──────────┴─────▶ x
+    ///
+    /// - Parameter angle: The angle in radians.
+    /// - Note: This method offsets the point within the normal coordinate system, rather than in the Apple's one where Y- axis increases downwards.
+    @inlinable @inline(__always)
+    func offsetBy(angle: CGFloat, radius: CGFloat) -> CGPoint {
+        return offsetBy(
+            dx: radius * cos(angle),
+            dy: radius * sin(angle)
+        )
+    }
+    
     /// Returns a new point replacing the current X-position with the specified one.
     ///
     ///     // Short way
