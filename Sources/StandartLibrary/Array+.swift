@@ -22,16 +22,6 @@ public extension Array {
     }
     
     
-    /// Returns a new array containing all elements but an element was rearranged from one specific position to another.
-    ///
-    ///     let array = ["a", "b", "c", "d"]
-    ///     array.rearrangingElement(from: 3, to: 1) // ["a", "d", "b", "c"]
-    ///
-    @inlinable @inline(__always)
-    func rearrangingElement(from indexToRemove: Index, to indexToInsert: Index) -> Self {
-        return mutating(self) { $0.rearrangeElement(from: indexToRemove, to: indexToInsert) }
-    }
-    
     /// Rearranges an element from one specific position to another.
     ///
     ///     var array = ["a", "b", "c", "d"]
@@ -43,16 +33,16 @@ public extension Array {
         insert(element, at: indexToInsert)
     }
     
-    
-    /// Adds the elements of a sequence to the end of the array.
+    /// Returns a new array containing all elements but an element was rearranged from one specific position to another.
     ///
-    ///     var array = [0, 1]
-    ///     array.append([2, 3]) // [0, 1, 2, 3]
+    ///     let array = ["a", "b", "c", "d"]
+    ///     array.rearrangingElement(from: 3, to: 1) // ["a", "d", "b", "c"]
     ///
     @inlinable @inline(__always)
-    mutating func append(_ newElements: any Sequence<Element>) {
-        append(contentsOf: newElements)
+    func rearrangingElement(from indexToRemove: Index, to indexToInsert: Index) -> Self {
+        return mutating(self) { $0.rearrangeElement(from: indexToRemove, to: indexToInsert) }
     }
+    
     
     /// Returns a new array with the specified element appended.
     ///
@@ -67,11 +57,11 @@ public extension Array {
     /// Returns a new array with the elements of the specified sequence added to the end of the array.
     ///
     ///     let array = [0, 1]
-    ///     array.appending([2, 3]) // [0, 1, 2, 3]
+    ///     array.appending(contentsOf: [2, 3]) // [0, 1, 2, 3]
     ///
     @inlinable @inline(__always)
-    func appending(_ newElements: any Sequence<Element>) -> Self {
-        return mutating(self) { $0.append(newElements) }
+    func appending(contentsOf newElements: any Sequence<Element>) -> Self {
+        return mutating(self) { $0.append(contentsOf: newElements) }
     }
     
     
@@ -88,10 +78,10 @@ public extension Array {
     /// Adds the elements of a sequence to the beginning of the array.
     ///
     ///     var array = [2, 3]
-    ///     array.prepend([0, 1]) // [0, 1, 2, 3]
+    ///     array.prepend(contentsOf: [0, 1]) // [0, 1, 2, 3]
     ///
     @inlinable @inline(__always)
-    mutating func prepend(_ newElements: any Collection<Element>) {
+    mutating func prepend(contentsOf newElements: any Collection<Element>) {
         insert(contentsOf: newElements, at: .zero)
     }
     
@@ -108,11 +98,11 @@ public extension Array {
     /// Returns a new array with the specified elements of a sequence added to the beginning of the array.
     ///
     ///     let array = [2, 3]
-    ///     array.prepending([0, 1]) // [0, 1, 2, 3]
+    ///     array.prepending(contentsOf: [0, 1]) // [0, 1, 2, 3]
     ///
     @inlinable @inline(__always)
-    func prepending(_ newElements: any Collection<Element>) -> Self {
-        return mutating(self) { $0.prepend(newElements) }
+    func prepending(contentsOf newElements: any Collection<Element>) -> Self {
+        return mutating(self) { $0.prepend(contentsOf: newElements) }
     }
     
     
@@ -156,14 +146,24 @@ public extension Array {
 
 public extension Array where Element: Equatable {
     
-    /// Returns a new array containing all but the specified elements.
+    /// Removes all the elements equal to the specified one from the array.
     ///
-    ///     let array = [1, 2, 3, 2, 4]
-    ///     array.removing([2, 4]) // [1, 3]
+    ///     var array = [1, 2, 3, 2, 4]
+    ///     array.remove(2) // [1, 3, 4]
     ///
     @inlinable @inline(__always)
-    func removing(_ oldElements: any Sequence<Element>) -> Self {
-        return mutating(self) { $0.remove(oldElements) }
+    mutating func remove(_ oldElement: Element) {
+        removeAll(where: { $0 == oldElement })
+    }
+    
+    /// Removes all the specified elements from the array.
+    ///
+    ///     var array = [1, 2, 3, 2, 4]
+    ///     array.remove(contentsOf: [2, 4]) // [1, 3]
+    ///
+    @inlinable @inline(__always)
+    mutating func remove(contentsOf oldElements: any Sequence<Element>) {
+        removeAll(where: { oldElements.contains($0) })
     }
     
     /// Returns a new array containing all but the specified element.
@@ -176,24 +176,14 @@ public extension Array where Element: Equatable {
         return mutating(self) { $0.remove(oldElement) }
     }
     
-    /// Removes all the specified elements from the array.
+    /// Returns a new array containing all but the specified elements.
     ///
-    ///     var array = [1, 2, 3, 2, 4]
-    ///     array.remove([2, 4]) // [1, 3]
-    ///
-    @inlinable @inline(__always)
-    mutating func remove(_ oldElements: any Sequence<Element>) {
-        removeAll(where: { oldElements.contains($0) })
-    }
-    
-    /// Removes all the elements equal to the specified one from the array.
-    ///
-    ///     var array = [1, 2, 3, 2, 4]
-    ///     array.remove(2) // [1, 3, 4]
+    ///     let array = [1, 2, 3, 2, 4]
+    ///     array.removing(contentsOf: [2, 4]) // [1, 3]
     ///
     @inlinable @inline(__always)
-    mutating func remove(_ oldElement: Element) {
-        removeAll(where: { $0 == oldElement })
+    func removing(contentsOf oldElements: any Sequence<Element>) -> Self {
+        return mutating(self) { $0.remove(contentsOf: oldElements) }
     }
     
     
@@ -225,13 +215,13 @@ public extension Array where Element: Equatable {
     /// Returns a Boolean value that indicates whether the sequence contains all the given elements.
     ///
     ///     let array = [3, 1, 4, 1, 5]
-    ///     array.contains([5, 4, 6]) // false
-    ///     array.contains([5, 4])    // true
+    ///     array.contains(contentsOf: [5, 4, 6]) // false
+    ///     array.contains(contentsOf: [5, 4])    // true
     ///
     /// - Parameter elements: The elements to find in the sequence.
     /// - Returns: `True` if all elements were found in the sequence; otherwise, `false`.
     @inlinable @inline(__always)
-    func contains(_ elements: any Sequence<Element>) -> Bool {
+    func contains(contentsOf elements: any Sequence<Element>) -> Bool {
         for element in elements {
             guard contains(element) else { return false }
         }
@@ -252,14 +242,14 @@ public extension Array where Element: Equatable {
 
 public extension Array where Element: AnyObject {
     
-    /// Returns a new array containing all but the given reference-type objects.
+    /// Removes the given reference-type object from the array.
     ///
-    ///     let array = [t1, t2, t3, t2, t4]
-    ///     array.removingReferences([t2, t4]) // [t1, t3]
+    ///     var array = [t1, t2, t3, t2, t4]
+    ///     array.removeReference(t2) // [t1, t3, t4]
     ///
     @inlinable @inline(__always)
-    func removingReferences(_ objects: [Element]) -> Self {
-        return mutating(self) { $0.removeReferences(objects) }
+    mutating func removeReference(_ object: Element) {
+        removeAll { $0 === object }
     }
     
     /// Removes the given reference-type objects from the array.
@@ -268,13 +258,14 @@ public extension Array where Element: AnyObject {
     ///     array.removeReferences([t2, t4]) // [t1, t3]
     ///
     @inlinable @inline(__always)
-    mutating func removeReferences(_ objects: [Element]) {
+    mutating func removeReferences(_ objects: any Sequence<Element>) {
         removeAll { sourceObject in
             return objects.contains { removedObject in
                 sourceObject === removedObject
             }
         }
     }
+
     
     /// Returns a new array containing all but the given reference-type object.
     ///
@@ -286,14 +277,14 @@ public extension Array where Element: AnyObject {
         return mutating(self) { $0.removeReference(object) }
     }
     
-    /// Removes the given reference-type object from the array.
+    /// Returns a new array containing all but the given reference-type objects.
     ///
-    ///     var array = [t1, t2, t3, t2, t4]
-    ///     array.removeReference(t2) // [t1, t3, t4]
+    ///     let array = [t1, t2, t3, t2, t4]
+    ///     array.removingReferences([t2, t4]) // [t1, t3]
     ///
     @inlinable @inline(__always)
-    mutating func removeReference(_ object: Element) {
-        removeAll { $0 === object }
+    func removingReferences(_ objects: any Sequence<Element>) -> Self {
+        return mutating(self) { $0.removeReferences(objects) }
     }
     
 }

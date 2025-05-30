@@ -25,10 +25,10 @@ public extension Set {
     /// Inserts the specified elements in the set if they are not already present.
     ///
     ///     var set: Set = [0, 1]
-    ///     set.insert([2, 3]) // [0, 1, 2, 3]
-    ///     
+    ///     set.insert(contentsOf: [2, 3]) // [0, 1, 2, 3]
+    ///
     @inlinable @inline(__always)
-    mutating func insert(_ newElements: any Sequence<Element>) {
+    mutating func insert(contentsOf newElements: any Sequence<Element>) {
         self = union(newElements)
     }
     
@@ -45,10 +45,10 @@ public extension Set {
     /// Returns a new set with the specified elements inserted.
     ///
     ///     let set: Set = [0, 1]
-    ///     set.inserting([2, 3]) // [0, 1, 2, 3]
+    ///     set.inserting(contentsOf: [2, 3]) // [0, 1, 2, 3]
     ///
     @inlinable @inline(__always)
-    func inserting(_ newElements: any Sequence<Element>) -> Self {
+    func inserting(contentsOf newElements: any Sequence<Element>) -> Self {
         return union(newElements)
     }
     
@@ -56,21 +56,11 @@ public extension Set {
     /// Removes the specified elements from the set.
     ///
     ///     var set: Set = [0, 1, 2, 3]
-    ///     set.remove([2, 3]) // [0, 1]
+    ///     set.remove(contentsOf: [2, 3]) // [0, 1]
     ///
     @inlinable @inline(__always)
-    mutating func remove(_ oldElements: any Sequence<Element>) {
+    mutating func remove(contentsOf oldElements: any Sequence<Element>) {
         self = subtracting(oldElements)
-    }
-    
-    /// Returns a new set with the specified elements removed.
-    ///
-    ///     let set: Set = [0, 1, 2, 3]
-    ///     set.removing([2, 3]) // [0, 1]
-    ///
-    @inlinable @inline(__always)
-    func removing(_ oldElements: any Sequence<Element>) -> Self {
-        return subtracting(oldElements)
     }
     
     /// Returns a new set with the specified element removed.
@@ -81,6 +71,16 @@ public extension Set {
     @inlinable @inline(__always)
     func removing(_ oldElement: Element) -> Self {
         return mutating(self) { $0.remove(oldElement) }
+    }
+    
+    /// Returns a new set with the specified elements removed.
+    ///
+    ///     let set: Set = [0, 1, 2, 3]
+    ///     set.removing(contentsOf: [2, 3]) // [0, 1]
+    ///
+    @inlinable @inline(__always)
+    func removing(contentsOf oldElements: any Sequence<Element>) -> Self {
+        return subtracting(oldElements)
     }
     
 }
