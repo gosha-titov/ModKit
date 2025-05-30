@@ -41,7 +41,7 @@ public extension NLLanguage {
     /// Returns the array of all left-to-right default languages.
     @inlinable @inline(__always)
     static var ltrLanguages: [NLLanguage] {
-        return allLanguages.removing(rtlLanguages)
+        return allLanguages.removing(contentsOf: rtlLanguages)
     }
     
     /// Returns the array of all right-to-left default languages.
