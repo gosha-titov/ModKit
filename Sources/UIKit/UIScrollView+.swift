@@ -18,7 +18,7 @@ public extension UIScrollView {
     ///   velocity to the new offset, `false` to make the transition immediate.
     @inlinable @inline(__always)
     func scrollToTop(animated: Bool = true) {
-        let topPoint = CGPoint(x: contentOffset.x, y: .zero)
+        let topPoint = contentOffset.withY(.zero)
         setContentOffset(topPoint, animated: animated)
     }
     
@@ -27,7 +27,7 @@ public extension UIScrollView {
     ///   velocity to the new offset, `false` to make the transition immediate.
     @inlinable @inline(__always)
     func scrollToLeft(animated: Bool = true) {
-        let leftPoint = CGPoint(x: .zero, y: contentOffset.y)
+        let leftPoint = contentOffset.withX(.zero)
         setContentOffset(leftPoint, animated: animated)
     }
     
@@ -36,9 +36,9 @@ public extension UIScrollView {
     ///   velocity to the new offset, `false` to make the transition immediate.
     @inlinable @inline(__always)
     func scrollToBottom(animated: Bool = true) {
-        let yOffset: CGFloat = contentSize.height - bounds.size.height
+        let yOffset = contentSize.height - bounds.size.height
         guard yOffset > 0 else { return }
-        let bottomPoint = CGPoint(x: contentOffset.x, y: yOffset)
+        let bottomPoint = contentOffset.withY(yOffset)
         setContentOffset(bottomPoint, animated: animated)
     }
     
@@ -47,11 +47,12 @@ public extension UIScrollView {
     ///   velocity to the new offset, `false` to make the transition immediate.
     @inlinable @inline(__always)
     func scrollToRight(animated: Bool = true) {
-        let xOffset: CGFloat = contentSize.width - bounds.size.width
+        let xOffset = contentSize.width - bounds.size.width
         guard xOffset > 0 else { return }
-        let rightPoint = CGPoint(x: xOffset, y: contentOffset.y)
+        let rightPoint = contentOffset.withX(xOffset)
         setContentOffset(rightPoint, animated: animated)
     }
+    
     
     /// Zooms to a specific point of the content so that it’s visible in the scroll view.
     /// - Parameter point: A point to zoom. The point should be in the coordinate space of the view.

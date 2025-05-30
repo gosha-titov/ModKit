@@ -22,10 +22,10 @@ public extension Dictionary {
     /// Returns a new dictionary that is a copy of this one with the value updated or added for the specified key.
     ///
     ///     let dict = [0: "a", 1: "b"]
-    ///     dict.adding("c", forKey: 2) // [0: "a", 1: "b", 2: "c"]
+    ///     dict.updating("c", forKey: 2) // [0: "a", 1: "b", 2: "c"]
     ///
     @inlinable @inline(__always)
-    func adding(_ value: Value, forKey key: Key) -> Self {
+    func updating(_ value: Value, forKey key: Key) -> Self {
         return mutating(self) { $0.updateValue(value, forKey: key) }
     }
     
