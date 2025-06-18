@@ -9,7 +9,7 @@ public extension CGRect {
     ///     let rect = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 200.0)
     ///     rect.topLeftPoint // CGPoint(x: 0.0, y: 0.0)
     ///
-    ///     ●───────┐
+    ///     ●╶──────┐
     ///     │       │
     ///     │       │
     ///     │       │
@@ -26,7 +26,7 @@ public extension CGRect {
     ///     let rect = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 200.0)
     ///     rect.topPoint // CGPoint(x: 50.0, y: 0.0)
     ///
-    ///     ┌───●───┐
+    ///     ┌──╴●╶──┐
     ///     │       │
     ///     │       │
     ///     │       │
@@ -43,7 +43,7 @@ public extension CGRect {
     ///     let rect = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 200.0)
     ///     rect.topRightPoint // CGPoint(x: 100.0, y: 0.0)
     ///
-    ///     ┌───────●
+    ///     ┌──────╴●
     ///     │       │
     ///     │       │
     ///     │       │
@@ -115,7 +115,7 @@ public extension CGRect {
     ///     │       │
     ///     │       │
     ///     │       │
-    ///     ●───────┘
+    ///     ●╶──────┘
     ///
     @inlinable @inline(__always)
     var bottomLeftPoint: CGPoint {
@@ -132,7 +132,7 @@ public extension CGRect {
     ///     │       │
     ///     │       │
     ///     │       │
-    ///     └───●───┘
+    ///     └──╴●╶──┘
     ///
     @inlinable @inline(__always)
     var bottomPoint: CGPoint {
@@ -149,7 +149,7 @@ public extension CGRect {
     ///     │       │
     ///     │       │
     ///     │       │
-    ///     └───────●
+    ///     └──────╴●
     ///
     @inlinable @inline(__always)
     var bottomRightPoint: CGPoint {
@@ -160,9 +160,76 @@ public extension CGRect {
     
     // MARK: Methods
     
+    /// Centers the rectangle horizontally within its container by adjusting the `origin.x`.
+    ///
+    ///     ┌────────┰────────┐
+    ///     │   ┌────╂────┐   │
+    ///     │   │    ┃    │   │
+    ///     │   └────╂────┘   │
+    ///     │ ┌──────╂──────┐ │
+    ///     │ │      ┃      │ │
+    ///     │ └──────╂──────┘ │
+    ///     └────────┸────────┘
+    ///
+    @inlinable @inline(__always)
+    mutating func centerHorizontally(in container: CGRect) {
+        origin.x = (container.width - width) / 2
+    }
+    
+    /// Centers the rectangle vertically within its container by adjusting the `origin.y`.
+    ///
+    ///     ┌─────────────┐
+    ///     │ ┌───┐       │
+    ///     │ │   │ ┌───┐ │
+    ///     │ │   │ │   │ │
+    ///     ┝━┿━━━┿━┿━━━┿━┥
+    ///     │ │   │ │   │ │
+    ///     │ │   │ └───┘ │
+    ///     │ └───┘       │
+    ///     └─────────────┘
+    ///
+    @inlinable @inline(__always)
+    mutating func centerVertically(in container: CGRect) {
+        origin.y = (container.height - height) / 2
+    }
+    
+    /// Returns a new rectangle centered horizontally within its container by adjusting the `origin.x`.
+    ///
+    ///     ┌────────┰────────┐
+    ///     │   ┌────╂────┐   │
+    ///     │   │    ┃    │   │
+    ///     │   └────╂────┘   │
+    ///     │ ┌──────╂──────┐ │
+    ///     │ │      ┃      │ │
+    ///     │ └──────╂──────┘ │
+    ///     └────────┸────────┘
+    ///
+    @inlinable @inline(__always)
+    func centeredHorizontally(in container: CGRect) -> CGRect {
+        return mutating(self) { $0.centerHorizontally(in: container) }
+    }
+    
+    /// Returns a new rectangle centered vertically within its container by adjusting the `origin.y`.
+    ///
+    ///     ┌─────────────┐
+    ///     │ ┌───┐       │
+    ///     │ │   │ ┌───┐ │
+    ///     │ │   │ │   │ │
+    ///     ┝━┿━━━┿━┿━━━┿━┥
+    ///     │ │   │ │   │ │
+    ///     │ │   │ └───┘ │
+    ///     │ └───┘       │
+    ///     └─────────────┘
+    ///
+    @inlinable @inline(__always)
+    func centeredVertically(in container: CGRect) -> CGRect {
+        return mutating(self) { $0.centerVertically(in: container) }
+    }
+
+    
     /// Returns a new rectangle replacing the current origin with the specified one.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newRect = rect.withOrigin(newOrigin)
     ///
     ///     // Manual way
@@ -177,7 +244,7 @@ public extension CGRect {
     
     /// Returns a new rectangle with the current origin updated.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newRect = rect.withOrigin { $0.withY(offsetBy: 16) }
     ///
     ///     // Manual way
@@ -196,7 +263,7 @@ public extension CGRect {
     
     /// Returns a new rectangle replacing the current size with the specified one.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newRect = rect.withSize(newSize)
     ///
     ///     // Manual way
@@ -211,7 +278,7 @@ public extension CGRect {
     
     /// Returns a new rectangle with the current width updated.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newRect = rect.withSize { $0.scaled(by: 1.5) }
     ///
     ///     // Manual way
@@ -227,7 +294,7 @@ public extension CGRect {
     
     /// Returns a new rectangle replacing the current width with the specified one.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newRect = rect.withWidth(newWidth)
     ///
     ///     // Manual way
@@ -245,7 +312,7 @@ public extension CGRect {
     
     /// Returns a new rectangle with the current width updated.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newRect = rect.withWidth { $0 * 1.5 }
     ///
     ///     // Manual way
@@ -264,7 +331,7 @@ public extension CGRect {
     
     /// Returns a new rectangle replacing the current height with the specified one.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newRect = rect.withHeight(newHeight)
     ///
     ///     // Manual way
@@ -282,7 +349,7 @@ public extension CGRect {
     
     /// Returns a new rectangle with the current height updated.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newRect = rect.withHeight { $0 * 1.5 }
     ///
     ///     // Manual way
