@@ -21,7 +21,7 @@ public extension CGPoint {
     
     /// Returns a new point offsetting the current X- and Y- positions by the specified values.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newPoint = point.offsetBy(dx: 8, dy: 16)
     ///
     ///     // Manual way
@@ -62,7 +62,7 @@ public extension CGPoint {
     
     /// Returns a new point replacing the current X-position with the specified one.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newPoint = point.withX(newX)
     ///
     ///     // Manual way
@@ -77,7 +77,7 @@ public extension CGPoint {
     
     /// Returns a new point with the current X-position updated.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newPoint = point.withX { $0 * 2 }
     ///
     ///     // Manual way
@@ -92,7 +92,7 @@ public extension CGPoint {
     
     /// Returns a new point offsetting the current X-position by the specified value.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newPoint = point.withX(offsetBy: 16)
     ///
     ///     // Manual way
@@ -107,7 +107,7 @@ public extension CGPoint {
     
     /// Returns a new point replacing the current Y-position with the specified one.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newPoint = point.withY(newY)
     ///
     ///     // Manual way
@@ -122,7 +122,7 @@ public extension CGPoint {
     
     /// Returns a new point with the current Y-position updated.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newPoint = point.withY { $0 * 2 }
     ///
     ///     // Manual way
@@ -137,7 +137,7 @@ public extension CGPoint {
     
     /// Returns a new point offsetting the current Y-position by the specified value.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newPoint = point.withY(offsetBy: 16)
     ///
     ///     // Manual way

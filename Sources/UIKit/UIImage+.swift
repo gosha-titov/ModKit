@@ -93,7 +93,7 @@ public extension UIImage {
     ///   If `nil` is specified, the image will be cropped to a maximum fitting square.
     @inlinable
     func cropped(to newSize: CGSize? = nil) -> UIImage {
-        let newSize = newSize.orElse(CGSize(dimension: size.minDimension))
+        let newSize = newSize.orElse(CGSize(dimension: size.minimumDimension))
         let renderer = UIGraphicsImageRenderer(size: newSize)
         return renderer.image { _ in
             let origin = CGPoint(
@@ -123,7 +123,7 @@ public extension UIImage {
     ///   If `nil` is specified, the maximum possible radius is used to round corners.
     @inlinable
     func rounded(withRadius radius: CGFloat? = nil) -> UIImage {
-        let maxRadius = size.minDimension / 2
+        let maxRadius = size.minimumDimension / 2
         let radius = radius
             .maybe { $0.clamped(to: 0...maxRadius) }
             .orElse(maxRadius)
@@ -145,7 +145,7 @@ public extension UIImage {
     ///   If `nil` is specified, the maximum possible radius is used to round corners.
     @inlinable
     func bordered(withColor color: UIColor, width: CGFloat, radius: CGFloat? = nil) -> UIImage {
-        let maxRadius = size.minDimension / 2
+        let maxRadius = size.minimumDimension / 2
         let radius = radius
             .maybe { $0.clamped(to: 0...maxRadius) }
             .orElse(maxRadius)

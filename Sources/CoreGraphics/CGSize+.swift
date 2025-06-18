@@ -4,25 +4,25 @@ import CoreGraphics
 
 public extension CGSize {
     
-    /// Maximum dimension between this size width and its height.
+    /// A floating-point value that indicates the maximum dimension between this size's width and height.
     ///
-    ///     size.width // 200
-    ///     size.height // 50
-    ///     size.maxDimension // 200
-    ///
-    @inlinable @inline(__always)
-    var maxDimension: CGFloat { max(width, height) }
-    
-    /// Minimum dimension between this size width and its height.
-    ///
-    ///     size.width // 200
-    ///     size.height // 50
-    ///     size.minDimension // 50
+    ///     let size = CGSize(width: 200, height: 50)
+    ///     size.maximumDimension // 200
+    ///     size.minimumDimension // 50
     ///
     @inlinable @inline(__always)
-    var minDimension: CGFloat { min(width, height) }
+    var maximumDimension: CGFloat { max(width, height) }
     
-    /// Returns a value corresponding to the ratio of this size width to its height.
+    /// A floating-point value that indicates the minimum dimension between this size's width and height.
+    ///
+    ///     let size = CGSize(width: 200, height: 50)
+    ///     size.maximumDimension // 200
+    ///     size.minimumDimension // 50
+    ///
+    @inlinable @inline(__always)
+    var minimumDimension: CGFloat { min(width, height) }
+    
+    /// Returns a floating-point value corresponding to the ratio of this size's width to its height.
     ///
     ///     size // CGSize(width: 200, height: 100)
     ///     size.widthToHeightRatio // 2.0
@@ -37,7 +37,7 @@ public extension CGSize {
         return width / height
     }
     
-    /// Returns a value corresponding to the ratio of this size height to its width.
+    /// Returns a floating-point value corresponding to the ratio of this size's height to its width.
     ///
     ///     size // CGSize(width: 200, height: 100)
     ///     size.heightToWidthRatio // 0.5
@@ -119,7 +119,7 @@ public extension CGSize {
     
     /// Returns a new size replacing the current width with the specified one.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newSize = size.withWidth(newWidth)
     ///
     ///     // Manual way
@@ -134,7 +134,7 @@ public extension CGSize {
     
     /// Returns a new size with the current width updated.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newSize = size.withWidth { $0 * 1.5 }
     ///
     ///     // Manual way
@@ -150,7 +150,7 @@ public extension CGSize {
     
     /// Returns a new size replacing the current height with the specified one.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newSize = size.withHeight(newHeight)
     ///
     ///     // Manual way
@@ -165,7 +165,7 @@ public extension CGSize {
     
     /// Returns a new size with the current height updated.
     ///
-    ///     // Short way
+    ///     // Modern way
     ///     let newSize = size.withHeight { $0 * 1.5 }
     ///
     ///     // Manual way

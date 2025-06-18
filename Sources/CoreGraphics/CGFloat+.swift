@@ -4,25 +4,27 @@ import CoreGraphics
 
 public extension CGFloat {
     
-    /// The value equal to `1`.
+    /// The floating-point value equal to `1`.
     ///
-    ///     view.alpha = .opaque
-    ///     // view.alpha = 1
+    ///     // Usage example
+    ///     UIView.animate(withDuration: 0.1) {
+    ///         self.label.alpha = .opaque
+    ///         // self.label.alpha = 1
+    ///     }
     ///
     @inlinable @inline(__always)
-    static var opaque: CGFloat {
-        return 1
-    }
+    static var opaque: CGFloat { 1 }
     
-    /// The value equal to `0`.
+    /// The floating-point value equal to `0`.
     ///
-    ///     view.alpha = .clear
-    ///     // view.alpha = 0
+    ///     // Usage example
+    ///     UIView.animate(withDuration: 0.1) {
+    ///         self.label.alpha = .transparent
+    ///         // self.label.alpha = 0
+    ///     }
     ///
     @inlinable @inline(__always)
-    static var clear: CGFloat {
-        return 0
-    }
+    static var transparent: CGFloat { 0 }
     
 }
 

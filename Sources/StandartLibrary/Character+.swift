@@ -1,5 +1,9 @@
 public extension Character {
     
+    /// The character that acts as a placeholder for an embedded object, often used when converting a document to plain text.
+    @inlinable @inline(__always)
+    static var objectReplacement: Character { "\u{fffc}" }
+    
     /// The non-breaking space character that prevents an automatic line break at its position.
     @inlinable @inline(__always)
     static var nonbreakingSpace: Character { "\u{00A0}" }
