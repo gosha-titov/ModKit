@@ -11,9 +11,9 @@ public extension BinaryInteger {
     ///
     /// - Parameter body: A closure that takes the current loop number as a parameter.
     @inlinable @inline(__always)
-    func times(_ body: (Int) -> Void) {
+    func times(_ body: (Int) throws -> Void) rethrows {
         guard self > 0 else { return }
-        for n in 0..<Int(self) { body(n) }
+        for n in 0..<Int(self) { try body(n) }
     }
     
     /// Calls the given closure N number of times.
@@ -26,30 +26,9 @@ public extension BinaryInteger {
     ///     // Prints "Hello, world!"
     ///
     @inlinable @inline(__always)
-    func times(_ body: () -> Void) {
+    func times(_ body: () throws -> Void) rethrows {
         guard self > 0 else { return }
-        for _ in 0..<Int(self) { body() }
-    }
-    
-    
-    /// Returns a Boolean value indicating whether this integer is contained in the range.
-    ///
-    ///     let number = 19
-    ///     number.isInRange(5..<99) // true
-    ///
-    @inlinable @inline(__always)
-    func isInRange(_ range: Range<Self>) -> Bool {
-        return range.contains(self)
-    }
-    
-    /// Returns a Boolean value indicating whether this integer is contained in the range.
-    ///
-    ///     let number = 19
-    ///     number.isInRange(5...99) // true
-    ///
-    @inlinable @inline(__always)
-    func isInRange(_ range: ClosedRange<Self>) -> Bool {
-        return range.contains(self)
+        for _ in 0..<Int(self) { try body() }
     }
     
     

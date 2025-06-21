@@ -188,7 +188,7 @@ public extension UIImage {
     /// - Parameter color: The color that will fill an entire result image.
     /// - Parameter size: The size of a result image.
     @inlinable @inline(__always)
-    convenience init(color: UIColor, size: CGSize = CGSize(dimension: 1)) {
+    convenience init(size: CGSize = CGSize(dimension: 1), color: UIColor) {
         let renderer = UIGraphicsImageRenderer(size: size)
         let image = renderer.image { context in
             color.setFill()
