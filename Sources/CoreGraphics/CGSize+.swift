@@ -117,6 +117,34 @@ public extension CGSize {
     }
     
     
+    /// Clamps this size so that its dimensions are no larger than the container's ones.
+    ///
+    ///     var fittingSize = CGSize(width: 100, height: 50)
+    ///     let containerSize = CGSize(width: 80, height: 60)
+    ///     fittingSize.clamp(to: containerSize)
+    ///     // CGSize(width: 80, height: 50)
+    ///
+    @inlinable @inline(__always)
+    mutating func clamp(to containerSize: CGSize) {
+        self = clamped(to: containerSize)
+    }
+    
+    /// Returns a new size which dimensions are no larger than the container's ones.
+    ///
+    ///     let intrinsicSize = CGSize(width: 100, height: 50)
+    ///     let containerSize = CGSize(width:  80, height: 60)
+    ///     let finalSize = intrinsicSize.clamped(to: containerSize)
+    ///     // CGSize(width: 80, height: 50)
+    ///
+    @inlinable @inline(__always)
+    func clamped(to containerSize: CGSize) -> CGSize {
+        return CGSize(
+            width: min(width, containerSize.width),
+            height: min(height, containerSize.height)
+        )
+    }
+    
+    
     /// Returns a new size replacing the current width with the specified one.
     ///
     ///     // Modern way
