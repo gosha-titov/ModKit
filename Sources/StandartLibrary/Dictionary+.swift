@@ -87,13 +87,14 @@ public extension Dictionary where Value: Equatable {
     
     /// Returns an array of keys whose corresponding values equal to the specified value.
     ///
-    ///     let dict = [0: "a", 1: "b", 2: "c"]
+    ///     let dict = [0: "a", 1: "b", 2: "c", 3: "a"]
+    ///     dict.keys(forValue: "a") // [0, 3]
     ///     dict.keys(forValue: "b") // [1]
     ///     dict.keys(forValue: "e") // []
     ///
     @inlinable @inline(__always)
     func keys(forValue value: Value) -> [Key] {
-        return filter { $0.value == value }.map(\.key)
+        return keys.filter { self[$0] == value }
     }
     
 }

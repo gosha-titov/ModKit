@@ -14,7 +14,7 @@ public extension UITableView {
     ///
     /// This is a short simplified method of the original one:
     ///
-    ///     // Short method
+    ///     // Modern method
     ///     tableView.register(cellClass: SomeCell.self)
     ///
     ///     // Original method
@@ -36,7 +36,7 @@ public extension UITableView {
     ///
     /// This is a short simplified method of the original one:
     ///
-    ///     // Short method
+    ///     // Modern method
     ///     let cell: SomeCell = tableView.dequeueReusableCell(for: indexPath)
     ///
     ///     // Original method

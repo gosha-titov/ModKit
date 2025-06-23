@@ -23,7 +23,8 @@ public extension NSLayoutConstraint {
     ///         trackView.trailingAnchor.constraint(equalTo: trailingAnchor)
     ///             .stored(in: &trackViewTrailingConstraint)
     ///             .withMultiplier(0.75)
-    ///     ])@inline(__always)
+    ///     ])
+    @inline(__always)
     func withMultiplier(_ multiplier: CGFloat) -> NSLayoutConstraint {
         return NSLayoutConstraint(
             item: firstItem as Any,

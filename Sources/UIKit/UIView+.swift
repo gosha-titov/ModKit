@@ -4,7 +4,7 @@ import UIKit
 
 public extension UIView {
     
-    /// Creates a view that has a horizontal-spacer behaviour.
+    /// Creates a view that has a horizontal-spacer behavior.
     @inlinable @inline(__always)
     static var horizontalSpacer: UIView {
         let view = UIView()
@@ -14,7 +14,7 @@ public extension UIView {
         return view
     }
     
-    /// Creates a view that has a vertical-spacer behaviour.
+    /// Creates a view that has a vertical-spacer behavior.
     @inlinable @inline(__always)
     static var verticalSpacer: UIView {
         let view = UIView()

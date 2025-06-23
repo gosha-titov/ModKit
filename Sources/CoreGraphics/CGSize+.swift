@@ -22,6 +22,7 @@ public extension CGSize {
     @inlinable @inline(__always)
     var minimumDimension: CGFloat { min(width, height) }
     
+    
     /// Returns a floating-point value corresponding to the ratio of this size's width to its height.
     ///
     ///     size // CGSize(width: 200, height: 100)
@@ -84,10 +85,10 @@ public extension CGSize {
     ///
     ///     let size = CGSize(width: 100, height: 50)
     ///
-    ///     size.scaledToFit(to: CGSize(width: 80, height: 80)
+    ///     size.scaledToFill(to: CGSize(width: 80, height: 80)
     ///     // CGSize(width: 160, height: 80)
     ///
-    ///     size.scaledToFit(to: CGSize(width: 120, height: 120)
+    ///     size.scaledToFill(to: CGSize(width: 120, height: 120)
     ///     // CGSize(width: 240, height: 120)
     ///
     /// - Note: The result's dimensions are not less than the corresponding dimensions of the specified size.
@@ -114,6 +115,20 @@ public extension CGSize {
     @inlinable @inline(__always)
     func scaled(by scale: CGFloat) -> CGSize {
         return CGSize(width: width * scale, height: height * scale)
+    }
+    
+    
+    /// Returns a boolean value that indicates whether this size's dimensions are no larger than the container's ones.
+    ///
+    ///     let size1 = CGSize(width: 80, height: 50)
+    ///     let size2 = CGSize(width: 110, height: 40)
+    ///     let containerSize = CGSize(width: 100, height: 50)
+    ///     size1.fits(to: containerSize) // true
+    ///     size2.fits(to: containerSize) // false
+    ///
+    @inlinable @inline(__always)
+    func fits(to containerSize: CGSize) -> Bool {
+        return (width <= containerSize.width) && (height <= containerSize.height)
     }
     
     

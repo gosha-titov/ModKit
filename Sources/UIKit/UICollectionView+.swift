@@ -14,7 +14,7 @@ public extension UICollectionView {
     ///
     /// This is a short simplified method of the original one:
     ///
-    ///     // Short method
+    ///     // Modern method
     ///     collectionView.register(cellClass: SomeCell.self)
     ///
     ///     // Original method
@@ -39,7 +39,7 @@ public extension UICollectionView {
     ///
     /// This is a short simplified method of the original one:
     ///
-    ///     // Short method
+    ///     // Modern method
     ///     collectionView.register(headerClass: SomeHeaderView.self)
     ///
     ///     // Original method
@@ -69,7 +69,7 @@ public extension UICollectionView {
     ///
     /// This is a short simplified method of the original one:
     ///
-    ///     // Short method
+    ///     // Modern method
     ///     collectionView.register(footerClass: SomeFooterView.self)
     ///
     ///     // Original method
@@ -97,7 +97,7 @@ public extension UICollectionView {
     ///
     /// This is a short simplified method of the original one:
     ///
-    ///     // Short method
+    ///     // Modern method
     ///     let cell: SomeCell = collectionView.dequeueReusableCell(
     ///         for: indexPath
     ///     )
@@ -129,7 +129,7 @@ public extension UICollectionView {
     ///
     /// This is a short simplified method of the original one:
     ///
-    ///     // Short method
+    ///     // Modern method
     ///     let headerView: SomeHeaderView = collectionView.dequeueReusableHeaderView(
     ///         for: indexPath
     ///     )
@@ -166,7 +166,7 @@ public extension UICollectionView {
     ///
     /// This is a short simplified method of the original one:
     ///
-    ///     // Short method
+    ///     // Modern method
     ///     let footerView: SomeFooterView = collectionView.dequeueReusableFooterView(
     ///         for: indexPath
     ///     )

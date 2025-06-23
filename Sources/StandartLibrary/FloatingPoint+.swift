@@ -1,12 +1,14 @@
 public extension FloatingPoint {
     
-    /// The absolute value of this double value.
+    /// The absolute value of this floating-point value.
     ///
     ///     let number = -30.8
     ///     number.abs // 30.8
     ///
     @inlinable @inline(__always)
-    var abs: Self { Swift.abs(self) }
+    var abs: Self {
+        return Swift.abs(self)
+    }
     
     /// A value converted from the value of this instance in degrees to a value in radians.
     ///
