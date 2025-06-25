@@ -51,6 +51,19 @@ public extension UIEdgeInsets {
         self.init(top: inset, left: inset, bottom: inset, right: inset)
     }
     
+    
+    // MARK: Operators
+    
+    @inlinable @inline(__always)
+    static prefix func - (insets: UIEdgeInsets) -> UIEdgeInsets {
+        return UIEdgeInsets(
+            top: -insets.top,
+            left: -insets.left,
+            bottom: -insets.bottom,
+            right: -insets.right
+        )
+    }
+    
 }
 
 #endif

@@ -2,7 +2,7 @@
 
 import UIKit
 
-extension NSDirectionalEdgeInsets {
+public extension NSDirectionalEdgeInsets {
     
     /// Returns a sum of the top and bottom edge insets' values.
     ///
@@ -49,6 +49,19 @@ extension NSDirectionalEdgeInsets {
     @inlinable @inline(__always)
     init(inset: CGFloat) {
         self.init(top: inset, leading: inset, bottom: inset, trailing: inset)
+    }
+    
+    
+    // MARK: Operators
+    
+    @inlinable @inline(__always)
+    static prefix func - (insets: NSDirectionalEdgeInsets) -> NSDirectionalEdgeInsets {
+        return NSDirectionalEdgeInsets(
+            top: -insets.top,
+            leading: -insets.leading,
+            bottom: -insets.bottom,
+            trailing: -insets.trailing
+        )
     }
     
 }
