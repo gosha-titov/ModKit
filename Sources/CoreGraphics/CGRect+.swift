@@ -160,7 +160,7 @@ public extension CGRect {
     
     // MARK: Methods
     
-    /// Centers the rectangle horizontally within its container by adjusting the `origin.x`.
+    /// Centers the rectangle horizontally within the container by adjusting the `origin.x`.
     ///
     ///     ┌────────┰────────┐
     ///     │   ┌────╂────┐   │
@@ -171,12 +171,17 @@ public extension CGRect {
     ///     │ └──────╂──────┘ │
     ///     └────────┸────────┘
     ///
+    ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
+    ///     var frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+    ///     frame.centerHorizontally(in: containerRect) // x = 30 + (200 - 100) / 2
+    ///     frame.origin // CGPoint(x: 80, y: 0)
+    ///
     @inlinable @inline(__always)
-    mutating func centerHorizontally(in container: CGRect) {
-        origin.x = (container.width - width) / 2
+    mutating func centerHorizontally(in containerRect: CGRect) {
+        origin.x = containerRect.origin.x + (containerRect.width - width) / 2
     }
     
-    /// Centers the rectangle vertically within its container by adjusting the `origin.y`.
+    /// Centers the rectangle vertically within the container by adjusting the `origin.y`.
     ///
     ///     ┌─────────────┐
     ///     │ ┌───┐       │
@@ -188,12 +193,17 @@ public extension CGRect {
     ///     │ └───┘       │
     ///     └─────────────┘
     ///
+    ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
+    ///     var frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+    ///     frame.centerVertically(in: containerRect) // y = 60 + (100 - 50) / 2
+    ///     frame.origin // CGPoint(x: 0, y: 85)
+    ///
     @inlinable @inline(__always)
-    mutating func centerVertically(in container: CGRect) {
-        origin.y = (container.height - height) / 2
+    mutating func centerVertically(in containerRect: CGRect) {
+        origin.y = containerRect.origin.y + (containerRect.height - height) / 2
     }
     
-    /// Returns a new rectangle centered horizontally within its container by adjusting the `origin.x`.
+    /// Returns a new rectangle centered horizontally within the container by adjusting the `origin.x`.
     ///
     ///     ┌────────┰────────┐
     ///     │   ┌────╂────┐   │
@@ -204,12 +214,17 @@ public extension CGRect {
     ///     │ └──────╂──────┘ │
     ///     └────────┸────────┘
     ///
+    ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
+    ///     let frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+    ///         .centerHorizontally(in: containerRect) // x = 30 + (200 - 100) / 2
+    ///     frame.origin // CGPoint(x: 80, y: 0)
+    ///
     @inlinable @inline(__always)
-    func centeredHorizontally(in container: CGRect) -> CGRect {
-        return mutating(self) { $0.centerHorizontally(in: container) }
+    func centeredHorizontally(in containerRect: CGRect) -> CGRect {
+        return mutating(self) { $0.centerHorizontally(in: containerRect) }
     }
     
-    /// Returns a new rectangle centered vertically within its container by adjusting the `origin.y`.
+    /// Returns a new rectangle centered vertically within the container by adjusting the `origin.y`.
     ///
     ///     ┌─────────────┐
     ///     │ ┌───┐       │
@@ -221,9 +236,14 @@ public extension CGRect {
     ///     │ └───┘       │
     ///     └─────────────┘
     ///
+    ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
+    ///     let frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+    ///         .centerVertically(in: containerRect) // y = 60 + (100 - 50) / 2
+    ///     frame.origin // CGPoint(x: 0, y: 85)
+    ///
     @inlinable @inline(__always)
-    func centeredVertically(in container: CGRect) -> CGRect {
-        return mutating(self) { $0.centerVertically(in: container) }
+    func centeredVertically(in containerRect: CGRect) -> CGRect {
+        return mutating(self) { $0.centerVertically(in: containerRect) }
     }
 
     

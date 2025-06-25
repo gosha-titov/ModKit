@@ -67,7 +67,7 @@ public extension CGSize {
     ///     // CGSize(width: 120, height: 60)
     ///
     /// - Note: The result's dimensions are not greater than the corresponding dimensions of the specified size.
-    @inlinable @inline(__always)
+    @inlinable
     func scaledToFit(to boundingSize: CGSize) -> CGSize {
         let widthRatio = boundingSize.width / width
         let heightRatio = boundingSize.height / height
@@ -92,7 +92,7 @@ public extension CGSize {
     ///     // CGSize(width: 240, height: 120)
     ///
     /// - Note: The result's dimensions are not less than the corresponding dimensions of the specified size.
-    @inlinable @inline(__always)
+    @inlinable
     func scaledToFill(to boundingSize: CGSize) -> CGSize {
         let widthRatio = boundingSize.width / width
         let heightRatio = boundingSize.height / height
