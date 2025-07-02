@@ -75,7 +75,7 @@ public extension CGRect {
     /// The point associated with the center of this rectangle, settable.
     ///
     ///     let rect = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 200.0)
-    ///     rect.center // CGPoint(x: 50.0, y: 100.0)
+    ///     rect.centerPoint // CGPoint(x: 50.0, y: 100.0)
     ///
     ///     ┌───────┐
     ///     │       │
@@ -84,7 +84,7 @@ public extension CGRect {
     ///     └───────┘
     ///
     @inlinable @inline(__always)
-    var center: CGPoint {
+    var centerPoint: CGPoint {
         get { return CGPoint(x: midX, y: midY) }
         set { origin = newValue.offsetBy(dx: -width / 2, dy: -height / 2) }
     }
@@ -162,19 +162,20 @@ public extension CGRect {
     
     /// Centers the rectangle horizontally within the container by adjusting the `origin.x`.
     ///
-    ///     ┌────────┰────────┐
+    ///     ┌────────╂────────┐
     ///     │   ┌────╂────┐   │
     ///     │   │    ┃    │   │
     ///     │   └────╂────┘   │
     ///     │ ┌──────╂──────┐ │
     ///     │ │      ┃      │ │
     ///     │ └──────╂──────┘ │
-    ///     └────────┸────────┘
+    ///     └────────╂────────┘
     ///
     ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
-    ///     var frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-    ///     frame.centerHorizontally(in: containerRect) // x = 30 + (200 - 100) / 2
-    ///     frame.origin // CGPoint(x: 80, y: 0)
+    ///     var contentFrame = CGRect(width: 100, height: 50)
+    ///     contentFrame.centerHorizontally(in: containerRect)
+    ///     // origin is CGPoint(x: 80, y: 0)
+    ///     // where x = 30 + (200 - 100) / 2
     ///
     @inlinable @inline(__always)
     mutating func centerHorizontally(in containerRect: CGRect) {
@@ -187,16 +188,17 @@ public extension CGRect {
     ///     │ ┌───┐       │
     ///     │ │   │ ┌───┐ │
     ///     │ │   │ │   │ │
-    ///     ┝━┿━━━┿━┿━━━┿━┥
+    ///     ┿━┿━━━┿━┿━━━┿━┿
     ///     │ │   │ │   │ │
     ///     │ │   │ └───┘ │
     ///     │ └───┘       │
     ///     └─────────────┘
     ///
     ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
-    ///     var frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-    ///     frame.centerVertically(in: containerRect) // y = 60 + (100 - 50) / 2
-    ///     frame.origin // CGPoint(x: 0, y: 85)
+    ///     var contentFrame = CGRect(x: 0, y: 0, width: 100, height: 50)
+    ///     contentFrame.centerVertically(in: containerRect)
+    ///     // origin is CGPoint(x: 0, y: 85)
+    ///     // where y = 60 + (100 - 50) / 2
     ///
     @inlinable @inline(__always)
     mutating func centerVertically(in containerRect: CGRect) {
@@ -205,19 +207,20 @@ public extension CGRect {
     
     /// Returns a new rectangle centered horizontally within the container by adjusting the `origin.x`.
     ///
-    ///     ┌────────┰────────┐
+    ///     ┌────────╂────────┐
     ///     │   ┌────╂────┐   │
     ///     │   │    ┃    │   │
     ///     │   └────╂────┘   │
     ///     │ ┌──────╂──────┐ │
     ///     │ │      ┃      │ │
     ///     │ └──────╂──────┘ │
-    ///     └────────┸────────┘
+    ///     └────────╂────────┘
     ///
     ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
-    ///     let frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-    ///         .centerHorizontally(in: containerRect) // x = 30 + (200 - 100) / 2
-    ///     frame.origin // CGPoint(x: 80, y: 0)
+    ///     let contentFrame = CGRect(x: 0, y: 0, width: 100, height: 50)
+    ///         .centeredHorizontally(in: containerRect)
+    ///     // origin is CGPoint(x: 80, y: 0)
+    ///     // where x = 30 + (200 - 100) / 2
     ///
     @inlinable @inline(__always)
     func centeredHorizontally(in containerRect: CGRect) -> CGRect {
@@ -230,20 +233,152 @@ public extension CGRect {
     ///     │ ┌───┐       │
     ///     │ │   │ ┌───┐ │
     ///     │ │   │ │   │ │
-    ///     ┝━┿━━━┿━┿━━━┿━┥
+    ///     ┿━┿━━━┿━┿━━━┿━┿
     ///     │ │   │ │   │ │
     ///     │ │   │ └───┘ │
     ///     │ └───┘       │
     ///     └─────────────┘
     ///
     ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
-    ///     let frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-    ///         .centerVertically(in: containerRect) // y = 60 + (100 - 50) / 2
-    ///     frame.origin // CGPoint(x: 0, y: 85)
+    ///     let contentFrame = CGRect(x: 0, y: 0, width: 100, height: 50)
+    ///         .centeredVertically(in: containerRect)
+    ///     // origin is CGPoint(x: 0, y: 85)
+    ///     // where y = 60 + (100 - 50) / 2
     ///
     @inlinable @inline(__always)
     func centeredVertically(in containerRect: CGRect) -> CGRect {
         return mutating(self) { $0.centerVertically(in: containerRect) }
+    }
+    
+    
+    /// Centers the rectangle within the container by adjusting the `origin`.
+    ///
+    ///     ┌───────────╂───────────┐
+    ///     │  ┌────────╂────────┐  │
+    ///     ┿━━┿━━━━━━━━╋━━━━━━━━┿━━┿
+    ///     │  └────────╂────────┘  │
+    ///     └───────────╂───────────┘
+    ///
+    ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
+    ///     var contentFrame = CGRect(x: 0, y: 0, width: 100, height: 50)
+    ///     contentFrame.center(in: containerRect)
+    ///     // origin is CGPoint(x: 80, y: 85)
+    ///     // where x = 30 + (200 - 100) / 2
+    ///     //       y = 60 + (100 - 50) / 2
+    ///
+    @inlinable @inline(__always)
+    mutating func center(in containerRect: CGRect) {
+        centerHorizontally(in: containerRect)
+        centerVertically(in: containerRect)
+    }
+    
+    /// Returns a new rectangle centered within the container by adjusting the `origin`.
+    ///
+    ///     ┌───────────╂───────────┐
+    ///     │  ┌────────╂────────┐  │
+    ///     ┿━━┿━━━━━━━━╋━━━━━━━━┿━━┿
+    ///     │  └────────╂────────┘  │
+    ///     └───────────╂───────────┘
+    ///
+    ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
+    ///     let contentFrame = CGRect(x: 0, y: 0, width: 100, height: 50)
+    ///         .centered(in: containerRect)
+    ///     // origin is CGPoint(x: 80, y: 85)
+    ///     // where x = 30 + (200 - 100) / 2
+    ///     //       y = 60 + (100 - 50) / 2
+    ///
+    @inlinable @inline(__always)
+    func centered(in containerRect: CGRect) -> CGRect {
+        return mutating(self) { $0.center(in: containerRect) }
+    }
+    
+    
+    /// Mirrors the rectangle horizontally within the specified container relative to its center X-axis.
+    ///
+    ///     ┌──────────────╂──────────────┐
+    ///     │ ┌───────┐    ┃    ┌ ─ ─ ─ ┐ │
+    ///     │ │       │    ┃    |       | │
+    ///     │ └───────┘    ┃    └ ─ ─ ─ ┘ │
+    ///     └──────────────╂──────────────┘
+    ///
+    ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
+    ///     var contentFrame = CGRect(x: 40, y: 70, width: 50, height: 40)
+    ///     contentFrame.mirrorHorizontally(in: containerRect)
+    ///     // origin is CGPoint(x: 170, y: 70)
+    ///     // where x = 30 + 200 - 50 - (40 - 30)
+    ///
+    @inlinable @inline(__always)
+    mutating func mirrorHorizontally(in containerRect: CGRect) {
+        origin.x = containerRect.origin.x + containerRect.width - width - (origin.x - containerRect.origin.x)
+    }
+    
+    /// Mirrors the rectangle vertically within the specified container relative to its center Y-axis.
+    ///
+    ///     ┌─────────────────┐
+    ///     │ ┌─────────────┐ │
+    ///     │ │             │ │
+    ///     │ └─────────────┘ │
+    ///     │                 │
+    ///     ┿━━━━━━━━━━━━━━━━━┿
+    ///     │                 │
+    ///     │ ┌ ─ ─ ─ ─ ─ ─ ┐ │
+    ///     │ │             │ │
+    ///     │ └ ─ ─ ─ ─ ─ ─ ┘ │
+    ///     └─────────────────┘
+    ///
+    ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
+    ///     var contentFrame = CGRect(x: 40, y: 70, width: 50, height: 40)
+    ///     contentFrame.mirrorVertically(in: containerRect)
+    ///     // origin is CGPoint(x: 40, y: 110)
+    ///     // where y = 60 + 100 - 40 - (70 - 60)
+    ///
+    @inlinable @inline(__always)
+    mutating func mirrorVertically(in containerRect: CGRect) {
+        origin.y = containerRect.origin.y + containerRect.height - height - (origin.y - containerRect.origin.y)
+    }
+    
+    /// Returns a new rectangle mirrored horizontally within the specified container relative to its center X-axis.
+    ///
+    ///     ┌──────────────╂──────────────┐
+    ///     │ ┌───────┐    ┃    ┌ ─ ─ ─ ┐ │
+    ///     │ │       │    ┃    |       | │
+    ///     │ └───────┘    ┃    └ ─ ─ ─ ┘ │
+    ///     └──────────────╂──────────────┘
+    ///
+    ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
+    ///     var contentFrame = CGRect(x: 40, y: 70, width: 50, height: 40)
+    ///         .mirroredHorizontally(in: containerRect)
+    ///     // origin is CGPoint(x: 170, y: 70)
+    ///     // where x = 30 + 200 - 50 - (40 - 30)
+    ///
+    @inlinable @inline(__always)
+    func mirroredHorizontally(in containerRect: CGRect) -> CGRect {
+        return mutating(self) { $0.mirrorHorizontally(in: containerRect) }
+    }
+    
+    /// Mirrors the rectangle vertically within the specified container relative to its center Y-axis.
+    ///
+    ///     ┌─────────────────┐
+    ///     │ ┌─────────────┐ │
+    ///     │ │             │ │
+    ///     │ └─────────────┘ │
+    ///     │                 │
+    ///     ┿━━━━━━━━━━━━━━━━━┿
+    ///     │                 │
+    ///     │ ┌ ─ ─ ─ ─ ─ ─ ┐ │
+    ///     │ │             │ │
+    ///     │ └ ─ ─ ─ ─ ─ ─ ┘ │
+    ///     └─────────────────┘
+    ///
+    ///     let containerRect = CGRect(x: 30, y: 60, width: 200, height: 100)
+    ///     var contentFrame = CGRect(x: 40, y: 70, width: 50, height: 40)
+    ///     	.mirroredVertically(in: containerRect)
+    ///     // origin is CGPoint(x: 40, y: 110)
+    ///     // where y = 60 + 100 - 40 - (70 - 60)
+    ///
+    @inlinable @inline(__always)
+    func mirroredVertically(in containerRect: CGRect) -> CGRect {
+        return mutating(self) { $0.mirrorVertically(in: containerRect) }
     }
 
     
@@ -393,6 +528,12 @@ public extension CGRect {
     init(width: CGFloat, height: CGFloat) {
         let size = CGSize(width: width, height: height)
         self.init(origin: .zero, size: size)
+    }
+    
+    /// Creates a rectangle with the specified coordinates and size.
+    @inlinable @inline(__always)
+    init(x: CGFloat, y: CGFloat, size: CGSize) {
+        self.init(origin: CGPoint(x: x, y: y), size: size)
     }
     
     /// Creates a rectangle with the specified center and size.
