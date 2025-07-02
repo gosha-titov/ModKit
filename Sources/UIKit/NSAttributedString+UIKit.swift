@@ -61,26 +61,26 @@ public extension NSAttributedString {
     }
     
     
-    /// Calculates the width for the container rectangle necessary to draw the string.
+    /// Calculates the minimum width required to draw this string where the height is constrained.
     @inlinable @inline(__always)
-    func width(basedOn containerHeight: CGFloat) -> CGFloat {
+    func intrinsicWidth(withFixedHeight containerHeight: CGFloat, options: NSStringDrawingOptions = [.usesLineFragmentOrigin]) -> CGFloat {
         let rect = boundingRect(
             with: CGSize(width: .greatestFiniteMagnitude, height: containerHeight),
-            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            options: options,
             context: nil
         )
-        return ceil(rect.size.width)
+        return ceil(rect.width)
     }
     
-    /// Calculates the height for the container rectangle necessary to draw the string.
+    /// Calculates the minimum height required to draw this string where the width is constrained.
     @inlinable @inline(__always)
-    func height(basedOn containerWidth: CGFloat) -> CGFloat {
+    func intrinsicHeight(withFixedWidth containerWidth: CGFloat, options: NSStringDrawingOptions = [.usesLineFragmentOrigin]) -> CGFloat {
         let rect = boundingRect(
             with: CGSize(width: containerWidth, height: .greatestFiniteMagnitude),
-            options: [.usesLineFragmentOrigin, .usesFontLeading],
+            options: options,
             context: nil
         )
-        return ceil(rect.size.height)
+        return ceil(rect.height)
     }
     
 }
