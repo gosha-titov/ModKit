@@ -40,6 +40,29 @@ public extension Sequence {
     }
     
     
+    /// Returns the elements of the sequence, sorted using the value at the specified key path for comparison.
+    ///
+    ///     struct Person {
+    ///         let name: String
+    ///         let age: Int
+    ///     }
+    ///     let persons = [
+    ///         Person(name: "Alice", age: 31),
+    ///         Person(name: "James", age: 23),
+    ///         Person(name: "Kevin", age: 57)
+    ///     ]
+    ///     let sortedPersons = persons.sorted(by: \.age)
+    ///     /* [Person(name: "James", age: 23),
+    ///         Person(name: "Alice", age: 31),
+    ///         Person(name: "Kevin", age: 57)
+    ///     ] */
+    /// - Parameter keyPath: A key path to a `Comparable` value in `Element`.
+    /// - Returns: A sorted array of the sequence’s elements.
+    @inlinable @inline(__always)
+    func sorted<T: Comparable>(by keyPath: KeyPath<Element, T>) -> [Element] {
+        return sorted { $0[keyPath: keyPath] < $1[keyPath: keyPath] }
+    }
+    
     /// Returns the maximum element in the sequence, using the value at the specified key path for comparison.
     ///
     ///     struct Person {
