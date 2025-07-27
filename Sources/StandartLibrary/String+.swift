@@ -35,6 +35,21 @@ public extension String {
     }
     
     
+    /// A boolean value that indicates whether all characters in the string are unique.
+    ///
+    ///     "package".containsOnlyUniqueCharacters // false
+    ///     "combine".containsOnlyUniqueCharacters // true
+    ///
+    /// - Returns: `True` if all characters in the string are distinct (no duplicates);
+    ///   otherwise, `false` if any character appears more than once.
+    @inlinable @inline(__always)
+    var containsOnlyUniqueCharacters: Bool {
+        guard count > 1 else { return true }
+        var seen = Set<Character>(minimumCapacity: min(count, 256))
+        return allSatisfy { seen.insert($0).inserted }
+    }
+    
+    
     // MARK: Methods
     
     /// Returns a new string with the specified char appended.
