@@ -4,7 +4,15 @@ import UIKit
 
 public extension UIView {
     
-    /// Creates a view that has a horizontal-spacer behavior.
+    /// Creates a view that has a horizontal-spacer behavior: low hugging and compression resistance priorites.
+    ///
+    ///     let stackView = UIStackView(arrangedSubviews: [
+    ///         label, .horizontalSpacer, button
+    ///     ])
+    ///     stackView.axis = .horizontal
+    ///     // this spacer will expand to push 'label' to the left
+    ///     // and 'button' to the right, filling space between them
+    ///
     @inlinable @inline(__always)
     static var horizontalSpacer: UIView {
         let view = UIView()
@@ -14,7 +22,15 @@ public extension UIView {
         return view
     }
     
-    /// Creates a view that has a vertical-spacer behavior.
+    /// Creates a view that has a vertical-spacer behavior: low hugging and compression resistance priorites.
+    ///
+    ///     let stackView = UIStackView(arrangedSubviews: [
+    ///         label, .verticalSpacer, button
+    ///     ])
+    ///     stackView.axis = .vertical
+    ///     // this spacer will expand to push 'label' to the top
+    ///     // and 'button' to the bottom, filling space between them
+    ///
     @inlinable @inline(__always)
     static var verticalSpacer: UIView {
         let view = UIView()
@@ -23,6 +39,7 @@ public extension UIView {
         view.isUserInteractionEnabled = false
         return view
     }
+    
     
     /// Returns a view controller that owns this view; otherwise, `nil`.
     @inlinable @inline(__always)

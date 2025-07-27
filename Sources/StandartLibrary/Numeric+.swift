@@ -2,28 +2,36 @@ public extension Numeric {
     
     /// Returns the value of this instance raised to the given power.
     ///
-    ///     (-11).raised(to: 3) // -1331
-    ///     (2.5).raised(to: 2) // 6.25
+    ///     (-11).raised(toPower: 3) // -1331
+    ///     (2.5).raised(toPower: 2) // 6.25
     ///
-    @inlinable @inline(__always)
-    func raised(to power: Int) -> Self {
-        guard power > 0 else { return 1 }
-        let multiplier = self; var result = self
-        (power - 1).times { result *= multiplier }
+    @inlinable
+    func raised(toPower exponent: Int) -> Self {
+        guard exponent > 0 else { return 1 }
+        var result: Self = 1
+        var base = self
+        var exponent = exponent
+        while exponent > 0 {
+            if exponent & 1 == 1 {
+                result *= base
+            }
+            base *= base
+            exponent >>= 1
+        }
         return result
     }
     
     /// Raises the value of this instance to the given power.
     ///
     ///     var i = 12
-    ///     i.raise(to: 2) // 144
+    ///     i.raise(toPower: 2) // 144
     ///
     ///     var d = 1.5
-    ///     d.raise(to: 3) // 3.375
+    ///     d.raise(toPower: 3) // 3.375
     ///
     @inlinable @inline(__always)
-    mutating func raise(to power: Int) {
-        self = raised(to: power)
+    mutating func raise(toPower exponent: Int) {
+        self = raised(toPower: exponent)
     }
     
 }

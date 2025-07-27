@@ -19,12 +19,12 @@ public extension String {
     
     /// A boolean value that indicates whether this string contains only spaces.
     ///
-    ///     "   ".containsOnlySpaces // true
-    ///     " a ".containsOnlySpaces // false
+    ///     "   ".containsOnlyWhitespaces // true
+    ///     " a ".containsOnlyWhitespaces // false
     ///
     /// - Note: The empty string is considered to satisfy this condition, so the value is `true`.
     @inlinable @inline(__always)
-    var containsOnlySpaces: Bool {
+    var containsOnlyWhitespaces: Bool {
         let characterSet = CharacterSet.whitespaces
         for char in unicodeScalars where characterSet.contains(char) {
             return false

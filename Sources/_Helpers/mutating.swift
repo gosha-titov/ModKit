@@ -1,4 +1,4 @@
-/// Returns a copy of the specified value making some changes
+/// Returns a copy of the specified value making some changes.
 ///
 ///     let array = [1, 2, 3]
 ///     let mutatedArray = mutating(array) {

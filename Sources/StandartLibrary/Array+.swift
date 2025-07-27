@@ -7,17 +7,20 @@ public extension Array {
     
     // MARK: Methods
     
-    /// Finds, removes and returns the elements that satisfy the given predicate.
+    /// Finds, removes and returns the elements that satisfy the given predicate, the order is preserved from the original array.
     ///
-    ///     var sourceNumbers = [0, 1, 2, 3, 4, 5]
-    ///     let evenNumbers = sourceNumbers.extract { $0 % 2 == 0 }
-    ///     print(sourceNumbers) // [1, 3, 5]
+    ///     var numbers = [0, 1, 2, 3, 4, 5]
+    ///     let evenNumbers = numbers.extract { $0 % 2 == 0 }
+    ///     print(numbers)     // [1, 3, 5]
     ///     print(evenNumbers) // [0, 2, 4]
     ///
+    /// - Parameter shouldBeExtracted: A closure that takes an element and returns a Boolean
+    ///   value indicating whether the element should be extracted.
+    /// - Returns: An array of the extracted elements.
     @inlinable @inline(__always)
-    mutating func extract(_ isExtracted: (Element) -> Bool) -> [Element] {
-        let extractedElements = filter(isExtracted)
-        removeAll(where: isExtracted)
+    mutating func extract(_ shouldBeExtracted: (Element) -> Bool) -> [Element] {
+        let extractedElements = filter(shouldBeExtracted)
+        removeAll(where: shouldBeExtracted)
         return extractedElements
     }
     
@@ -44,7 +47,7 @@ public extension Array {
     }
     
     
-    /// Returns a new array with the specified element appended.
+    /// Returns a new array with the specified element added to the end of the array.
     ///
     ///     let array = [0, 1]
     ///     array.appending(2) // [0, 1, 2]
@@ -60,7 +63,7 @@ public extension Array {
     ///     array.appending(contentsOf: [2, 3]) // [0, 1, 2, 3]
     ///
     @inlinable @inline(__always)
-    func appending(contentsOf newElements: any Sequence<Element>) -> Self {
+    func appending<S: Sequence>(contentsOf newElements: S) -> Self where S.Element == Element {
         return mutating(self) { $0.append(contentsOf: newElements) }
     }
     
@@ -72,17 +75,17 @@ public extension Array {
     ///
     @inlinable @inline(__always)
     mutating func prepend(_ newElement: Element) {
-        insert(newElement, at: .zero)
+        insert(newElement, at: startIndex)
     }
     
-    /// Adds the elements of a sequence to the beginning of the array.
+    /// Adds the elements of a sequence at the beginning of the array.
     ///
     ///     var array = [2, 3]
     ///     array.prepend(contentsOf: [0, 1]) // [0, 1, 2, 3]
     ///
     @inlinable @inline(__always)
-    mutating func prepend(contentsOf newElements: any Collection<Element>) {
-        insert(contentsOf: newElements, at: .zero)
+    mutating func prepend<C: Collection>(contentsOf newElements: C) where C.Element == Element {
+        insert(contentsOf: newElements, at: startIndex)
     }
     
     /// Returns a new array with the specified element added at the beginning of the array.
@@ -95,13 +98,13 @@ public extension Array {
         return mutating(self) { $0.prepend(newElement) }
     }
     
-    /// Returns a new array with the specified elements of a sequence added to the beginning of the array.
+    /// Returns a new array with the specified elements of a sequence added at the beginning of the array.
     ///
     ///     let array = [2, 3]
     ///     array.prepending(contentsOf: [0, 1]) // [0, 1, 2, 3]
     ///
     @inlinable @inline(__always)
-    func prepending(contentsOf newElements: any Collection<Element>) -> Self {
+    func prepending<C: Collection>(contentsOf newElements: C) -> Self where C.Element == Element {
         return mutating(self) { $0.prepend(contentsOf: newElements) }
     }
     
@@ -112,33 +115,8 @@ public extension Array {
     ///     array.updating(to: "m", at: 1) // ["a", "m", "c"]
     ///
     @inlinable @inline(__always)
-    func updating(to newElement: Element, at index: Index) -> Self {
+    func updating(_ newElement: Element, at index: Index) -> Self {
         return mutating(self) { $0[index] = newElement }
-    }
-    
-    
-    /// Returns the first K elements of this array.
-    ///
-    ///     let arr = [1, 2, 3, 4, 5]
-    ///     arr.first(3) // [1, 2, 3]
-    ///
-    @inlinable @inline(__always)
-    func first(_ k: Int) -> Self {
-        guard k > 0 else { return .empty }
-        let k = k.clamped(to: 0...count)
-        return Array(self[0..<k])
-    }
-    
-    /// Returns the last K elements of this array.
-    ///
-    ///     let arr = [1, 2, 3, 4, 5]
-    ///     arr.last(3) // [3, 4, 5]
-    ///
-    @inlinable @inline(__always)
-    func last(_ k: Int) -> Self {
-        guard k > 0 else { return .empty }
-        let k = k.clamped(to: 0...count)
-        return Array(self[(count - k)..<count])
     }
     
 }
@@ -162,7 +140,7 @@ public extension Array where Element: Equatable {
     ///     array.remove(contentsOf: [2, 4]) // [1, 3]
     ///
     @inlinable @inline(__always)
-    mutating func remove(contentsOf oldElements: any Sequence<Element>) {
+    mutating func remove<S: Sequence>(contentsOf oldElements: S) where S.Element == Element {
         removeAll(where: { oldElements.contains($0) })
     }
     
@@ -182,7 +160,7 @@ public extension Array where Element: Equatable {
     ///     array.removing(contentsOf: [2, 4]) // [1, 3]
     ///
     @inlinable @inline(__always)
-    func removing(contentsOf oldElements: any Sequence<Element>) -> Self {
+    func removing<S: Sequence>(contentsOf oldElements: S) -> Self where S.Element == Element {
         return mutating(self) { $0.remove(contentsOf: oldElements) }
     }
     
@@ -221,11 +199,8 @@ public extension Array where Element: Equatable {
     /// - Parameter elements: The elements to find in the sequence.
     /// - Returns: `True` if all elements were found in the sequence; otherwise, `false`.
     @inlinable @inline(__always)
-    func contains(contentsOf elements: any Sequence<Element>) -> Bool {
-        for element in elements {
-            guard contains(element) else { return false }
-        }
-        return true
+    func contains<S: Sequence>(contentsOf elements: S) -> Bool where S.Element == Element {
+        return elements.allSatisfy { contains($0) }
     }
     
 
@@ -248,8 +223,8 @@ public extension Array where Element: AnyObject {
     ///     array.removeReference(t2) // [t1, t3, t4]
     ///
     @inlinable @inline(__always)
-    mutating func removeReference(_ object: Element) {
-        removeAll { $0 === object }
+    mutating func removeReference(_ oldObject: Element) {
+        removeAll { $0 === oldObject }
     }
     
     /// Removes the given reference-type objects from the array.
@@ -258,10 +233,10 @@ public extension Array where Element: AnyObject {
     ///     array.removeReferences([t2, t4]) // [t1, t3]
     ///
     @inlinable @inline(__always)
-    mutating func removeReferences(_ objects: any Sequence<Element>) {
+    mutating func removeReferences<S: Sequence>(_ oldObjects: S) where S.Element == Element {
         removeAll { sourceObject in
-            return objects.contains { removedObject in
-                sourceObject === removedObject
+            return oldObjects.contains { objectToRemove in
+                sourceObject === objectToRemove
             }
         }
     }
@@ -273,8 +248,8 @@ public extension Array where Element: AnyObject {
     ///     array.removingReference(t2) // [t1, t3, t4]
     ///
     @inlinable @inline(__always)
-    func removingReference(_ object: Element) -> Self {
-        return mutating(self) { $0.removeReference(object) }
+    func removingReference(_ oldObject: Element) -> Self {
+        return except { $0 === oldObject }
     }
     
     /// Returns a new array containing all but the given reference-type objects.
@@ -283,39 +258,12 @@ public extension Array where Element: AnyObject {
     ///     array.removingReferences([t2, t4]) // [t1, t3]
     ///
     @inlinable @inline(__always)
-    func removingReferences(_ objects: any Sequence<Element>) -> Self {
-        return mutating(self) { $0.removeReferences(objects) }
-    }
-    
-}
-
-
-public extension Array where Element: LosslessStringConvertible {
-    
-    /// Returns a string by converting the elements of the sequence to strings and concatenating them, adding the given separator between each element.
-    ///
-    ///     [1.2, 3.4, 5.6].toString(separator: " ") // "1.2 3.4 5.6"
-    ///     [1, 2, 3].toString(separator: ", ") // "1, 2, 3"
-    ///
-    /// - Parameter separator: A string to insert between each of the elements in this sequence.
-    @inlinable @inline(__always)
-    func toString(separator: String) -> String {
-        return map { String($0) }.joined(separator: separator)
-    }
-    
-}
-
-
-public extension Array where Element == Character {
-    
-    /// A string that contains all characters of the array.
-    ///
-    ///     let array = [Character("H"), Character("i"), Character("!")]
-    ///     array.toString() // "Hi!"
-    ///
-    @inlinable @inline(__always)
-    func toString() -> String {
-        return reduce(.empty) { $0.appending($1) }
+    func removingReferences<S: Sequence>(_ oldObjects: S) -> Self where S.Element == Element {
+        return except { sourceObject in
+            return oldObjects.contains { oldObject in
+                sourceObject === oldObject
+            }
+        }
     }
     
 }

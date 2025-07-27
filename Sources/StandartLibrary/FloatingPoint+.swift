@@ -79,7 +79,7 @@ public extension FloatingPoint {
     ///
     @inlinable
     func rounded(toDecimalPlaces number: Int, rule: FloatingPointRoundingRule = .toNearestOrAwayFromZero) -> Self {
-        let factor = Self(10.raised(to: number))
+        let factor = Self(10.raised(toPower: number))
         return (self * factor).rounded(rule) / factor
     }
     

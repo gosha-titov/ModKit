@@ -45,7 +45,7 @@ public extension Dictionary {
     ///     dict.removingValues(forKeys: [0, 1]) // [2: "c"]
     ///
     @inlinable @inline(__always)
-    func removingValues(forKeys oldKeys: any Sequence<Key>) -> Self {
+    func removingValues<S: Sequence>(forKeys oldKeys: S) -> Self where S.Element == Key {
         return mutating(self) { $0.removeValues(forKeys: oldKeys) }
     }
     
@@ -55,7 +55,7 @@ public extension Dictionary {
     ///     dict.removeValues(forKeys: [0, 1]) // [2: "c"]
     ///
     @inlinable @inline(__always)
-    mutating func removeValues(forKeys oldKeys: any Sequence<Key>) {
+    mutating func removeValues<S: Sequence>(forKeys oldKeys: S) where S.Element == Key {
         oldKeys.forEach { removeValue(forKey: $0) }
     }
     

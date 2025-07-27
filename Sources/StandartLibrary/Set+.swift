@@ -15,9 +15,9 @@ public extension Set {
     ///     print(evenNumbers) // [0, 2, 4]
     ///
     @inlinable @inline(__always)
-    mutating func extract(_ isExtracted: (Element) -> Bool) -> Set<Element> {
+    mutating func extract(_ isExtracted: (Element) -> Bool) -> Self {
         let extractedElements = filter(isExtracted)
-        self = subtracting(extractedElements)
+        subtract(extractedElements)
         return extractedElements
     }
     
@@ -28,7 +28,7 @@ public extension Set {
     ///     set.insert(contentsOf: [2, 3]) // [0, 1, 2, 3]
     ///
     @inlinable @inline(__always)
-    mutating func insert(contentsOf newElements: any Sequence<Element>) {
+    mutating func insert<S: Sequence>(contentsOf newElements: S) where S.Element == Element {
         self = union(newElements)
     }
     
@@ -48,7 +48,7 @@ public extension Set {
     ///     set.inserting(contentsOf: [2, 3]) // [0, 1, 2, 3]
     ///
     @inlinable @inline(__always)
-    func inserting(contentsOf newElements: any Sequence<Element>) -> Self {
+    func inserting<S: Sequence>(contentsOf newElements: S) -> Self where S.Element == Element {
         return union(newElements)
     }
     
@@ -59,7 +59,7 @@ public extension Set {
     ///     set.remove(contentsOf: [2, 3]) // [0, 1]
     ///
     @inlinable @inline(__always)
-    mutating func remove(contentsOf oldElements: any Sequence<Element>) {
+    mutating func remove<S: Sequence>(contentsOf oldElements: S) where S.Element == Element {
         self = subtracting(oldElements)
     }
     
@@ -79,7 +79,7 @@ public extension Set {
     ///     set.removing(contentsOf: [2, 3]) // [0, 1]
     ///
     @inlinable @inline(__always)
-    func removing(contentsOf oldElements: any Sequence<Element>) -> Self {
+    func removing<S: Sequence>(contentsOf oldElements: S) -> Self where S.Element == Element {
         return subtracting(oldElements)
     }
     

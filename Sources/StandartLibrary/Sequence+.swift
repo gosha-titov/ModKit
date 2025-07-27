@@ -31,20 +31,39 @@ public extension Sequence {
     ///     let validNames = inputNames.except(where: \.isEmpty)
     ///     // ["Mia", "Emma", "Luna"]
     ///
-    /// - Parameter isExcluded: A closure that takes an element of the sequence as its argument
+    /// - Parameter shouldBeExcluded: A closure that takes an element of the sequence as its argument
     ///   and returns a Boolean value indicating whether the element should be excluded from the returned array.
     /// - Returns: An array of elements that do not satisfy the predicate.
     @inlinable @inline(__always)
-    func except(where isExcluded: (Element) throws -> Bool) rethrows -> [Element] {
-        return try filter { try !isExcluded($0) }
+    func except(where shouldBeExcluded: (Element) throws -> Bool) rethrows -> [Element] {
+        return try filter { try !shouldBeExcluded($0) }
     }
     
     
     /// Returns the elements of the sequence, sorted using the value at the specified key path for comparison.
     ///
     ///     struct Person {
-    ///         let name: String
-    ///         let age: Int
+    ///         let name: String, age: Int
+    ///     }
+    ///     let persons = [
+    ///         Person(name: "Alice", age: 31),
+    ///         Person(name: "James", age: 23),
+    ///         Person(name: "Kevin", age: 57)
+    ///     ]
+    ///     persons.sorted(by: \.age, using: > )
+    ///     /* [Person(name: "Kevin", age: 57),
+    ///         Person(name: "Alice", age: 31),
+    ///         Person(name: "James", age: 23)
+    ///     ] */
+    /// - Parameter keyPath: A key path to a `Comparable` value in `Element`.
+    func sorted<T>(by keyPath: KeyPath<Element, T>, using compare: (T, T) throws -> Bool) rethrows -> [Element] {
+        return try sorted { try compare($0[keyPath: keyPath], $1[keyPath: keyPath]) }
+    }
+    
+    /// Returns the elements of the sequence, sorted using the value at the specified key path for comparison.
+    ///
+    ///     struct Person {
+    ///         let name: String, age: Int
     ///     }
     ///     let persons = [
     ///         Person(name: "Alice", age: 31),
@@ -66,8 +85,7 @@ public extension Sequence {
     /// Returns the maximum element in the sequence, using the value at the specified key path for comparison.
     ///
     ///     struct Person {
-    ///         let name: String
-    ///         let age: Int
+    ///         let name: String, age: Int
     ///     }
     ///     let persons = [
     ///         Person(name: "Alice", age: 31),
@@ -87,8 +105,7 @@ public extension Sequence {
     /// Returns the minimum element in the sequence, using the value at the specified key path for comparison.
     ///
     ///     struct Person {
-    ///         let name: String
-    ///         let age: Int
+    ///         let name: String, age: Int
     ///     }
     ///     let persons = [
     ///         Person(name: "Alice", age: 31),

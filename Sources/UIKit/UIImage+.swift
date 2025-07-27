@@ -125,7 +125,7 @@ public extension UIImage {
     func rounded(withRadius radius: CGFloat? = nil) -> UIImage {
         let maxRadius = size.minimumDimension / 2
         let radius = radius
-            .maybe { $0.clamped(to: 0...maxRadius) }
+            .map { $0.clamped(to: 0...maxRadius) }
             .orElse(maxRadius)
         guard radius > 0 else { return self }
         let rect = CGRect(size: size)
@@ -147,7 +147,7 @@ public extension UIImage {
     func bordered(withColor color: UIColor, width: CGFloat, radius: CGFloat? = nil) -> UIImage {
         let maxRadius = size.minimumDimension / 2
         let radius = radius
-            .maybe { $0.clamped(to: 0...maxRadius) }
+            .map { $0.clamped(to: 0...maxRadius) }
             .orElse(maxRadius)
         let rect = CGRect(size: size)
         let lineRect = rect.insetBy(dx: width / 2, dy: width / 2)

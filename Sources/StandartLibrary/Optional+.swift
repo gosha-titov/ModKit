@@ -11,19 +11,10 @@ public extension Optional {
     
     // MARK: Methods
     
-    /// Performs the specified block on the unwrapped value and returns the result; otherwise, returns `nil`.
-    ///
-    ///     let maybeText = storedData.maybe { String(data: $0, encoding: .utf8) }
-    ///
-    @inlinable @inline(__always)
-    func maybe<T>(_ block: (Wrapped) throws -> T?) rethrows -> T? {
-        return if let value = self { try block(value) } else { nil }
-    }
-    
     /// Returns the unwrapped value; otherwise, provides the default value.
     ///
-    ///     let text = storedData
-    ///         .maybe { String(data: $0, encoding: .utf8) }
+    ///     let text = maybeData
+    ///         .map { String(data: $0, encoding: .utf8) }
     ///         .orElse(.empty)
     ///
     @inlinable @inline(__always)
@@ -33,8 +24,8 @@ public extension Optional {
     
     /// Returns the unwrapped value; otherwise, throws an error.
     ///
-    ///     let text = try storedData
-    ///         .maybe { String(data: $0, encoding: .utf8) }
+    ///     let text = try maybeData
+    ///         .map { String(data: $0, encoding: .utf8) }
     ///         .orThrow(DecodingError.invalidData)
     ///
     @inlinable @inline(__always)
