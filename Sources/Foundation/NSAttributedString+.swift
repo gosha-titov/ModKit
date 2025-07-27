@@ -8,6 +8,7 @@ public extension NSAttributedString {
     @inlinable @inline(__always)
     static var empty: NSAttributedString { .init() }
     
+    
     /// Returns an attributed string that has only a non-breaking-space character.
     @inlinable @inline(__always)
     static var nonbreakingSpace: NSAttributedString {
@@ -71,10 +72,16 @@ public extension NSAttributedString {
         return mutating(mutable) { $0.apply(attributes, inRange: range) }
     }
     
-    /// Returns an attributed string with the characters and attributes of a given attributed string added to the end of the receiver.
+    /// Returns a new attributed string with the characters and attributes of a given attributed string added to the end of the receiver.
     @inlinable @inline(__always)
     func appending(_ otherAttributedString: NSAttributedString) -> NSAttributedString {
         return mutating(mutable) { $0.append(otherAttributedString) }
+    }
+    
+    /// Returns a new attributed string with the characters and attributes of a given attributed string added at the beginning of the receiver.
+    @inlinable @inline(__always)
+    func prepending(_ otherAttributedString: NSAttributedString) -> NSAttributedString {
+        return otherAttributedString.appending(self)
     }
     
     
