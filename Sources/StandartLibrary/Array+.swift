@@ -115,7 +115,7 @@ public extension Array {
     ///     array.updating(to: "m", at: 1) // ["a", "m", "c"]
     ///
     @inlinable @inline(__always)
-    func updating(_ newElement: Element, at index: Index) -> Self {
+    func updating(to newElement: Element, at index: Index) -> Self {
         return mutating(self) { $0[index] = newElement }
     }
     

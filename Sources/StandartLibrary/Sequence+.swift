@@ -56,8 +56,10 @@ public extension Sequence {
     ///         Person(name: "James", age: 23)
     ///     ] */
     /// - Parameter keyPath: A key path to a `Comparable` value in `Element`.
-    func sorted<T>(by keyPath: KeyPath<Element, T>, using compare: (T, T) throws -> Bool) rethrows -> [Element] {
-        return try sorted { try compare($0[keyPath: keyPath], $1[keyPath: keyPath]) }
+    /// - Parameter areInIncreasingOrder: A predicate that returns `true`
+    ///   if its first argument should be ordered before its second argument; otherwise, `false`.
+    func sorted<T>(by keyPath: KeyPath<Element, T>, using areInIncreasingOrder: (T, T) throws -> Bool) rethrows -> [Element] {
+        return try sorted { try areInIncreasingOrder($0[keyPath: keyPath], $1[keyPath: keyPath]) }
     }
     
     /// Returns the elements of the sequence, sorted using the value at the specified key path for comparison.

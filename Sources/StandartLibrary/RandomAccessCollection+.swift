@@ -16,9 +16,11 @@ public extension RandomAccessCollection where Self: MutableCollection {
     ///         Person(name: "James", age: 23)
     ///     ] */
     /// - Parameter keyPath: A key path to a `Comparable` value in `Element`.
+    /// - Parameter areInIncreasingOrder: A predicate that returns `true`
+    ///   if its first argument should be ordered before its second argument; otherwise, `false`.
     @inlinable @inline(__always)
-    mutating func sort<T>(by keyPath: KeyPath<Element, T>, using compare: (T, T) throws -> Bool) rethrows {
-        try sort { try compare($0[keyPath: keyPath], $1[keyPath: keyPath]) }
+    mutating func sort<T>(by keyPath: KeyPath<Element, T>, using areInIncreasingOrder: (T, T) throws -> Bool) rethrows {
+        try sort { try areInIncreasingOrder($0[keyPath: keyPath], $1[keyPath: keyPath]) }
     }
     
     /// Sorts the collection in place, using the value at the specified key path for comparison.
