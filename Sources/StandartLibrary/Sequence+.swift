@@ -105,6 +105,43 @@ public extension Sequence {
         return self.min { $0[keyPath: keyPath] < $1[keyPath: keyPath] }
     }
     
+    
+    /// Returns a string by converting the elements of the sequence to strings and concatenating them, adding the given separator between each element.
+    ///
+    ///     [1.2, 3.4, 5.6].toString(separatedBy: " ") // "1.2 3.4 5.6"
+    ///     [1, 2, 3, 4].toString(separatedBy: " → ") // "1 → 2 → 3 → 4"
+    ///
+    /// - Parameter separator: A string to insert between each of the elements in this sequence.
+    @inlinable @inline(__always)
+    func toString(separatedBy separator: String = .empty) -> String {
+        return map { "\($0)" }.joined(separator: separator)
+    }
+    
+    /// Returns an array that contains all elements of the sequence.
+    ///
+    ///     let set: Set = [1, 2, 3]
+    ///     set.toArray() // [1, 3, 2]
+    ///
+    @inlinable @inline(__always)
+    func toArray() -> Array<Element> {
+        return Array(self)
+    }
+    
+}
+
+
+public extension Sequence where Element: Hashable {
+    
+    /// Returns a set that contains unique elements of the sequence.
+    ///
+    ///     let array = [1, 2, 3, 2]
+    ///     array.toSet() // [1, 2, 3]
+    ///
+    @inlinable @inline(__always)
+    func toSet() -> Set<Element> {
+        return Set(self)
+    }
+    
 }
 
 
