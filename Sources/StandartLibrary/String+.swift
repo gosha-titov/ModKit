@@ -4,6 +4,7 @@ public extension String {
     @inlinable @inline(__always)
     static var empty: Self { String() }
     
+    
     /// The non-breaking space string that prevents an automatic line break at its position.
     @inlinable @inline(__always)
     static var nonbreakingSpace: String {
@@ -52,13 +53,68 @@ public extension String {
     
     // MARK: Methods
     
-    /// Returns a new string with the specified char appended.
+    /// Returns a new string with the given character added to the end of the string.
+    ///
+    ///     let string = "ab"
+    ///     string.appending("c") // "abc"
+    ///
     @inlinable @inline(__always)
-    func appending(_ char: Character) -> String {
-        return mutating(self) { $0.append(char) }
+    func appending(_ newCharacter: Character) -> String {
+        return self + String(newCharacter)
     }
     
-    /// Returns a string containing characters this string and the given string have in common,
+    /// Returns a new string with the characters of the given sequence added to the end of the string.
+    ///
+    ///     let string = "ab"
+    ///     string.appending(contentsOf: "cd") // "abcd"
+    ///
+    @inlinable @inline(__always)
+    func appending<S: Sequence>(contentsOf newElements: S) -> String where S.Element == Character {
+        return self + String(newElements)
+    }
+    
+    /// Adds the given character at the beginning of the string.
+    ///
+    ///     var string = "bc"
+    ///     string.prepend("a") // "abc"
+    ///
+    @inlinable @inline(__always)
+    mutating func prepend(_ newCharacter: Character) {
+        self.insert(newCharacter, at: startIndex)
+    }
+    
+    /// Adds the characters of the given sequence at the beginning of the string.
+    ///
+    ///     var string = "cd"
+    ///     string.prepend(contentsOf: "ab") // "abcd"
+    ///
+    @inlinable @inline(__always)
+    mutating func prepend<C: Collection>(contentsOf newElements: C) where C.Element == Character {
+        self.insert(contentsOf: newElements, at: startIndex)
+    }
+    
+    /// Returns a new string with the given character added at the beginning of the string.
+    ///
+    ///     let string = "bc"
+    ///     string.prepending("a") // "abc"
+    ///
+    @inlinable @inline(__always)
+    func prepending(_ char: Character) -> String {
+        return String(char) + self
+    }
+    
+    /// Returns a new string with the characters of the given sequence added to the beginning of the string.
+    ///
+    ///     let string = "cd"
+    ///     string.prepending(contentsOf: "ab") // "abcd"
+    ///
+    @inlinable @inline(__always)
+    func prepending<S: Sequence>(contentsOf newElements: S) -> String where S.Element == Character {
+        return String(newElements) + self
+    }
+    
+    
+    /// Returns a string containing characters  this string and the given string have in common,
     /// starting from the ending of each up to the first characters that aren’t equivalent.
     ///
     ///     let str1 = "abcde"
@@ -67,40 +123,15 @@ public extension String {
     ///
     @inlinable @inline(__always)
     func commonSuffix(with str: String) -> String {
-        var suffix = String()
-        let min = min(count, str.count)
-        let str1 = self.last(min)
-        let str2 = str .last(min)
-        for (char1, char2) in zip(str1, str2).reversed() {
-            guard char1 == char2 else { break }
-            suffix.append(char1)
+        var (index1, index2) = (endIndex, str.endIndex)
+        var startIndex = self.endIndex
+        while index1 > self.startIndex && index2 > str.startIndex {
+            let (previousIndex1, previousIndex2) = (index(before: index2), str.index(before: index2))
+            guard self[previousIndex1] == str[previousIndex2] else { break }
+            (index1, index2) = (previousIndex1, previousIndex2)
+            startIndex = index1
         }
-        return String(suffix.reversed())
-    }
-    
-    
-    /// Returns the first K elements of the string.
-    ///
-    ///     let str = "abcde"
-    ///     str.first(3) // "abc"
-    ///
-    @inlinable @inline(__always)
-    func first(_ k: Int) -> String {
-        guard k > 0 else { return .empty }
-        let k = k.clamped(to: 0...count)
-        return self[0..<k]
-    }
-    
-    /// Returns the last K elements of the string.
-    ///
-    ///     let str = "abcde"
-    ///     str.last(3) // "cde"
-    ///
-    @inlinable @inline(__always)
-    func last(_ k: Int) -> String {
-        guard k > 0 else { return .empty }
-        let k = k.clamped(to: 0...count)
-        return self[(count - k)..<count]
+        return String(self[startIndex..<endIndex])
     }
     
     
@@ -125,7 +156,7 @@ public extension String {
     }
     
     
-    /// Returns an optional Int value converted from this string.
+    /// Returns an optional `Int` value converted from this string.
     ///
     ///     let str = "213"
     ///     str.toInt // Optional(213)
