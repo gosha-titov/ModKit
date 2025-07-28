@@ -20,8 +20,8 @@ public extension NSLayoutConstraint {
     /// Returns a new constraint with the current multiplier updated.
     ///
     ///     NSLayoutConstraint.activate([
-    ///         trackView.trailingAnchor.constraint(equalTo: trailingAnchor)
-    ///             .stored(in: &trackViewTrailingConstraint)
+    ///         trackView.widthAnchor.constraint(equalTo: widthAnchor)
+    ///             .stored(in: &trackViewWidthConstraint)
     ///             .withMultiplier(0.75)
     ///     ])
     @inline(__always)

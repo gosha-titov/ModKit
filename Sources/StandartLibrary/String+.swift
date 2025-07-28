@@ -5,35 +5,29 @@ public extension String {
     static var empty: Self { String() }
     
     
-    /// The non-breaking space string that prevents an automatic line break at its position.
+    /// The string that contains only the symbol that acts as a placeholder for an embedded object, often used when converting a document to plain text.
     @inlinable @inline(__always)
-    static var nonbreakingSpace: String {
-        return Character.nonbreakingSpace.toString()
-    }
+    static var objectReplacement: Character { "\u{fffc}" }
     
-    /// The string that is a thin space.
+    /// The string that contains only the non-breaking space symbol that prevents an automatic line break at its position.
     @inlinable @inline(__always)
-    static var thinSpace: String {
-        return Character.thinSpace.toString()
-    }
+    static var nonbreakingSpace: String { "\u{00A0}" }
     
-    /// The string that is a space.
+    /// The string that contains only the thin space.
     @inlinable @inline(__always)
-    static var space: String {
-        return Character.space.toString()
-    }
+    static var thinSpace: String { "\u{2009}" }
     
-    /// The new-line string (`"\n"`) that signifies the end of a line of text and the start of a new one.
+    /// The string that contains only the space symbol.
     @inlinable @inline(__always)
-    static var newline: String {
-        return Character.newline.toString()
-    }
+    static var space: String { "\u{0020}" }
     
-    /// The string that is a tab (`"\t"`).
+    /// The string that contains only the new-line symbol (`"\n"`) that signifies the end of a line of text and the start of a new one.
     @inlinable @inline(__always)
-    static var tab: String {
-        return Character.tab.toString()
-    }
+    static var newline: String { "\u{000A}" }
+    
+    /// The string that contains only the tab symbol (`"\t"`).
+    @inlinable @inline(__always)
+    static var tab: String { "\u{0009}" }
     
     
     /// A boolean value that indicates whether all characters in the string are unique.
@@ -52,6 +46,37 @@ public extension String {
     
     
     // MARK: Methods
+    
+    /// Returns a new string, up to the specified maximum length, containing the first characters of this string.
+    ///
+    ///     let string = "abcde"
+    ///     print(string.firsts(2)) // "ab"
+    ///     print(string.firsts(9)) // "abcde"
+    ///
+    /// - Parameter maxLength: The maximum number of characters to return.
+    ///   If it is less than zero, the return string will be empty.
+    /// - Returns: A string starting at the beginning of this string with at most `maxLength` characters.
+    @inlinable @inline(__always)
+    func firsts(_ maxLength: Int) -> String {
+        guard maxLength > 0 else { return .empty }
+        return String(prefix(maxLength))
+    }
+    
+    /// Returns a new string, up to the given maximum length, containing the last characters of this string.
+    ///
+    ///     let string = "abcde"
+    ///     print(string.lasts(2)) // "de"
+    ///     print(string.lasts(9)) // "abcde"
+    ///
+    /// - Parameter maxLength: The maximum number of characters to return.
+    ///   If it is less than zero, the return string will be empty.
+    /// - Returns: A string terminating at the end of this string with at most `maxLength` characters.
+    @inlinable @inline(__always)
+    func lasts(_ maxLength: Int) -> String {
+        guard maxLength > 0 else { return .empty }
+        return String(suffix(maxLength))
+    }
+    
     
     /// Returns a new string with the given character added to the end of the string.
     ///

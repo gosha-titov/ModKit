@@ -7,6 +7,37 @@ public extension Array {
     
     // MARK: Methods
     
+    /// Returns a new array, up to the specified maximum length, containing the first elements of this array.
+    ///
+    ///     let numbers = [1, 2, 3, 4, 5]
+    ///     print(numbers.firsts(2)) // [1, 2]
+    ///     print(numbers.firsts(9)) // [1, 2, 3, 4, 5]
+    ///
+    /// - Parameter maxLength: The maximum number of elements to return.
+    ///   If it is less than zero, the return array will be empty.
+    /// - Returns: An array starting at the beginning of this array with at most `maxLength` elements.
+    @inlinable @inline(__always)
+    func firsts(_ maxLength: Int) -> Self {
+        guard maxLength > 0 else { return .empty }
+        return Array(prefix(maxLength))
+    }
+    
+    /// Returns a new array, up to the given maximum length, containing the last elements of this array.
+    ///
+    ///     let numbers = [1, 2, 3, 4, 5]
+    ///     print(numbers.lasts(2)) // [4, 5]
+    ///     print(numbers.lasts(9)) // [1, 2, 3, 4, 5]
+    ///
+    /// - Parameter maxLength: The maximum number of elements to return.
+    ///   If it is less than zero, the return array will be empty.
+    /// - Returns: An array terminating at the end of this array with at most `maxLength` elements.
+    @inlinable @inline(__always)
+    func lasts(_ maxLength: Int) -> Self {
+        guard maxLength > 0 else { return .empty }
+        return Array(suffix(maxLength))
+    }
+    
+    
     /// Finds, removes and returns the elements that satisfy the given predicate, the order is preserved from the original array.
     ///
     ///     var numbers = [0, 1, 2, 3, 4, 5]
@@ -18,7 +49,7 @@ public extension Array {
     ///   value indicating whether the element should be extracted.
     /// - Returns: An array of the extracted elements.
     @inlinable @inline(__always)
-    mutating func extract(_ shouldBeExtracted: (Element) -> Bool) -> [Element] {
+    mutating func extract(_ shouldBeExtracted: (Element) -> Bool) -> Self {
         let extractedElements = filter(shouldBeExtracted)
         removeAll(where: shouldBeExtracted)
         return extractedElements

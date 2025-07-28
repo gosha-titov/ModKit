@@ -1,26 +1,26 @@
 public extension Character {
     
-    /// The character that acts as a placeholder for an embedded object, often used when converting a document to plain text.
+    /// The character that is the symbol that acts as a placeholder for an embedded object, often used when converting a document to plain text.
     @inlinable @inline(__always)
     static var objectReplacement: Character { "\u{fffc}" }
     
-    /// The non-breaking space character that prevents an automatic line break at its position.
+    /// The character that is the non-breaking space symbol that prevents an automatic line break at its position.
     @inlinable @inline(__always)
     static var nonbreakingSpace: Character { "\u{00A0}" }
     
-    /// The character that is a thin space.
+    /// The character that is the thin space symbol.
     @inlinable @inline(__always)
     static var thinSpace: Character { "\u{2009}" }
     
-    /// The character that is a space.
+    /// The character that is the space symbol.
     @inlinable @inline(__always)
     static var space: Character { "\u{0020}" }
     
-    /// The new-line character (`"\n"`) that signifies the end of a line of text and the start of a new one.
+    /// The character that is the new-line symbol (`"\n"`) that signifies the end of a line of text and the start of a new one.
     @inlinable @inline(__always)
     static var newline: Character { "\u{000A}" }
     
-    /// The character that is a tab (`"\t"`).
+    /// The character that is the tab symbol (`"\t"`).
     @inlinable @inline(__always)
     static var tab: Character { "\u{0009}" }
     
