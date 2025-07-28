@@ -3,8 +3,7 @@ public extension Sequence {
     /// Calls the specified closure on each element that satisfies the given predicate in the sequence in the same order as a `for-in-where` loop.
     ///
     ///     struct Task {
-    ///         let title: String
-    ///         let isCompleted: Bool
+    ///         let title: String, isCompleted: Bool
     ///     }
     ///     let tasks = [
     ///         Task(title: "Design layout", isCompleted: true),
@@ -58,6 +57,7 @@ public extension Sequence {
     /// - Parameter keyPath: A key path to a `Comparable` value in `Element`.
     /// - Parameter areInIncreasingOrder: A predicate that returns `true`
     ///   if its first argument should be ordered before its second argument; otherwise, `false`.
+    /// - Returns: A sorted array of the sequence’s elements.
     func sorted<T>(by keyPath: KeyPath<Element, T>, using areInIncreasingOrder: (T, T) throws -> Bool) rethrows -> [Element] {
         return try sorted { try areInIncreasingOrder($0[keyPath: keyPath], $1[keyPath: keyPath]) }
     }
@@ -128,7 +128,7 @@ public extension Sequence {
     /// Returns an array that contains all elements of the sequence.
     ///
     ///     let set: Set = [1, 2, 3]
-    ///     set.toArray() // [1, 3, 2]
+    ///     let array = set.toArray() // [1, 3, 2]
     ///
     @inlinable @inline(__always)
     func toArray() -> Array<Element> {
@@ -174,7 +174,7 @@ public extension Sequence where Element: Hashable {
     /// Returns a set that contains unique elements of the sequence.
     ///
     ///     let array = [1, 2, 3, 2]
-    ///     array.toSet() // [1, 2, 3]
+    ///     let set = array.toSet() // [1, 2, 3]
     ///
     @inlinable @inline(__always)
     func toSet() -> Set<Element> {

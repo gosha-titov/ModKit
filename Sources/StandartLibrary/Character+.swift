@@ -75,7 +75,7 @@ public extension Character {
     ///     char.toInt() // Optional(4)
     ///
     @inlinable @inline(__always)
-    func toInt() -> Int? { String(self).toInt() }
+    func toInt() -> Int? { self.toString().toInt() }
  
     /// Returns a String value converted from this character.
     ///

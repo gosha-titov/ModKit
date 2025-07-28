@@ -165,12 +165,4 @@ public extension BinaryInteger {
     @inlinable @inline(__always)
     func toFloat() -> Float { Float(self) }
     
-    /// Returns a string converted from this integer.
-    ///
-    ///     let number = 53
-    ///     number.toString() // "53"
-    ///
-    @inlinable @inline(__always)
-    func toString() -> String { String(self) }
-    
 }
