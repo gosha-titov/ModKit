@@ -22,12 +22,4 @@ public extension Double {
     @inlinable @inline(__always)
     func toInt() -> Int { Int(self) }
     
-    /// Returns a String value converted from this double value.
-    ///
-    ///     let number = 13.24
-    ///     number.toString() // "13.24"
-    ///
-    @inlinable @inline(__always)
-    func toString() -> String { String(self) }
-    
 }

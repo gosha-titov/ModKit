@@ -267,18 +267,3 @@ public extension Array where Element: AnyObject {
     }
     
 }
-
-
-public extension Array where Element == Character {
-    
-    /// Returns a string containing the same characters as this array.
-    ///
-    ///     let array = ["H", "e", "l", "l", "o"]
-    ///     let string = array.toString() // "Hello"
-    ///
-    @inlinable @inline(__always)
-    func toString() -> String {
-        return String(self)
-    }
-    
-}

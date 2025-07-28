@@ -12,9 +12,8 @@ public extension String {
     /// - Note: The empty string is considered to satisfy this condition, so the value is `true`.
     @inlinable @inline(__always)
     var containsOnlyDigits: Bool {
-        let digitsSet = CharacterSet.decimalDigits
-        let stringSet = CharacterSet(charactersIn: self)
-        return digitsSet.isSuperset(of: stringSet)
+        let characterSet = CharacterSet.decimalDigits
+        return unicodeScalars.allSatisfy { characterSet.contains($0) }
     }
     
     /// A boolean value that indicates whether this string contains only spaces.
@@ -26,10 +25,7 @@ public extension String {
     @inlinable @inline(__always)
     var containsOnlyWhitespaces: Bool {
         let characterSet = CharacterSet.whitespaces
-        for char in unicodeScalars where characterSet.contains(char) {
-            return false
-        }
-        return true
+        return unicodeScalars.allSatisfy { characterSet.contains($0) }
     }
     
     /// A boolean value that indicates whether this string is a valid e-mail.

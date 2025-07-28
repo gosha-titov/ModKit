@@ -125,17 +125,6 @@ public extension Sequence {
     }
     
     
-    /// Returns a string by converting the elements of the sequence to strings and concatenating them, adding the given separator between each element.
-    ///
-    ///     [1.2, 3.4, 5.6].toString(separatedBy: " ") // "1.2 3.4 5.6"
-    ///     [1, 2, 3, 4].toString(separatedBy: " → ") // "1 → 2 → 3 → 4"
-    ///
-    /// - Parameter separator: A string to insert between each of the elements in this sequence.
-    @inlinable @inline(__always)
-    func toString(separatedBy separator: String) -> String {
-        return map { String(describing: $0) }.joined(separator: separator)
-    }
-    
     /// Returns an array that contains all elements of the sequence.
     ///
     ///     let set: Set = [1, 2, 3]
@@ -144,6 +133,37 @@ public extension Sequence {
     @inlinable @inline(__always)
     func toArray() -> Array<Element> {
         return Array(self)
+    }
+    
+}
+
+
+public extension Sequence where Element: LosslessStringConvertible {
+    
+    /// Returns a string by converting the elements of the sequence to strings and concatenating them, adding the given separator between each element.
+    ///
+    ///     [1.2, 3.4, 5.6].toString(separatedBy: " ") // "1.2 3.4 5.6"
+    ///     [1, 2, 3, 4].toString(separatedBy: " → ") // "1 → 2 → 3 → 4"
+    ///
+    /// - Parameter separator: A string to insert between each of the elements in this sequence.
+    @inlinable @inline(__always)
+    func toString(separatedBy separator: String) -> String {
+        return map { $0.toString() }.joined(separator: separator)
+    }
+    
+}
+
+
+public extension Sequence where Element == Character {
+    
+    /// Returns a string containing the same characters as this sequence.
+    ///
+    ///     let array = ["H", "e", "l", "l", "o"]
+    ///     let string = array.toString() // "Hello"
+    ///
+    @inlinable @inline(__always)
+    func toString() -> String {
+        return String(self)
     }
     
 }
