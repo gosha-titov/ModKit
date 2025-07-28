@@ -24,6 +24,37 @@ public extension Collection {
         return result.count == count ? result : nil
     }
     
+    
+    /// Returns an array, up to the specified maximum length, containing the first elements of the collection.
+    ///
+    ///     let numbers = [1, 2, 3, 4, 5]
+    ///     print(numbers.firsts(2)) // [1, 2]
+    ///     print(numbers.firsts(9)) // [1, 2, 3, 4, 5]
+    ///
+    /// - Parameter maxLength: The maximum number of elements to return.
+    ///   If it is less than zero, the return array will be empty.
+    /// - Returns: An array starting at the beginning of this collection with at most `maxLength` elements.
+    @inlinable @inline(__always)
+    func firsts(_ maxLength: Int) -> [Element] {
+        guard maxLength > 0 else { return .empty }
+        return Array(prefix(maxLength))
+    }
+    
+    /// Returns an array, up to the given maximum length, containing the last elements of the collection.
+    ///
+    ///     let numbers = [1, 2, 3, 4, 5]
+    ///     print(numbers.lasts(2)) // [4, 5]
+    ///     print(numbers.lasts(9)) // [1, 2, 3, 4, 5]
+    ///
+    /// - Parameter maxLength: The maximum number of elements to return.
+    ///   If it is less than zero, the return array will be empty.
+    /// - Returns: An array terminating at the end of the collection with at most `maxLength` elements.
+    @inlinable @inline(__always)
+    func lasts(_ maxLength: Int) -> [Element] {
+        guard maxLength > 0 else { return .empty }
+        return Array(suffix(maxLength))
+    }
+    
 }
 
 
