@@ -132,8 +132,8 @@ public extension Sequence {
     ///
     /// - Parameter separator: A string to insert between each of the elements in this sequence.
     @inlinable @inline(__always)
-    func toString(separatedBy separator: String = .empty) -> String {
-        return map { "\($0)" }.joined(separator: separator)
+    func toString(separatedBy separator: String) -> String {
+        return map { String(describing: $0) }.joined(separator: separator)
     }
     
     /// Returns an array that contains all elements of the sequence.

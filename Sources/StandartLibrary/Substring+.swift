@@ -1,11 +1,14 @@
 public extension Substring {
     
-    /// Returns a String value converted from this substring.
+    /// Returns a string containing the same characters as this substring.
     ///
-    ///     let sub = "12345".dropLast(2) // "123" is substring
-    ///     let str = sub.toString() // "123" is string
+    ///     let greeting = "Hello, world!"
+    ///     let substring = greeting.prefix(5) // Substring containing "Hello"
+    ///     let string = substring.toString()  // "Hello"
     ///
     @inlinable @inline(__always)
-    func toString() -> String { String(self) }
+    func toString() -> String {
+        return String(self)
+    }
     
 }
