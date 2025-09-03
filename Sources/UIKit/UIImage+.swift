@@ -88,6 +88,7 @@ public extension UIImage {
         }
     }
     
+    
     /// Returns a new image cropped to the specified size from the center.
     /// - Parameter size: The size of the result image.
     ///   If `nil` is specified, the image will be cropped to a maximum fitting square.
@@ -117,6 +118,7 @@ public extension UIImage {
         }
     }
     
+    
     /// Returns a new image with rounded corners.
     /// - Parameter radius: The radius of each corner. A value of 0 results in an image without rounded corners.
     ///   Values larger than half the rectangle’s width or height are clamped appropriately to half the width or height.
@@ -135,6 +137,27 @@ public extension UIImage {
             bezierPath.addClip()
             draw(in: rect)
         }
+    }
+    
+    /// Returns a new image by applying a Gaussian blur to the image.
+    /// - Parameter inputRadius: The intensity of the blur effect.
+    ///   `0` indicates no blur effect, larger values produce more blur.
+    @inlinable
+    func blurred(withRadius inputRadius: CGFloat) -> UIImage? {
+        guard let currentFilter = CIFilter(name: "CIGaussianBlur"),
+              let inputImage = CIImage(image: self)
+        else { return nil }
+        currentFilter.setValue(inputImage, forKey: kCIInputImageKey)
+        currentFilter.setValue(inputRadius, forKey: kCIInputRadiusKey)
+        guard let outputImage = currentFilter.outputImage else { return nil }
+        // Cropping rect because blur changed image's size
+        let newExtent = inputImage.extent.insetBy(
+            dx: -outputImage.extent.origin.x * 0.5,
+            dy: -outputImage.extent.origin.y * 0.5
+        )
+        return CIContext()
+            .createCGImage(outputImage, from: newExtent)
+            .map { UIImage(cgImage: $0) }
     }
     
     /// Returns a new image with a border added.
