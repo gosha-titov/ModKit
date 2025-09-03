@@ -1,3 +1,15 @@
+public extension RandomAccessCollection {
+    
+    subscript(safe index: Index) -> Element? {
+        get {
+            guard indices.contains(index) else { return nil }
+            return self[index]
+        }
+    }
+    
+}
+
+
 public extension RandomAccessCollection where Self: MutableCollection {
     
     /// Sorts the collection in place, using the value at the specified key path for comparison.
