@@ -523,6 +523,24 @@ public extension CGRect {
     
     // MARK: Inits
     
+    /// Creates a rectangle that encloses two opposite corner points.
+    ///
+    ///     let p1 = CGPoint(x: 20, y: 50)
+    ///     let p2 = CGPoint(x: 30, y: 15)
+    ///
+    ///     let rect = CGRect(point1: p1, point2: p2)
+    ///     // CGRect(x: 20, y: 15, width: 10, height: 35)
+    ///
+    @inlinable @inline(__always)
+    init(point1: CGPoint, point2: CGPoint) {
+        self.init(
+            x: min(point1.x, point2.x),
+            y: min(point1.y, point2.y),
+            width:  abs(point1.x - point2.x),
+            height: abs(point1.y - point2.y)
+        )
+    }
+    
     /// Creates a rectangle with dimensions specified as CGFloat values and the origin at zero.
     @inlinable @inline(__always)
     init(width: CGFloat, height: CGFloat) {
